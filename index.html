@@ -1,758 +1,1164 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Bàn Giao Xe</title>
+<title>Bàn Giao Xe – Công Ty</title>
 <style>
-@import url('https://script.google.com/macros/s/AKfycbzlQD89hkXFiXR_NxvisDt9wkdDu6YbtiZc8nXK5KZI3gHzWKn6ZZTG5svbA3e24krg_Q/exec');
+@import url('https://script.google.com/macros/s/AKfycbxN2G3gEXWg29JAE1QUuLaQVeSHJiAlBt2Qja1FRJCKBpB3i5gxSSZjZ78L8HF_7xlLlw/exec');
 
 :root {
-  --primary: #1a56db;
-  --primary-dark: #0f3a8c;
-  --gold: #f59e0b;
-  --success: #059669;
-  --danger: #dc2626;
-  --bg: #f1f5f9;
-  --card: #ffffff;
-  --text: #0f172a;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --radius: 16px;
+  --navy: #0d2137;
+  --blue: #1155aa;
+  --blue-light: #1a6fd4;
+  --gold: #f0a500;
+  --gold-light: #ffc845;
+  --success: #12875a;
+  --danger: #c0392b;
+  --bg: #eef2f7;
+  --card: #ffffff;
+  --text: #0d2137;
+  --muted: #6b7a90;
+  --border: #d0dae8;
+  --radius: 14px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Be Vietnam Pro', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-/* HEADER */
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── HEADER ─── */
 .header {
-  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
-  padding: 14px 16px;
-  display: flex; align-items: center; gap: 10px;
-  position: sticky; top: 0; z-index: 200;
-  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 3px 16px rgba(13,33,55,.35);
 }
-.header-icon {
-  width: 40px; height: 40px; background: var(--gold);
-  border-radius: 10px; display: flex; align-items: center;
-  justify-content: center; font-size: 22px; flex-shrink: 0;
+.header-logo {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
 }
-.header h1 { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.2; }
-.header p  { font-size: 11px; color: rgba(255,255,255,.55); }
-.header-step {
-  margin-left: auto; background: var(--gold); color: #0f172a;
-  font-size: 11px; font-weight: 800; padding: 4px 10px;
-  border-radius: 20px; white-space: nowrap;
+.header-text h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 800;
+  color: #fff; letter-spacing: .5px;
+  line-height: 1.1;
+}
+.header-text p { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 1px; }
+.header-badge {
+  margin-left: auto;
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 11px; font-weight: 800;
+  padding: 4px 9px;
+  border-radius: 20px;
+  letter-spacing: .3px;
+  white-space: nowrap;
 }
 
-/* PROGRESS */
-.prog-wrap { height: 3px; background: rgba(255,255,255,.1); }
-.prog-bar { height: 100%; background: var(--gold); transition: width .4s ease; }
-
-/* SCREENS */
-.screen { display: none; padding: 16px 14px 100px; }
-.screen.active { display: block; animation: up .3s ease both; }
-@keyframes up { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
-
-/* STEP BAR */
-.steps { display: flex; align-items: center; margin-bottom: 18px; }
-.step { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
-.step-dot {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 2px solid var(--border); background: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 700; color: var(--muted);
-  position: relative; z-index: 1; transition: all .3s;
+/* ─── PROGRESS ─── */
+.progress-wrap { background: rgba(255,255,255,.15); height: 4px; }
+.progress-bar {
+  height: 100%;
+  background: var(--gold);
+  transition: width .5s cubic-bezier(.4,0,.2,1);
 }
-.step.done .step-dot  { background: var(--success); border-color: var(--success); color: #fff; }
-.step.active .step-dot { background: var(--primary); border-color: var(--primary); color: #fff; box-shadow: 0 0 0 4px rgba(26,86,219,.15); }
-.step-name { font-size: 10px; font-weight: 600; color: var(--muted); margin-top: 4px; }
-.step.active .step-name { color: var(--primary); }
-.step.done .step-name  { color: var(--success); }
-.step-line { position: absolute; top: 14px; left: 50%; right: -50%; height: 2px; background: var(--border); z-index: 0; }
-.step.done .step-line  { background: var(--success); }
-.step:last-child .step-line { display: none; }
 
-/* CARD */
-.card { background: var(--card); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,.06); }
-.card-title { font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+/* ─── SCREENS ─── */
+.screen { display: none; padding: 16px 14px 110px; animation: fadeUp .35s ease both; }
+.screen.active { display: block; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
 
-/* VEHICLE GRID */
-.vgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.vcard {
-  border: 2px solid var(--border); border-radius: 12px;
-  padding: 12px 8px; text-align: center; cursor: pointer;
-  background: #fafbfc; transition: all .2s;
+/* ─── STEP INDICATOR ─── */
+.step-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; margin-bottom: 18px;
 }
-.vcard:active { transform: scale(.97); }
-.vcard.sel { border-color: var(--primary); background: #eff6ff; box-shadow: 0 0 0 3px rgba(26,86,219,.1); }
-.vcard .vi { font-size: 28px; margin-bottom: 5px; }
-.vcard .vp { font-size: 15px; font-weight: 800; color: var(--text); letter-spacing: .5px; }
-.vcard .vn { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.step-item {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative; flex: 1;
+}
+.step-circle {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  position: relative; z-index: 1;
+  transition: all .3s;
+}
+.step-item.done .step-circle { background: var(--success); border-color: var(--success); color: #fff; }
+.step-item.active .step-circle { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 0 0 4px rgba(17,85,170,.15); }
+.step-label { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; text-align: center; }
+.step-item.active .step-label { color: var(--blue); }
+.step-item.done .step-label { color: var(--success); }
+.step-line {
+  position: absolute; top: 15px; left: 50%; right: -50%;
+  height: 2px; background: var(--border); z-index: 0;
+}
+.step-item.done .step-line { background: var(--success); }
+.step-item:last-child .step-line { display: none; }
 
-/* FIELDS */
-.field { margin-bottom: 10px; }
-.field label { display: block; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
+/* ─── CARDS ─── */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 8px rgba(13,33,55,.08);
+  border: 1px solid rgba(255,255,255,.8);
+}
+.card-title {
+  font-size: 11px; font-weight: 800;
+  color: var(--blue);
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ─── VEHICLE SELECTOR (Screen 0) ─── */
+.vehicle-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.vehicle-card {
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  background: #fafbfd;
+}
+.vehicle-card:active { transform: scale(.97); }
+.vehicle-card.selected {
+  border-color: var(--blue);
+  background: #eef4ff;
+  box-shadow: 0 0 0 3px rgba(17,85,170,.12);
+}
+.vehicle-card .vc-icon { font-size: 30px; margin-bottom: 6px; }
+.vehicle-card .vc-plate {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px; font-weight: 800;
+  color: var(--navy); letter-spacing: 1px;
+}
+.vehicle-card .vc-name { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+/* ─── FIELDS ─── */
+.field { margin-bottom: 11px; }
+.field label {
+  display: block; font-size: 11px; font-weight: 700;
+  color: var(--muted); text-transform: uppercase;
+  letter-spacing: .5px; margin-bottom: 5px;
+}
 .field input, .field select, .field textarea {
-  width: 100%; border: 1.5px solid var(--border); border-radius: 10px;
-  padding: 10px 12px; font-family: 'Be Vietnam Pro', sans-serif;
-  font-size: 14px; color: var(--text); background: #fafbfc;
-  outline: none; transition: border-color .2s;
+  width: 100%;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 12px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: #fafbfc;
+  outline: none;
+  transition: border-color .2s;
 }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--primary); background: #fff; }
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: var(--blue); background: #fff;
+}
 .field textarea { resize: vertical; min-height: 70px; }
+
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-/* FUEL */
-.fuel-bar { height: 20px; background: #e2e8f0; border-radius: 6px; overflow: hidden; margin-top: 6px; }
-.fuel-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg,#ef4444,#f59e0b,#22c55e); transition: width .4s; }
-.fuel-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--muted); font-weight: 700; margin-top: 3px; }
-input[type=range] { width: 100%; margin-top: 8px; -webkit-appearance: none; height: 5px; background: var(--border); border-radius: 3px; outline: none; }
-input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 3px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.2); cursor: pointer; }
-
-/* PHOTO */
-.photo-section { margin-bottom: 16px; }
-.ps-title { font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-.badge { background: var(--gold); color: #0f172a; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; }
-.badge.opt { background: var(--border); color: var(--muted); }
-
-.pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.pgrid.p3 { grid-template-columns: repeat(3,1fr); }
-
-.pslot {
-  aspect-ratio: 4/3; border-radius: 10px;
-  border: 2px dashed var(--border);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  cursor: pointer; position: relative; overflow: hidden;
-  background: #f8fafc; transition: all .2s;
+/* ─── FUEL METER ─── */
+.fuel-bar-wrap {
+  background: #e8ecf2;
+  border-radius: 8px;
+  height: 22px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 6px;
 }
-.pslot:active { opacity:.8; transform:scale(.98); }
-.pslot.cap { border-style: solid; border-color: var(--success); }
-.pslot .si { font-size: 22px; margin-bottom: 4px; opacity: .45; }
-.pslot .sl { font-size: 10px; font-weight: 700; color: var(--muted); text-align: center; padding: 0 6px; line-height: 1.3; }
-.pslot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.pchk { position: absolute; top: 5px; right: 5px; width: 20px; height: 20px; background: var(--success); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 700; }
-.pdel { position: absolute; top: 5px; left: 5px; width: 20px; height: 20px; background: rgba(0,0,0,.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; cursor: pointer; }
+.fuel-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width .4s, background .4s;
+  background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
+}
+.fuel-labels {
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--muted); font-weight: 700;
+  margin-top: 4px;
+}
+input[type=range] {
+  width: 100%; margin-top: 8px;
+  -webkit-appearance: none;
+  height: 6px; background: var(--border);
+  border-radius: 3px; outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  cursor: pointer;
+}
+
+/* ─── PHOTO SLOTS ─── */
+.photo-section { margin-bottom: 18px; }
+.photo-section-title {
+  font-size: 13px; font-weight: 700;
+  color: var(--text); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.photo-section-title .badge {
+  background: var(--gold); color: var(--navy);
+  font-size: 10px; font-weight: 800;
+  padding: 2px 7px; border-radius: 10px;
+}
+.photo-section-title .badge.optional {
+  background: #e8ecf2; color: var(--muted);
+}
+
+.photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.photo-grid.cols3 { grid-template-columns: repeat(3, 1fr); }
+
+.photo-slot {
+  aspect-ratio: 4/3;
+  border-radius: 10px;
+  border: 2px dashed var(--border);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  background: #f7f9fc;
+  transition: border-color .2s, background .2s;
+}
+.photo-slot:active { opacity: .8; transform: scale(.98); }
+.photo-slot.captured { border-style: solid; border-color: var(--success); }
+.photo-slot .slot-icon { font-size: 24px; margin-bottom: 4px; opacity: .5; }
+.photo-slot .slot-label {
+  font-size: 10px; font-weight: 700;
+  color: var(--muted); text-align: center;
+  padding: 0 6px; line-height: 1.3;
+}
+.photo-slot img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.photo-slot .photo-check {
+  position: absolute; top: 6px; right: 6px;
+  width: 22px; height: 22px;
+  background: var(--success);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 12px; font-weight: 700;
+}
+.photo-slot .photo-del {
+  position: absolute; top: 6px; left: 6px;
+  width: 22px; height: 22px;
+  background: rgba(0,0,0,.5);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 14px;
+  cursor: pointer;
+}
 input[type=file] { display: none; }
 
-/* DOC SLOT */
-.doc-slot {
-  width: 100%; aspect-ratio: 16/9; border-radius: 12px;
-  border: 2.5px dashed var(--border);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  cursor: pointer; position: relative; overflow: hidden;
-  background: #f8fafc; transition: all .2s;
+/* ─── CHECKLIST ─── */
+.checklist { display: flex; flex-direction: column; gap: 8px; }
+.check-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  background: #f7f9fc;
+  border-radius: 9px;
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: all .2s;
 }
-.doc-slot.cap { border-style: solid; border-color: var(--success); }
-.doc-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.retake-btn {
-  display: none; margin-top: 10px; text-align: center;
+.check-item.checked { background: #edfaf3; border-color: var(--success); }
+.check-box {
+  width: 22px; height: 22px; flex-shrink: 0;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  transition: all .2s;
 }
-.retake-btn button {
-  background: none; border: 1.5px solid var(--border); border-radius: 8px;
-  padding: 6px 14px; font-family: 'Be Vietnam Pro', sans-serif;
-  font-size: 12px; font-weight: 700; color: var(--muted); cursor: pointer;
+.check-item.checked .check-box {
+  background: var(--success); border-color: var(--success); color: #fff;
+}
+.check-label { font-size: 13px; font-weight: 500; }
+
+/* ─── SUMMARY ─── */
+.summary-vehicle {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 12px;
+  color: #fff;
+  display: flex; align-items: center; gap: 14px;
+}
+.summary-vehicle .sv-icon { font-size: 40px; }
+.summary-vehicle .sv-plate {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px; font-weight: 800; letter-spacing: 2px;
+}
+.summary-vehicle .sv-name { font-size: 13px; opacity: .75; }
+.summary-vehicle .sv-time { font-size: 11px; opacity: .6; margin-top: 4px; }
+
+.photo-thumbs {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;
+}
+.photo-thumbs img {
+  width: 56px; height: 42px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.thumb-placeholder {
+  width: 56px; height: 42px;
+  background: #f0f3f7;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; border: 1px solid var(--border);
 }
 
-/* CHECKLIST */
-.cklist { display: flex; flex-direction: column; gap: 7px; }
-.cki {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 12px; background: #f8fafc;
-  border-radius: 9px; border: 1.5px solid var(--border);
-  cursor: pointer; transition: all .2s;
+.summary-row {
+  display: flex; justify-content: space-between;
+  align-items: center; padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
 }
-.cki.ck { background: #ecfdf5; border-color: var(--success); }
-.ckbox {
-  width: 20px; height: 20px; flex-shrink: 0; border-radius: 5px;
-  border: 2px solid var(--border); display: flex; align-items: center;
-  justify-content: center; font-size: 12px; transition: all .2s;
+.summary-row:last-child { border-bottom: none; }
+.summary-row .sr-label { color: var(--muted); font-weight: 600; }
+.summary-row .sr-value { font-weight: 700; text-align: right; }
+.status-pill {
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 800;
 }
-.cki.ck .ckbox { background: var(--success); border-color: var(--success); color: #fff; }
-.ck-label { font-size: 13px; font-weight: 500; }
+.status-ok { background: #edfaf3; color: var(--success); }
+.status-warn { background: #fff8e6; color: #b07800; }
 
-/* SUMMARY */
-.sum-header {
-  background: linear-gradient(135deg, #0f172a, #1e3a5f);
-  border-radius: var(--radius); padding: 16px;
-  margin-bottom: 12px; color: #fff;
-  display: flex; align-items: center; gap: 12px;
-}
-.sum-plate { font-size: 20px; font-weight: 800; letter-spacing: 2px; }
-.sum-name  { font-size: 12px; opacity: .7; }
-.sum-time  { font-size: 11px; opacity: .5; margin-top: 2px; }
-
-.srow { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-.srow:last-child { border-bottom: none; }
-.slabel { color: var(--muted); font-weight: 600; }
-.sval   { font-weight: 700; text-align: right; max-width: 55%; }
-.spill  { padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 800; }
-.ok  { background: #ecfdf5; color: var(--success); }
-.warn{ background: #fffbeb; color: #b45309; }
-
-.thumbs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.thumbs img { width: 52px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); }
-
-/* SUCCESS */
-.success-wrap { text-align: center; padding: 32px 16px 16px; }
-.success-ico { width: 72px; height: 72px; background: #ecfdf5; border-radius: 50%; margin: 0 auto 14px; display: flex; align-items: center; justify-content: center; font-size: 36px; animation: pop .5s cubic-bezier(.4,0,.2,1) both; }
-@keyframes pop { from { transform: scale(0); opacity:0; } to { transform: scale(1); opacity:1; } }
-.success-wrap h2 { font-size: 26px; font-weight: 800; color: var(--success); }
-.success-wrap p  { font-size: 13px; color: var(--muted); margin-top: 6px; }
-
-.sheet-card {
-  background: linear-gradient(135deg, #064e3b, #065f46);
-  border-radius: var(--radius); padding: 16px;
-  color: #fff; text-align: center; margin-bottom: 12px;
-}
-.sheet-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-.sheet-card p  { font-size: 12px; opacity: .8; }
-.sheet-card a  {
-  display: inline-block; margin-top: 10px;
-  background: rgba(255,255,255,.15); border: 1.5px solid rgba(255,255,255,.3);
-  color: #fff; padding: 8px 16px; border-radius: 8px;
-  font-weight: 700; font-size: 13px; text-decoration: none;
-}
-
-/* NOTE BOX */
-.note {
-  background: #fffbeb; border-left: 4px solid var(--gold);
-  border-radius: 0 9px 9px 0; padding: 10px 12px;
-  font-size: 12px; color: #92400e; line-height: 1.5; margin-bottom: 12px;
-}
-.info-box {
-  background: #eff6ff; border-radius: 10px; padding: 12px;
-  display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px;
-}
-.info-box .ii { font-size: 24px; flex-shrink: 0; }
-.info-box p { font-size: 12px; color: var(--primary); line-height: 1.6; }
-
-/* BUTTONS */
+/* ─── BUTTONS ─── */
 .btn-wrap {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  padding: 10px 14px; background: rgba(241,245,249,.96);
-  backdrop-filter: blur(12px); display: flex; gap: 8px;
-  box-shadow: 0 -2px 16px rgba(0,0,0,.08); z-index: 100;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  padding: 12px 14px;
+  background: rgba(238,242,247,.95);
+  backdrop-filter: blur(12px);
+  display: flex; gap: 8px;
+  box-shadow: 0 -2px 16px rgba(0,0,0,.1);
+  z-index: 100;
 }
 .btn {
-  flex: 1; padding: 13px; border-radius: 11px; border: none;
-  font-family: 'Be Vietnam Pro', sans-serif; font-size: 14px; font-weight: 700;
-  cursor: pointer; transition: all .2s; display: flex; align-items: center; justify-content: center; gap: 6px;
+  flex: 1;
+  padding: 14px;
+  border-radius: 11px;
+  border: none;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+  transition: all .2s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
 }
 .btn:active { transform: scale(.97); }
-.btn-p { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(26,86,219,.3); }
-.btn-p:disabled { background: var(--border); color: var(--muted); box-shadow: none; }
-.btn-s { background: #fff; color: var(--text); border: 1.5px solid var(--border); flex: 0 0 auto; padding: 13px 16px; }
-.btn-ok { background: var(--success); color: #fff; box-shadow: 0 4px 12px rgba(5,150,105,.3); }
-.btn-g  { background: var(--gold); color: #0f172a; box-shadow: 0 4px 12px rgba(245,158,11,.3); }
+.btn-primary { background: var(--blue); color: #fff; box-shadow: 0 4px 14px rgba(17,85,170,.3); }
+.btn-primary:disabled { background: var(--border); color: var(--muted); box-shadow: none; }
+.btn-secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); flex: 0 0 auto; padding: 14px 18px; }
+.btn-success { background: var(--success); color: #fff; box-shadow: 0 4px 14px rgba(18,135,90,.3); }
+.btn-gold { background: var(--gold); color: var(--navy); box-shadow: 0 4px 14px rgba(240,165,0,.3); }
 
-/* LOADING */
-.overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(15,23,42,.75); z-index: 999;
-  align-items: center; justify-content: center; flex-direction: column; gap: 14px;
+/* ─── SUCCESS SCREEN ─── */
+.success-hero {
+  text-align: center;
+  padding: 40px 20px 20px;
 }
-.overlay.show { display: flex; }
-.spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,.2); border-top-color: var(--gold); border-radius: 50%; animation: spin .8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.overlay p { color: #fff; font-weight: 600; font-size: 14px; }
+.success-icon {
+  width: 80px; height: 80px;
+  background: #edfaf3;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 40px;
+  animation: popIn .5s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes popIn { from { transform: scale(0); opacity:0; } to { transform: scale(1); opacity:1; } }
+.success-hero h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; color: var(--success); }
+.success-hero p { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
 
-/* DATE STRIP */
-.date-strip { display: flex; align-items: center; gap: 8px; background: var(--card); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
-.date-strip .di { font-size: 18px; }
-.date-strip .dl { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; }
-.date-strip .dv { font-size: 13px; font-weight: 700; }
+.sheet-link-card {
+  background: linear-gradient(135deg, #0f5132, #1a7a4a);
+  border-radius: var(--radius);
+  padding: 16px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.sheet-link-card .sl-icon { font-size: 30px; margin-bottom: 8px; }
+.sheet-link-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.sheet-link-card p { font-size: 12px; opacity: .8; }
+.sheet-link-card .sl-btn {
+  display: inline-block; margin-top: 12px;
+  background: rgba(255,255,255,.2);
+  border: 1.5px solid rgba(255,255,255,.4);
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-weight: 700; font-size: 13px;
+  cursor: pointer; text-decoration: none;
+  transition: background .2s;
+}
+
+/* ─── LOADING ─── */
+.loading-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(13,33,55,.7);
+  z-index: 999;
+  align-items: center; justify-content: center;
+  flex-direction: column; gap: 14px;
+}
+.loading-overlay.show { display: flex; }
+.spinner {
+  width: 44px; height: 44px;
+  border: 4px solid rgba(255,255,255,.2);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { color: #fff; font-weight: 600; font-size: 14px; }
+
+/* ─── NOTE BOX ─── */
+.note-box {
+  background: #fff8e6;
+  border-left: 4px solid var(--gold);
+  border-radius: 0 9px 9px 0;
+  padding: 10px 12px;
+  font-size: 12px; color: #7a5800;
+  line-height: 1.5; margin-bottom: 12px;
+}
+
+.divider { height: 1px; background: var(--border); margin: 14px 0; }
 </style>
 </head>
 <body>
 
 <!-- LOADING -->
-<div class="overlay" id="overlay">
-  <div class="spinner"></div>
-  <p id="loadTxt">Đang gửi dữ liệu...</p>
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loadingText">Đang gửi dữ liệu...</div>
 </div>
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-icon">🚗</div>
-  <div>
-    <h1>BIÊN BẢN BÀN GIAO XE</h1>
-    <p>Hệ thống quản lý xe công ty</p>
-  </div>
-  <div class="header-step" id="hstep">CHỌN XE</div>
+  <div class="header-logo">🚗</div>
+  <div class="header-text">
+    <h1>BIÊN BẢN BÀN GIAO XE</h1>
+    <p>Hệ thống quản lý xe công ty</p>
+  </div>
+  <div class="header-badge" id="headerBadge">CHỌN XE</div>
 </div>
-<div class="prog-wrap"><div class="prog-bar" id="prog" style="width:0"></div></div>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
 
-<!-- ── SCREEN 0: CHỌN XE ── -->
-<div class="screen active" id="s0">
+<!-- ══════════ SCREEN 0: CHỌN XE ══════════ -->
+<div class="screen active" id="screen0">
 
-  <div class="date-strip">
-    <div class="di">📅</div>
-    <div>
-      <div class="dl">Thời gian bàn giao</div>
-      <div class="dv" id="dtNow">--</div>
-    </div>
-  </div>
+  <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;">
+    <div style="font-size:20px">📅</div>
+    <div>
+      <div style="font-size:12px;font-weight:700;color:var(--muted)">THỜI GIAN BÀN GIAO</div>
+      <div style="font-size:14px;font-weight:700;" id="currentDateTime">--</div>
+    </div>
+  </div>
 
-  <div class="card">
-    <div class="card-title">🚗 Chọn xe bàn giao</div>
-    <div class="vgrid" id="vgrid"></div>
-  </div>
+  <div class="card">
+    <div class="card-title">🚗 Chọn xe bàn giao</div>
+    <div class="vehicle-grid" id="vehicleGrid">
+      <!-- Filled by JS -->
+    </div>
+  </div>
 
-  <div class="card">
-    <div class="card-title">👤 Thông tin lái xe</div>
-    <div class="field">
-      <label>Họ và tên lái xe *</label>
-      <input type="text" id="dName" placeholder="Nguyễn Văn A" autocomplete="name">
-    </div>
-    <div class="row2">
-      <div class="field">
-        <label>Phòng / Bộ phận *</label>
-        <select id="dept">
-          <option value="">Chọn...</option>
-          <option>Ban Giám Đốc</option>
-          <option>Kế toán – Tài chính</option>
-          <option>Kinh doanh</option>
-          <option>Kỹ thuật</option>
-          <option>Hành chính – Nhân sự</option>
-          <option>Dự án</option>
-          <option>Khác</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Số điện thoại</label>
-        <input type="tel" id="dPhone" placeholder="090x xxx xxx">
-      </div>
-    </div>
-    <div class="field">
-      <label>Mục đích / Điểm đến</label>
-      <input type="text" id="tripPurpose" placeholder="Họp khách hàng...">
-    </div>
-  </div>
+  <div class="card">
+    <div class="card-title">👤 Thông tin lái xe</div>
+    <div class="field">
+      <label>Họ và tên lái xe *</label>
+      <input type="text" id="driverName" placeholder="Nguyễn Văn A" autocomplete="name">
+    </div>
+    <div class="row2">
+      <div class="field">
+        <label>Phòng / Bộ phận *</label>
+        <select id="department">
+          <option value="">Chọn...</option>
+          <option>Ban Giám Đốc</option>
+          <option>Kế toán – Tài chính</option>
+          <option>Kinh doanh</option>
+          <option>Kỹ thuật</option>
+          <option>Hành chính – Nhân sự</option>
+          <option>Dự án</option>
+          <option>Khác</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Số điện thoại</label>
+        <input type="text" id="driverPhone" placeholder="090x xxx xxx">
+      </div>
+    </div>
+    <div class="field">
+      <label>Mục đích / Điểm đến</label>
+      <input type="text" id="tripPurpose" placeholder="Họp khách hàng tại Hà Nội...">
+    </div>
+  </div>
 
-  <div class="btn-wrap">
-    <button class="btn btn-p" id="btn01" onclick="go(1)" disabled>Tiếp theo →</button>
-  </div>
-</div>
-
-<!-- ── SCREEN 1: HIỆN TRẠNG ── -->
-<div class="screen" id="s1">
-  <div class="steps">
-    <div class="step done"><div class="step-dot">✓</div><div class="step-name">Thông tin</div><div class="step-line"></div></div>
-    <div class="step active"><div class="step-dot">2</div><div class="step-name">Hiện trạng</div><div class="step-line"></div></div>
-    <div class="step"><div class="step-dot">3</div><div class="step-name">Giấy tờ</div><div class="step-line"></div></div>
-    <div class="step"><div class="step-dot">4</div><div class="step-name">Xác nhận</div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">⛽ Chỉ số & Nhiên liệu</div>
-    <div class="row2">
-      <div class="field">
-        <label>Số km hiện tại *</label>
-        <input type="text" id="km" placeholder="12,345 km" inputmode="numeric">
-      </div>
-      <div class="field">
-        <label>Mức nhiên liệu</label>
-        <div style="font-size:22px;text-align:center;padding-top:4px" id="fuelIco">⛽</div>
-      </div>
-    </div>
-    <input type="range" id="fuelRange" min="0" max="8" value="4" oninput="setFuel(this.value)">
-    <div class="fuel-bar"><div class="fuel-fill" id="fuelFill" style="width:50%"></div></div>
-    <div class="fuel-labels"><span>E–Hết</span><span>1/4</span><span>1/2</span><span>3/4</span><span>F–Đầy</span></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">📸 Ảnh hiện trạng xe</div>
-    <div class="photo-section">
-      <div class="ps-title">🚗 4 Góc thân xe <span class="badge">BẮT BUỘC</span></div>
-      <div class="pgrid">
-        <div class="pslot" id="ps_f1" onclick="tp('f1')"><span class="si">📷</span><span class="sl">Góc trước trái</span></div>
-        <div class="pslot" id="ps_f2" onclick="tp('f2')"><span class="si">📷</span><span class="sl">Góc trước phải</span></div>
-        <div class="pslot" id="ps_f3" onclick="tp('f3')"><span class="si">📷</span><span class="sl">Góc sau trái</span></div>
-        <div class="pslot" id="ps_f4" onclick="tp('f4')"><span class="si">📷</span><span class="sl">Góc sau phải</span></div>
-      </div>
-    </div>
-    <div class="photo-section">
-      <div class="ps-title">🔢 Đồng hồ & Nội thất <span class="badge opt">TÙY CHỌN</span></div>
-      <div class="pgrid p3">
-        <div class="pslot" id="ps_f5" onclick="tp('f5')"><span class="si">📷</span><span class="sl">Đồng hồ km</span></div>
-        <div class="pslot" id="ps_f6" onclick="tp('f6')"><span class="si">📷</span><span class="sl">Nội thất</span></div>
-        <div class="pslot" id="ps_f7" onclick="tp('f7')"><span class="si">📷</span><span class="sl">Cốp xe</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">⚠️ Ghi chú hư hỏng</div>
-    <div class="field"><textarea id="dmgNote" placeholder="Mô tả vết xước, hư hỏng hiện có (nếu có)..."></textarea></div>
-  </div>
-
-  <input type="file" accept="image/*" capture="environment" id="in_f1" onchange="hp('f1',this)">
-  <input type="file" accept="image/*" capture="environment" id="in_f2" onchange="hp('f2',this)">
-  <input type="file" accept="image/*" capture="environment" id="in_f3" onchange="hp('f3',this)">
-  <input type="file" accept="image/*" capture="environment" id="in_f4" onchange="hp('f4',this)">
-  <input type="file" accept="image/*" capture="environment" id="in_f5" onchange="hp('f5',this)">
-  <input type="file" accept="image/*" capture="environment" id="in_f6" onchange="hp('f6',this)">
-  <input type="file" accept="image/*" capture="environment" id="in_f7" onchange="hp('f7',this)">
-
-  <div class="btn-wrap">
-    <button class="btn btn-s" onclick="go(0)">← Quay lại</button>
-    <button class="btn btn-p" id="btn12" onclick="go(2)" disabled>Tiếp theo →</button>
-  </div>
+  <div class="btn-wrap">
+    <button class="btn btn-primary" onclick="goToStep1()" id="btnStep1" disabled>
+      Tiếp theo →
+    </button>
+  </div>
 </div>
 
-<!-- ── SCREEN 2: GIẤY TỜ ── -->
-<div class="screen" id="s2">
-  <div class="steps">
-    <div class="step done"><div class="step-dot">✓</div><div class="step-name">Thông tin</div><div class="step-line"></div></div>
-    <div class="step done"><div class="step-dot">✓</div><div class="step-name">Hiện trạng</div><div class="step-line"></div></div>
-    <div class="step active"><div class="step-dot">3</div><div class="step-name">Giấy tờ</div><div class="step-line"></div></div>
-    <div class="step"><div class="step-dot">4</div><div class="step-name">Xác nhận</div></div>
-  </div>
+<!-- ══════════ SCREEN 1: HIỆN TRẠNG XE ══════════ -->
+<div class="screen" id="screen1">
 
-  <div class="note">📌 Xếp tất cả giấy tờ ra, chụp <strong>1 ảnh chung</strong> — đảm bảo rõ nét, đọc được số.</div>
+  <!-- Step indicator -->
+  <div class="step-row">
+    <div class="step-item done" id="si0">
+      <div class="step-circle">✓</div>
+      <div class="step-label">Thông tin</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-item active" id="si1">
+      <div class="step-circle">2</div>
+      <div class="step-label">Hiện trạng</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-item" id="si2">
+      <div class="step-circle">3</div>
+      <div class="step-label">Giấy tờ</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-item" id="si3">
+      <div class="step-circle">4</div>
+      <div class="step-label">Xác nhận</div>
+    </div>
+  </div>
 
-  <div class="card">
-    <div class="card-title">📄 Giấy tờ xe</div>
-    <div class="info-box">
-      <div class="ii">🗂️</div>
-      <p><strong>Cách chụp:</strong> Đặt tất cả giấy tờ lên ghế hoặc táp lô → chụp 1 tấm chứa tất cả.<br><span style="opacity:.7">Đăng ký · Bảo hiểm · Đăng kiểm · Phù hiệu</span></p>
-    </div>
-    <div class="doc-slot" id="ds_all" onclick="tp('d_all')">
-      <span style="font-size:44px;opacity:.4;margin-bottom:8px">📷</span>
-      <span style="font-size:14px;font-weight:700;color:var(--muted)">Nhấn để chụp giấy tờ</span>
-      <span style="font-size:11px;color:var(--muted);margin-top:4px;opacity:.7">Chụp chung tất cả trong 1 ảnh</span>
-      <span class="badge" style="margin-top:10px;padding:4px 12px;font-size:11px">BẮT BUỘC</span>
-    </div>
-    <div class="retake-btn" id="rtBtn">
-      <button onclick="retake(event)">🔄 Chụp lại</button>
-    </div>
-  </div>
+  <div class="card">
+    <div class="card-title">⛽ Chỉ số & Nhiên liệu</div>
+    <div class="row2">
+      <div class="field">
+        <label>Số km hiện tại *</label>
+        <input type="text" id="kmReading" placeholder="12,345 km" inputmode="numeric">
+      </div>
+      <div class="field">
+        <label>Mức nhiên liệu</label>
+        <div style="padding-top:6px;font-size:20px;text-align:center;" id="fuelEmoji">⛽</div>
+      </div>
+    </div>
+    <input type="range" id="fuelRange" min="0" max="8" value="4" oninput="updateFuel(this.value)">
+    <div class="fuel-bar-wrap">
+      <div class="fuel-bar-fill" id="fuelFill" style="width:50%"></div>
+    </div>
+    <div class="fuel-labels">
+      <span>E – Hết</span><span>1/4</span><span>1/2</span><span>3/4</span><span>F – Đầy</span>
+    </div>
+  </div>
 
-  <div class="card">
-    <div class="card-title">✅ Phụ kiện trong xe</div>
-    <div class="cklist">
-      <div class="cki" onclick="ck(this)"><div class="ckbox"></div><span class="ck-label">🔧 Bộ dụng cụ sửa xe</span></div>
-      <div class="cki" onclick="ck(this)"><div class="ckbox"></div><span class="ck-label">🔄 Lốp dự phòng</span></div>
-      <div class="cki" onclick="ck(this)"><div class="ckbox"></div><span class="ck-label">🪛 Kích xe (con đội)</span></div>
-      <div class="cki ck" onclick="ck(this)"><div class="ckbox">✓</div><span class="ck-label">🔑 Chìa khóa dự phòng</span></div>
-      <div class="cki ck" onclick="ck(this)"><div class="ckbox">✓</div><span class="ck-label">🧯 Bình cứu hỏa</span></div>
-      <div class="cki" onclick="ck(this)"><div class="ckbox"></div><span class="ck-label">🪚 Tam giác cảnh báo</span></div>
-      <div class="cki" onclick="ck(this)"><div class="ckbox"></div><span class="ck-label">🧹 Chổi / khăn lau xe</span></div>
-    </div>
-  </div>
+  <!-- 4 GÓC THÂN XE -->
+  <div class="card">
+    <div class="card-title">📸 Ảnh hiện trạng xe</div>
 
-  <input type="file" accept="image/*" capture="environment" id="in_d_all" onchange="hp('d_all',this)">
+    <div class="photo-section">
+      <div class="photo-section-title">
+        🚗 4 Góc thân xe
+        <span class="badge">BẮT BUỘC</span>
+      </div>
+      <div class="photo-grid">
+        <div class="photo-slot" onclick="triggerPhoto('f1')" id="slot_f1">
+          <span class="slot-icon">📷</span>
+          <span class="slot-label">Góc trước trái</span>
+        </div>
+        <div class="photo-slot" onclick="triggerPhoto('f2')" id="slot_f2">
+          <span class="slot-icon">📷</span>
+          <span class="slot-label">Góc trước phải</span>
+        </div>
+        <div class="photo-slot" onclick="triggerPhoto('f3')" id="slot_f3">
+          <span class="slot-icon">📷</span>
+          <span class="slot-label">Góc sau trái</span>
+        </div>
+        <div class="photo-slot" onclick="triggerPhoto('f4')" id="slot_f4">
+          <span class="slot-icon">📷</span>
+          <span class="slot-label">Góc sau phải</span>
+        </div>
+      </div>
+    </div>
 
-  <div class="btn-wrap">
-    <button class="btn btn-s" onclick="go(1)">← Quay lại</button>
-    <button class="btn btn-p" id="btn23" onclick="buildSum();go(3)" disabled>Xem lại →</button>
-  </div>
+    <div class="photo-section">
+      <div class="photo-section-title">
+        🔢 Đồng hồ & Nội thất
+        <span class="badge optional">TÙY CHỌN</span>
+      </div>
+      <div class="photo-grid cols3">
+        <div class="photo-slot" onclick="triggerPhoto('f5')" id="slot_f5">
+          <span class="slot-icon">📷</span>
+          <span class="slot-label">Đồng hồ km</span>
+        </div>
+        <div class="photo-slot" onclick="triggerPhoto('f6')" id="slot_f6">
+          <span class="slot-icon">📷</span>
+          <span class="slot-label">Ghế / nội thất</span>
+        </div>
+        <div class="photo-slot" onclick="triggerPhoto('f7')" id="slot_f7">
+          <span class="slot-icon">📷</span>
+          <span class="slot-label">Cốp xe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚠️ Ghi chú hư hỏng (nếu có)</div>
+    <div class="field">
+      <textarea id="damageNote" placeholder="Mô tả các vết xước, móp méo, thiệt hại hiện có nếu có..."></textarea>
+    </div>
+  </div>
+
+  <!-- Hidden file inputs -->
+  <input type="file" accept="image/*" capture="environment" id="input_f1" onchange="handlePhoto('f1',this)">
+  <input type="file" accept="image/*" capture="environment" id="input_f2" onchange="handlePhoto('f2',this)">
+  <input type="file" accept="image/*" capture="environment" id="input_f3" onchange="handlePhoto('f3',this)">
+  <input type="file" accept="image/*" capture="environment" id="input_f4" onchange="handlePhoto('f4',this)">
+  <input type="file" accept="image/*" capture="environment" id="input_f5" onchange="handlePhoto('f5',this)">
+  <input type="file" accept="image/*" capture="environment" id="input_f6" onchange="handlePhoto('f6',this)">
+  <input type="file" accept="image/*" capture="environment" id="input_f7" onchange="handlePhoto('f7',this)">
+
+  <div class="btn-wrap">
+    <button class="btn btn-secondary" onclick="goScreen(0)">← Quay lại</button>
+    <button class="btn btn-primary" onclick="goToStep2()" id="btnStep2" disabled>Tiếp theo →</button>
+  </div>
 </div>
 
-<!-- ── SCREEN 3: XÁC NHẬN ── -->
-<div class="screen" id="s3">
-  <div class="steps">
-    <div class="step done"><div class="step-dot">✓</div><div class="step-name">Thông tin</div><div class="step-line"></div></div>
-    <div class="step done"><div class="step-dot">✓</div><div class="step-name">Hiện trạng</div><div class="step-line"></div></div>
-    <div class="step done"><div class="step-dot">✓</div><div class="step-name">Giấy tờ</div><div class="step-line"></div></div>
-    <div class="step active"><div class="step-dot">4</div><div class="step-name">Xác nhận</div></div>
-  </div>
+<!-- ══════════ SCREEN 2: GIẤY TỜ ══════════ -->
+<div class="screen" id="screen2">
 
-  <div class="sum-header">
-    <div style="font-size:36px">🚗</div>
-    <div>
-      <div class="sum-plate" id="sumPlate">--</div>
-      <div class="sum-name"  id="sumName">--</div>
-      <div class="sum-time"  id="sumTime">--</div>
-    </div>
-  </div>
+  <div class="step-row">
+    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Thông tin</div><div class="step-line"></div></div>
+    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Hiện trạng</div><div class="step-line"></div></div>
+    <div class="step-item active"><div class="step-circle">3</div><div class="step-label">Giấy tờ</div><div class="step-line"></div></div>
+    <div class="step-item"><div class="step-circle">4</div><div class="step-label">Xác nhận</div></div>
+  </div>
 
-  <div class="card">
-    <div class="card-title">👤 Lái xe</div>
-    <div class="srow"><span class="slabel">Họ tên</span><span class="sval" id="sv1">--</span></div>
-    <div class="srow"><span class="slabel">Phòng ban</span><span class="sval" id="sv2">--</span></div>
-    <div class="srow"><span class="slabel">Điện thoại</span><span class="sval" id="sv3">--</span></div>
-    <div class="srow"><span class="slabel">Mục đích</span><span class="sval" id="sv4">--</span></div>
-  </div>
-  <div class="card">
-    <div class="card-title">🔢 Hiện trạng</div>
-    <div class="srow"><span class="slabel">Số km</span><span class="sval" id="sv5">--</span></div>
-    <div class="srow"><span class="slabel">Nhiên liệu</span><span class="sval" id="sv6">--</span></div>
-    <div class="srow"><span class="slabel">Ảnh thân xe</span><span class="sval" id="sv7">--</span></div>
-    <div class="srow"><span class="slabel">Ảnh giấy tờ</span><span class="sval" id="sv8">--</span></div>
-    <div class="srow"><span class="slabel">Hư hỏng</span><span class="sval" id="sv9">--</span></div>
-  </div>
-  <div class="card">
-    <div class="card-title">🖼️ Ảnh đã chụp</div>
-    <div class="thumbs" id="thumbs"></div>
-  </div>
-  <div class="card">
-    <div class="card-title">✍️ Xác nhận</div>
-    <div class="field"><label>Ghi chú thêm</label><textarea id="finalNote" placeholder="Ghi chú từ lái xe..."></textarea></div>
-    <div style="background:#eff6ff;border-radius:9px;padding:11px;font-size:12px;color:var(--primary);line-height:1.6">
-      ✅ Nhấn <strong>"Gửi & Lưu"</strong> để xác nhận đã nhận xe và chịu trách nhiệm trong suốt thời gian sử dụng.
-    </div>
-  </div>
+  <div class="note-box">
+    📌 Xếp tất cả giấy tờ xe cạnh nhau rồi <strong>chụp 1 tấm ảnh duy nhất</strong> — đảm bảo ảnh rõ nét, đọc được số. Bao gồm: Đăng ký xe, Giấy bảo hiểm, Đăng kiểm (nếu có).
+  </div>
 
-  <div class="btn-wrap">
-    <button class="btn btn-s" onclick="go(2)">← Quay lại</button>
-    <button class="btn btn-ok" onclick="submit()">📤 Gửi & Lưu</button>
-  </div>
+  <div class="card">
+    <div class="card-title">📄 Giấy tờ xe</div>
+
+    <!-- Hướng dẫn minh họa -->
+    <div style="background:#f0f4ff;border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
+      <div style="font-size:28px;flex-shrink:0;">🗂️</div>
+      <div style="font-size:12px;color:var(--blue);line-height:1.6;">
+        <strong>Cách chụp:</strong> Mở tất cả giấy tờ ra, xếp cạnh nhau trên mặt phẳng (ghế xe, táp lô…) rồi chụp 1 ảnh chứa tất cả.<br>
+        <span style="color:var(--muted);">Đăng ký xe · Bảo hiểm · Đăng kiểm · Phù hiệu</span>
+      </div>
+    </div>
+
+    <!-- 1 ô chụp lớn duy nhất -->
+    <div id="slot_d_all"
+      onclick="triggerPhoto('d_all')"
+      style="
+        width:100%; aspect-ratio:4/3;
+        border-radius:12px;
+        border:2.5px dashed var(--border);
+        display:flex; flex-direction:column;
+        align-items:center; justify-content:center;
+        cursor:pointer; position:relative; overflow:hidden;
+        background:#f7f9fc;
+        transition:border-color .2s, background .2s;
+      ">
+      <span style="font-size:48px;margin-bottom:10px;opacity:.45;">📷</span>
+      <span style="font-size:14px;font-weight:700;color:var(--muted);">Nhấn để chụp ảnh giấy tờ</span>
+      <span style="font-size:11px;color:var(--muted);margin-top:4px;opacity:.8;">Chụp chung tất cả giấy tờ trong 1 ảnh</span>
+      <span class="badge" style="margin-top:10px;padding:4px 12px;font-size:11px;">BẮT BUỘC</span>
+    </div>
+
+    <!-- Nút chụp lại nếu cần -->
+    <div id="doc_retake_btn" style="display:none;margin-top:10px;text-align:center;">
+      <button onclick="retakeDocPhoto(event)"
+        style="background:none;border:1.5px solid var(--border);border-radius:8px;
+               padding:7px 16px;font-family:inherit;font-size:12px;font-weight:700;
+               color:var(--muted);cursor:pointer;">
+        🔄 Chụp lại
+      </button>
+    </div>
+  </div>
+
+  <!-- Checklist phụ kiện -->
+  <div class="card">
+    <div class="card-title">✅ Phụ kiện & Dụng cụ trong xe</div>
+    <div class="checklist" id="accessoryChecklist">
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🔧 Bộ dụng cụ sửa xe</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🔄 Lốp dự phòng</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🪛 Kích xe (con đội)</span></div>
+      <div class="check-item checked" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">🔑 Chìa khóa dự phòng</span></div>
+      <div class="check-item checked" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">🧯 Bình cứu hỏa</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🪚 Tam giác cảnh báo</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🧹 Chổi / khăn lau xe</span></div>
+    </div>
+  </div>
+
+  <input type="file" accept="image/*" capture="environment" id="input_d_all" onchange="handlePhoto('d_all',this)">
+
+  <div class="btn-wrap">
+    <button class="btn btn-secondary" onclick="goScreen(1)">← Quay lại</button>
+    <button class="btn btn-primary" onclick="goToStep3()" id="btnStep3" disabled>Xem lại →</button>
+  </div>
 </div>
 
-<!-- ── SCREEN 4: THÀNH CÔNG ── -->
-<div class="screen" id="s4">
-  <div class="success-wrap">
-    <div class="success-ico">✅</div>
-    <h2>Bàn giao thành công!</h2>
-    <p>Dữ liệu đã lưu vào Google Sheets & Drive</p>
-  </div>
+<!-- ══════════ SCREEN 3: XÁC NHẬN ══════════ -->
+<div class="screen" id="screen3">
 
-  <div class="card">
-    <div class="card-title">📊 Thông tin đã lưu</div>
-    <div class="srow"><span class="slabel">Mã biên bản</span><span class="sval" id="rId" style="font-family:monospace;color:var(--primary)">--</span></div>
-    <div class="srow"><span class="slabel">Thời gian</span><span class="sval" id="rTime">--</span></div>
-    <div class="srow"><span class="slabel">Xe</span><span class="sval" id="rVeh">--</span></div>
-    <div class="srow"><span class="slabel">Lái xe</span><span class="sval" id="rDrv">--</span></div>
-    <div class="srow"><span class="slabel">Google Sheets</span><span class="sval" id="rSheet"><span class="spill ok">✓ Đã lưu</span></span></div>
-    <div class="srow"><span class="slabel">Google Drive</span><span class="sval" id="rDrive"><span class="spill ok">✓ Đã lưu</span></span></div>
-  </div>
+  <div class="step-row">
+    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Thông tin</div><div class="step-line"></div></div>
+    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Hiện trạng</div><div class="step-line"></div></div>
+    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Giấy tờ</div><div class="step-line"></div></div>
+    <div class="step-item active"><div class="step-circle">4</div><div class="step-label">Xác nhận</div></div>
+  </div>
 
-  <div class="sheet-card">
-    <h3>📊 Xem Google Sheets</h3>
-    <p>Dữ liệu bàn giao đã được ghi vào bảng tính</p>
-    <a id="sheetLink" href="#" target="_blank">Mở Google Sheets →</a>
-  </div>
+  <div class="summary-vehicle" id="summaryVehicle">
+    <div class="sv-icon">🚗</div>
+    <div>
+      <div class="sv-plate" id="sumPlate">--</div>
+      <div class="sv-name" id="sumName">--</div>
+      <div class="sv-time" id="sumTime">--</div>
+    </div>
+  </div>
 
-  <div class="card">
-    <div style="font-size:13px;line-height:1.9;color:var(--text)">
-      1️⃣ Admin nhận email thông báo tự động<br>
-      2️⃣ Ảnh lưu trong Google Drive theo thư mục xe<br>
-      3️⃣ Khi trả xe, quét lại QR để làm biên bản trả xe
-    </div>
-  </div>
+  <div class="card">
+    <div class="card-title">👤 Thông tin lái xe</div>
+    <div class="summary-row"><span class="sr-label">Lái xe</span><span class="sr-value" id="sumDriver">--</span></div>
+    <div class="summary-row"><span class="sr-label">Phòng ban</span><span class="sr-value" id="sumDept">--</span></div>
+    <div class="summary-row"><span class="sr-label">Điện thoại</span><span class="sr-value" id="sumPhone">--</span></div>
+    <div class="summary-row"><span class="sr-label">Mục đích</span><span class="sr-value" id="sumPurpose">--</span></div>
+  </div>
 
-  <div class="btn-wrap">
-    <button class="btn btn-g" onclick="location.reload()">🔄 Bàn giao xe khác</button>
-  </div>
+  <div class="card">
+    <div class="card-title">🔢 Hiện trạng</div>
+    <div class="summary-row"><span class="sr-label">Số km</span><span class="sr-value" id="sumKm">--</span></div>
+    <div class="summary-row"><span class="sr-label">Nhiên liệu</span><span class="sr-value" id="sumFuel">--</span></div>
+    <div class="summary-row">
+      <span class="sr-label">Ảnh thân xe</span>
+      <span class="sr-value" id="sumBodyCount">--</span>
+    </div>
+    <div class="summary-row">
+      <span class="sr-label">Ảnh giấy tờ</span>
+      <span class="sr-value" id="sumDocCount">--</span>
+    </div>
+    <div class="summary-row"><span class="sr-label">Ghi chú hư hỏng</span><span class="sr-value" id="sumDamage">--</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🖼️ Hình ảnh đã chụp</div>
+    <div class="photo-thumbs" id="summaryThumbs"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">✍️ Xác nhận bàn giao</div>
+    <div class="field">
+      <label>Ghi chú thêm (tùy chọn)</label>
+      <textarea id="finalNote" placeholder="Ghi chú từ lái xe hoặc người bàn giao..."></textarea>
+    </div>
+    <div style="background:#eef4ff;border-radius:9px;padding:12px;font-size:12px;color:var(--blue);line-height:1.6;">
+      ✅ Bằng cách nhấn <strong>"Gửi & Lưu"</strong>, tôi xác nhận đã nhận xe trong tình trạng như trên và chịu trách nhiệm trong suốt thời gian sử dụng.
+    </div>
+  </div>
+
+  <div class="btn-wrap">
+    <button class="btn btn-secondary" onclick="goScreen(2)">← Quay lại</button>
+    <button class="btn btn-success" onclick="submitHandover()">📤 Gửi & Lưu</button>
+  </div>
+</div>
+
+<!-- ══════════ SCREEN 4: THÀNH CÔNG ══════════ -->
+<div class="screen" id="screen4">
+  <div class="success-hero">
+    <div class="success-icon">✅</div>
+    <h2>Bàn giao thành công!</h2>
+    <p id="successMsg">Dữ liệu đã được lưu vào Google Sheets & Drive.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📊 Thông tin đã lưu</div>
+    <div class="summary-row"><span class="sr-label">Mã biên bản</span><span class="sr-value" id="recordId" style="font-family:monospace;color:var(--blue)">--</span></div>
+    <div class="summary-row"><span class="sr-label">Thời gian lưu</span><span class="sr-value" id="savedTime">--</span></div>
+    <div class="summary-row"><span class="sr-label">Xe</span><span class="sr-value" id="savedVehicle">--</span></div>
+    <div class="summary-row"><span class="sr-label">Lái xe</span><span class="sr-value" id="savedDriver">--</span></div>
+    <div class="summary-row">
+      <span class="sr-label">Google Sheets</span>
+      <span class="sr-value" id="sheetStatus"><span class="status-pill status-ok">✓ Đã lưu</span></span>
+    </div>
+    <div class="summary-row">
+      <span class="sr-label">Ảnh Google Drive</span>
+      <span class="sr-value" id="driveStatus"><span class="status-pill status-ok">✓ Đã lưu</span></span>
+    </div>
+  </div>
+
+  <div class="sheet-link-card" id="sheetLinkCard">
+    <div class="sl-icon">📊</div>
+    <h3>Xem Google Sheets</h3>
+    <p>Dữ liệu bàn giao đã được ghi vào bảng tính</p>
+    <a class="sl-btn" id="sheetLink" href="#" target="_blank">Mở Google Sheets →</a>
+  </div>
+
+  <div class="card">
+    <div class="card-title">ℹ️ Bước tiếp theo</div>
+    <div style="font-size:13px;line-height:1.8;color:var(--text);">
+      1️⃣ Admin nhận thông báo qua Google Sheets<br>
+      2️⃣ Ảnh được lưu trong Google Drive theo thư mục xe<br>
+      3️⃣ Khi trả xe, quét lại QR để làm biên bản trả xe
+    </div>
+  </div>
+
+  <div class="btn-wrap">
+    <button class="btn btn-gold" onclick="resetApp()">🔄 Bàn giao xe khác</button>
+  </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-// ⚙️ CẤU HÌNH — CHỈ SỬA 2 DÒNG NÀY
-// ══════════════════════════════════════════════
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlQD89hkXFiXR_NxvisDt9wkdDu6YbtiZc8nXK5KZI3gHzWKn6ZZTG5svbA3e24krg_Q/exec';
-const SHEET_URL  = 'https://docs.google.com/spreadsheets/d/1D7Ipjd93_Qx5iNGQMTY3r2GzBeD9a8aDMO6XGTtPUxE/edit';
+// ─── CONFIG – Thay bằng URL Google Apps Script của bạn ───
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxN2G3gEXWg29JAE1QUuLaQVeSHJiAlBt2Qja1FRJCKBpB3i5gxSSZjZ78L8HF_7xlLlw/exec';
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1D7Ipjd93_Qx5iNGQMTY3r2GzBeD9a8aDMO6XGTtPUxE/edit';
 
-// ── DANH SÁCH XE (tuỳ chỉnh) ──
+// ─── DANH SÁCH XE (tuỳ chỉnh theo công ty) ───
 const VEHICLES = [
-  { id:'xe01', plate:'51L-130.81', name:'VinFast VF5',       icon:'🚗' },
-  { id:'xe02', plate:'51F-123.45', name:'Chưa có xe mới',     icon:'🚙' },
-  { id:'xe03', plate:'51G-678.90', name:'Chưa có xe mới',       icon:'🚕' },
-  { id:'xe04', plate:'51H-234.56', name:'Chưa có xe mới',icon:'🚐' },
+  { id:'xe01', plate:'51F-123.45', name:'Toyota Innova', icon:'🚙', color:'#1155aa' },
+  { id:'xe02', plate:'51G-678.90', name:'Ford Ranger', icon:'🚕', color:'#c0392b' },
+  { id:'xe03', plate:'51H-234.56', name:'Mitsubishi Xpander', icon:'🚐', color:'#27ae60' },
+  { id:'xe04', plate:'51K-789.01', name:'Toyota Fortuner', icon:'🚗', color:'#8e44ad' },
+  { id:'xe05', plate:'51L-345.67', name:'Hyundai Tucson', icon:'🚙', color:'#e67e22' },
+  { id:'xe06', plate:'51M-890.12', name:'Kia Carnival', icon:'🚌', color:'#2c3e50' },
 ];
 
 const FUEL_LABELS = ['Rỗng (E)','1/8','1/4','3/8','1/2','5/8','3/4','7/8','Đầy (F)'];
-const FUEL_ICONS  = ['💀','😰','😟','😐','🙂','😊','😄','😁','🤩'];
+const FUEL_EMOJIS = ['💀','😰','😟','😐','🙂','😊','😄','😁','🤩'];
 
-let S = { vehicle:null, photos:{}, fuel:4 };
+let state = {
+  selectedVehicle: null,
+  photos: {},      // id → { dataUrl, file, name }
+  currentScreen: 0,
+  fuelLevel: 4,
+};
 
-// ── KHỞI TẠO ──
+// ─── INIT ───
 function init() {
-  setInterval(()=>{
-    document.getElementById('dtNow').textContent =
-      new Date().toLocaleDateString('vi-VN',{weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
-  }, 1000);
-  document.getElementById('dtNow').textContent =
-    new Date().toLocaleDateString('vi-VN',{weekday:'long',year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
-
-  document.getElementById('vgrid').innerHTML = VEHICLES.map(v=>`
-    <div class="vcard" id="vc_${v.id}" onclick="selV('${v.id}')">
-      <div class="vi">${v.icon}</div>
-      <div class="vp">${v.plate}</div>
-      <div class="vn">${v.name}</div>
-    </div>`).join('');
-
-  ['dName','dept'].forEach(id=>{
-    document.getElementById(id).addEventListener('input', chk0);
-    document.getElementById(id).addEventListener('change', chk0);
-  });
-  document.getElementById('km').addEventListener('input', chk1);
+  updateDateTime();
+  setInterval(updateDateTime, 30000);
+  renderVehicleGrid();
+  setupInputListeners();
 }
 
-function selV(id){
-  S.vehicle = VEHICLES.find(v=>v.id===id);
-  document.querySelectorAll('.vcard').forEach(c=>c.classList.remove('sel'));
-  document.getElementById('vc_'+id).classList.add('sel');
-  chk0();
+function updateDateTime() {
+  const now = new Date();
+  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' };
+  document.getElementById('currentDateTime').textContent = now.toLocaleDateString('vi-VN', opts);
 }
 
-function chk0(){
-  document.getElementById('btn01').disabled =
-    !(S.vehicle && document.getElementById('dName').value.trim() && document.getElementById('dept').value);
-}
-function chk1(){
-  const body = ['f1','f2','f3','f4'].every(id=>S.photos[id]);
-  document.getElementById('btn12').disabled = !(body && document.getElementById('km').value.trim());
-}
-function chk2(){
-  document.getElementById('btn23').disabled = !S.photos['d_all'];
-}
-
-// ── FUEL ──
-function setFuel(v){
-  S.fuel = +v;
-  document.getElementById('fuelFill').style.width = (v/8*100)+'%';
-  document.getElementById('fuelIco').textContent = FUEL_ICONS[v];
+function renderVehicleGrid() {
+  const grid = document.getElementById('vehicleGrid');
+  grid.innerHTML = VEHICLES.map(v => `
+    <div class="vehicle-card" id="vc_${v.id}" onclick="selectVehicle('${v.id}')">
+      <div class="vc-icon">${v.icon}</div>
+      <div class="vc-plate">${v.plate}</div>
+      <div class="vc-name">${v.name}</div>
+    </div>
+  `).join('');
 }
 
-// ── PHOTO ──
-function tp(id){ document.getElementById('in_'+id).click(); }
-
-function hp(id, input){
-  if(!input.files[0]) return;
-  const reader = new FileReader();
-  reader.onload = e=>{
-    S.photos[id] = { dataUrl: e.target.result };
-    if(id==='d_all'){
-      const ds = document.getElementById('ds_all');
-      ds.style.border = '2.5px solid var(--success)';
-      ds.onclick = null;
-      ds.innerHTML = `<img src="${e.target.result}" alt=""><div class="pchk" style="top:8px;right:8px;width:24px;height:24px">✓</div>`;
-      document.getElementById('rtBtn').style.display = 'block';
-    } else {
-      const ps = document.getElementById('ps_'+id);
-      ps.innerHTML = `<img src="${e.target.result}" alt=""><div class="pchk">✓</div><div class="pdel" onclick="rp('${id}',event)">✕</div>`;
-      ps.classList.add('cap');
-    }
-    chk1(); chk2();
-  };
-  reader.readAsDataURL(input.files[0]);
+function selectVehicle(id) {
+  state.selectedVehicle = VEHICLES.find(v => v.id === id);
+  document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('vc_' + id).classList.add('selected');
+  checkStep0Valid();
 }
 
-function rp(id, e){
-  e.stopPropagation();
-  delete S.photos[id];
-  const labels = {f1:'Góc trước trái',f2:'Góc trước phải',f3:'Góc sau trái',f4:'Góc sau phải',f5:'Đồng hồ km',f6:'Nội thất',f7:'Cốp xe'};
-  const ps = document.getElementById('ps_'+id);
-  ps.innerHTML = `<span class="si">📷</span><span class="sl">${labels[id]||id}</span>`;
-  ps.classList.remove('cap');
-  document.getElementById('in_'+id).value='';
-  chk1(); chk2();
+function setupInputListeners() {
+  ['driverName','department'].forEach(id => {
+    document.getElementById(id).addEventListener('input', checkStep0Valid);
+    document.getElementById(id).addEventListener('change', checkStep0Valid);
+  });
+  document.getElementById('kmReading').addEventListener('input', checkStep1Valid);
 }
 
-function retake(e){
-  e.stopPropagation();
-  delete S.photos['d_all'];
-  const ds = document.getElementById('ds_all');
-  ds.style.border = '2.5px dashed var(--border)';
-  ds.onclick = ()=>tp('d_all');
-  ds.innerHTML = `<span style="font-size:44px;opacity:.4;margin-bottom:8px">📷</span><span style="font-size:14px;font-weight:700;color:var(--muted)">Nhấn để chụp giấy tờ</span><span style="font-size:11px;color:var(--muted);margin-top:4px;opacity:.7">Chụp chung tất cả trong 1 ảnh</span><span class="badge" style="margin-top:10px;padding:4px 12px;font-size:11px">BẮT BUỘC</span>`;
-  document.getElementById('rtBtn').style.display='none';
-  document.getElementById('in_d_all').value='';
-  chk2();
+function checkStep0Valid() {
+  const ok = state.selectedVehicle &&
+    document.getElementById('driverName').value.trim() &&
+    document.getElementById('department').value;
+  document.getElementById('btnStep1').disabled = !ok;
 }
 
-function ck(el){
-  el.classList.toggle('ck');
-  el.querySelector('.ckbox').textContent = el.classList.contains('ck')?'✓':'';
+function checkStep1Valid() {
+  const requiredBody = ['f1','f2','f3','f4'];
+  const allBody = requiredBody.every(id => state.photos[id]);
+  const hasKm = document.getElementById('kmReading').value.trim();
+  document.getElementById('btnStep2').disabled = !(allBody && hasKm);
 }
 
-// ── NAVIGATION ──
-const LABELS = ['CHỌN XE','HIỆN TRẠNG','GIẤY TỜ','XÁC NHẬN','HOÀN TẤT'];
-const PCT    = [0,33,60,85,100];
-
-function go(n){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById('s'+n).classList.add('active');
-  window.scrollTo(0,0);
-  document.getElementById('prog').style.width = PCT[n]+'%';
-  document.getElementById('hstep').textContent = LABELS[n];
+function checkStep2Valid() {
+  document.getElementById('btnStep3').disabled = !state.photos['d_all'];
 }
 
-// ── BUILD SUMMARY ──
-function buildSum(){
-  const v = S.vehicle;
-  document.getElementById('sumPlate').textContent = v.plate;
-  document.getElementById('sumName').textContent  = v.name;
-  document.getElementById('sumTime').textContent  = new Date().toLocaleString('vi-VN');
-  document.getElementById('sv1').textContent = document.getElementById('dName').value;
-  document.getElementById('sv2').textContent = document.getElementById('dept').value;
-  document.getElementById('sv3').textContent = document.getElementById('dPhone').value||'—';
-  document.getElementById('sv4').textContent = document.getElementById('tripPurpose').value||'—';
-  document.getElementById('sv5').textContent = document.getElementById('km').value+' km';
-  document.getElementById('sv6').textContent = FUEL_LABELS[S.fuel];
-  const bc = ['f1','f2','f3','f4','f5','f6','f7'].filter(id=>S.photos[id]).length;
-  document.getElementById('sv7').textContent = bc+' ảnh';
-  document.getElementById('sv8').textContent = S.photos['d_all']?'✓ Đã chụp':'✗ Chưa chụp';
-  document.getElementById('sv9').textContent = document.getElementById('dmgNote').value||'Không có';
-  const th = document.getElementById('thumbs');
-  th.innerHTML = '';
-  Object.values(S.photos).forEach(p=>{
-    const img=document.createElement('img'); img.src=p.dataUrl; th.appendChild(img);
-  });
+// ─── FUEL ───
+function updateFuel(val) {
+  state.fuelLevel = parseInt(val);
+  const pct = (val / 8) * 100;
+  document.getElementById('fuelFill').style.width = pct + '%';
+  document.getElementById('fuelEmoji').textContent = FUEL_EMOJIS[val];
 }
 
-// ── SUBMIT ──
-async function submit(){
-  const ov = document.getElementById('overlay');
-  const lt = document.getElementById('loadTxt');
-  ov.classList.add('show');
+// ─── PHOTO CAPTURE ───
+function triggerPhoto(id) {
+  document.getElementById('input_' + id).click();
+}
 
-  const v = S.vehicle;
-  const ts = new Date();
-  const rid = 'BGX-'+ts.getTime().toString(36).toUpperCase();
+function handlePhoto(id, input) {
+  if (!input.files[0]) return;
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = e => {
+    state.photos[id] = { dataUrl: e.target.result, file, name: file.name };
 
-  const record = {
-    recordId: rid,
-    timestamp: ts.toISOString(),
-    vehicleId: v.id, vehiclePlate: v.plate, vehicleName: v.name,
-    driverName: document.getElementById('dName').value,
-    department: document.getElementById('dept').value,
-    driverPhone: document.getElementById('dPhone').value,
-    tripPurpose: document.getElementById('tripPurpose').value,
-    kmReading: document.getElementById('km').value,
-    fuelLevel: FUEL_LABELS[S.fuel],
-    damageNote: document.getElementById('dmgNote').value,
-    finalNote: document.getElementById('finalNote').value,
-    accessories: [...document.querySelectorAll('.cki.ck .ck-label')].map(i=>i.textContent).join(', '),
-    photos: Object.fromEntries(Object.entries(S.photos).map(([k,v])=>[k,v.dataUrl])),
-  };
+    if (id === 'd_all') {
+      // Special large single-slot rendering for documents
+      const slot = document.getElementById('slot_d_all');
+      slot.style.border = '2.5px solid var(--success)';
+      slot.style.background = '#fff';
+      slot.onclick = null; // disable click on image area
+      slot.innerHTML = `
+        <img src="${e.target.result}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+        <div style="position:absolute;top:8px;right:8px;background:var(--success);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;">✓</div>
+      `;
+      document.getElementById('doc_retake_btn').style.display = 'block';
+    } else {
+      const slot = document.getElementById('slot_' + id);
+      slot.innerHTML = `
+        <img src="${e.target.result}" alt="">
+        <div class="photo-check">✓</div>
+        <div class="photo-del" onclick="removePhoto('${id}',event)">✕</div>
+      `;
+      slot.classList.add('captured');
+    }
+    checkStep1Valid();
+    checkStep2Valid();
+  };
+  reader.readAsDataURL(file);
+}
 
-  lt.textContent = 'Đang gửi lên Google Sheets...';
-  let sheetOk=false, driveOk=false;
+function removePhoto(id, event) {
+  event.stopPropagation();
+  delete state.photos[id];
+  const labels = {
+    f1:'Góc trước trái', f2:'Góc trước phải', f3:'Góc sau trái', f4:'Góc sau phải',
+    f5:'Đồng hồ km', f6:'Ghế / nội thất', f7:'Cốp xe',
+  };
+  const icons = { f1:'📷',f2:'📷',f3:'📷',f4:'📷',f5:'📷',f6:'📷',f7:'📷' };
+  const slot = document.getElementById('slot_' + id);
+  slot.innerHTML = `<span class="slot-icon">${icons[id]||'📷'}</span><span class="slot-label">${labels[id]||id}</span>`;
+  slot.classList.remove('captured');
+  document.getElementById('input_' + id).value = '';
+  checkStep1Valid();
+  checkStep2Valid();
+}
 
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(record)
-    });
-    const result = await res.json();
-    sheetOk = result.status==='ok';
-    driveOk = result.driveOk||false;
-  } catch(err) {
-    console.warn('Demo mode:', err);
-    sheetOk=true; driveOk=true;
-    await new Promise(r=>setTimeout(r,1500));
-  }
+function retakeDocPhoto(event) {
+  event.stopPropagation();
+  // Reset slot to empty state
+  delete state.photos['d_all'];
+  const slot = document.getElementById('slot_d_all');
+  slot.style.border = '2.5px dashed var(--border)';
+  slot.style.background = '#f7f9fc';
+  slot.onclick = function(){ triggerPhoto('d_all'); };
+  slot.innerHTML = `
+    <span style="font-size:48px;margin-bottom:10px;opacity:.45;">📷</span>
+    <span style="font-size:14px;font-weight:700;color:var(--muted);">Nhấn để chụp ảnh giấy tờ</span>
+    <span style="font-size:11px;color:var(--muted);margin-top:4px;opacity:.8;">Chụp chung tất cả giấy tờ trong 1 ảnh</span>
+    <span class="badge" style="margin-top:10px;padding:4px 12px;font-size:11px;">BẮT BUỘC</span>
+  `;
+  document.getElementById('doc_retake_btn').style.display = 'none';
+  document.getElementById('input_d_all').value = '';
+  checkStep2Valid();
+}
 
-  lt.textContent='Hoàn tất!';
-  await new Promise(r=>setTimeout(r,500));
-  ov.classList.remove('show');
+// ─── CHECKLIST ───
+function toggleCheck(el) {
+  el.classList.toggle('checked');
+  const box = el.querySelector('.check-box');
+  box.textContent = el.classList.contains('checked') ? '✓' : '';
+}
 
-  document.getElementById('rId').textContent    = rid;
-  document.getElementById('rTime').textContent  = ts.toLocaleString('vi-VN');
-  document.getElementById('rVeh').textContent   = v.plate+' – '+v.name;
-  document.getElementById('rDrv').textContent   = document.getElementById('dName').value;
-  document.getElementById('rSheet').innerHTML   = sheetOk?'<span class="spill ok">✓ Đã lưu</span>':'<span class="spill warn">⚠ Cần cấu hình</span>';
-  document.getElementById('rDrive').innerHTML   = driveOk?'<span class="spill ok">✓ Đã lưu</span>':'<span class="spill warn">⚠ Cần cấu hình</span>';
-  document.getElementById('sheetLink').href     = SHEET_URL;
-  go(4);
+// ─── NAVIGATION ───
+function goScreen(n) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen' + n).classList.add('active');
+  window.scrollTo(0,0);
+  state.currentScreen = n;
+  const pct = [0, 33, 60, 85, 100][n];
+  document.getElementById('progressBar').style.width = pct + '%';
+  const badges = ['CHỌN XE','HIỆN TRẠNG','GIẤY TỜ','XÁC NHẬN','HOÀN TẤT'];
+  document.getElementById('headerBadge').textContent = badges[n];
+}
+
+function goToStep1() { goScreen(1); }
+function goToStep2() { goScreen(2); }
+function goToStep3() {
+  buildSummary();
+  goScreen(3);
+}
+
+function buildSummary() {
+  const v = state.selectedVehicle;
+  document.getElementById('sumPlate').textContent = v.plate;
+  document.getElementById('sumName').textContent = v.name;
+  document.getElementById('sumTime').textContent = new Date().toLocaleString('vi-VN');
+  document.getElementById('sumDriver').textContent = document.getElementById('driverName').value;
+  document.getElementById('sumDept').textContent = document.getElementById('department').value;
+  document.getElementById('sumPhone').textContent = document.getElementById('driverPhone').value || '—';
+  document.getElementById('sumPurpose').textContent = document.getElementById('tripPurpose').value || '—';
+  document.getElementById('sumKm').textContent = document.getElementById('kmReading').value + ' km';
+  document.getElementById('sumFuel').textContent = FUEL_LABELS[state.fuelLevel];
+  
+  const bodyPhotos = ['f1','f2','f3','f4','f5','f6','f7'].filter(id => state.photos[id]).length;
+  const docPhotos = state.photos['d_all'] ? 1 : 0;
+  document.getElementById('sumBodyCount').textContent = bodyPhotos + ' ảnh';
+  document.getElementById('sumDocCount').textContent = docPhotos ? '✓ Đã chụp' : '✗ Chưa chụp';
+  document.getElementById('sumDamage').textContent = document.getElementById('damageNote').value || 'Không có';
+
+  // Thumbnails
+  const thumbsEl = document.getElementById('summaryThumbs');
+  thumbsEl.innerHTML = '';
+  Object.values(state.photos).forEach(p => {
+    const img = document.createElement('img');
+    img.src = p.dataUrl;
+    thumbsEl.appendChild(img);
+  });
+  if (Object.keys(state.photos).length === 0) {
+    thumbsEl.innerHTML = '<span style="font-size:12px;color:var(--muted)">Chưa có ảnh nào.</span>';
+  }
+}
+
+// ─── SUBMIT ───
+async function submitHandover() {
+  const overlay = document.getElementById('loadingOverlay');
+  const loadText = document.getElementById('loadingText');
+  overlay.classList.add('show');
+
+  // Build record
+  const v = state.selectedVehicle;
+  const timestamp = new Date();
+  const recordId = 'BGX-' + timestamp.getTime().toString(36).toUpperCase();
+
+  const record = {
+    recordId,
+    timestamp: timestamp.toISOString(),
+    vehicleId: v.id,
+    vehiclePlate: v.plate,
+    vehicleName: v.name,
+    driverName: document.getElementById('driverName').value,
+    department: document.getElementById('department').value,
+    driverPhone: document.getElementById('driverPhone').value,
+    tripPurpose: document.getElementById('tripPurpose').value,
+    kmReading: document.getElementById('kmReading').value,
+    fuelLevel: FUEL_LABELS[state.fuelLevel],
+    damageNote: document.getElementById('damageNote').value,
+    finalNote: document.getElementById('finalNote').value,
+    accessories: getCheckedAccessories(),
+    photos: Object.fromEntries(
+      Object.entries(state.photos).map(([k,v]) => [k, v.dataUrl])
+    ),
+  };
+
+  loadText.textContent = 'Đang gửi dữ liệu lên Google Sheets...';
+
+  let sheetOk = false, driveOk = false;
+
+  try {
+    // Send to Google Apps Script
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(record),
+    });
+    const result = await res.json();
+    sheetOk = result.status === 'ok';
+    driveOk = result.driveOk || false;
+  } catch(e) {
+    // Demo mode: simulate success
+    console.warn('Apps Script not configured – demo mode', e);
+    sheetOk = true; driveOk = true;
+    await new Promise(r => setTimeout(r, 1500));
+  }
+
+  loadText.textContent = 'Hoàn tất!';
+  await new Promise(r => setTimeout(r, 500));
+  overlay.classList.remove('show');
+
+  // Populate success screen
+  document.getElementById('recordId').textContent = recordId;
+  document.getElementById('savedTime').textContent = timestamp.toLocaleString('vi-VN');
+  document.getElementById('savedVehicle').textContent = v.plate + ' – ' + v.name;
+  document.getElementById('savedDriver').textContent = document.getElementById('driverName').value;
+  document.getElementById('sheetStatus').innerHTML = sheetOk
+    ? '<span class="status-pill status-ok">✓ Đã lưu</span>'
+    : '<span class="status-pill status-warn">⚠ Cần cấu hình</span>';
+  document.getElementById('driveStatus').innerHTML = driveOk
+    ? '<span class="status-pill status-ok">✓ Đã lưu</span>'
+    : '<span class="status-pill status-warn">⚠ Cần cấu hình</span>';
+  document.getElementById('sheetLink').href = SHEET_URL;
+
+  goScreen(4);
+}
+
+function getCheckedAccessories() {
+  const items = document.querySelectorAll('#accessoryChecklist .check-item.checked .check-label');
+  return Array.from(items).map(i => i.textContent).join(', ');
+}
+
+function resetApp() {
+  state = { selectedVehicle: null, photos: {}, currentScreen: 0, fuelLevel: 4 };
+  document.getElementById('driverName').value = '';
+  document.getElementById('department').value = '';
+  document.getElementById('driverPhone').value = '';
+  document.getElementById('tripPurpose').value = '';
+  document.getElementById('kmReading').value = '';
+  document.getElementById('damageNote').value = '';
+  document.getElementById('finalNote').value = '';
+  document.getElementById('fuelRange').value = 4;
+  updateFuel(4);
+  renderVehicleGrid();
+  // Reset photo slots
+  const slots = document.querySelectorAll('.photo-slot');
+  // Re-render is handled by init
+  goScreen(0);
+  setTimeout(() => window.location.reload(), 100);
 }
 
 init();
