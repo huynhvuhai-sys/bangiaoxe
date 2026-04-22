@@ -2,1166 +2,879 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Bàn Giao Xe – Công Ty</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Lịch Trình Lái Xe – Logistics NLC</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@import url('https://script.google.com/macros/s/AKfycbxN2G3gEXWg29JAE1QUuLaQVeSHJiAlBt2Qja1FRJCKBpB3i5gxSSZjZ78L8HF_7xlLlw/exec');
+  :root {
+    --blue: #1565C0;
+    --blue-light: #1976D2;
+    --blue-dark: #0D47A1;
+    --surface: #F0F4FF;
+    --card: #FFFFFF;
+    --text: #1A237E;
+    --muted: #5C6BC0;
+    --border: #C5CAE9;
+    --green: #2E7D32;
+    --green-bg: #E8F5E9;
+    --red: #C62828;
+    --red-bg: #FFEBEE;
+    --orange: #E65100;
+    --orange-bg: #FFF3E0;
+    --dong-bg: #E3F2FD;
+    --dong-border: #1E88E5;
+    --dong-text: #0D47A1;
+    --mat-bg: #E0F2F1;
+    --mat-border: #00897B;
+    --mat-text: #004D40;
+    --kho-bg: #FFF8E1;
+    --kho-border: #F9A825;
+    --kho-text: #E65100;
+    --radius: 14px;
+    --shadow: 0 4px 20px rgba(21,101,192,0.12);
+  }
 
-:root {
-  --navy: #0d2137;
-  --blue: #1155aa;
-  --blue-light: #1a6fd4;
-  --gold: #f0a500;
-  --gold-light: #ffc845;
-  --success: #12875a;
-  --danger: #c0392b;
-  --bg: #eef2f7;
-  --card: #ffffff;
-  --text: #0d2137;
-  --muted: #6b7a90;
-  --border: #d0dae8;
-  --radius: 14px;
-}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--surface);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
 
-body {
-  font-family: 'Barlow', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-light) 100%);
+    padding: 18px 16px 22px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(13,71,161,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -20px;
+    width: 150px; height: 150px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+  .header-logo {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+  }
 
-/* ─── HEADER ─── */
-.header {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  height: 64px;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  box-shadow: 0 3px 16px rgba(13,33,55,.35);
-}
-.header-logo {
-  width: 36px; height: 36px;
-  background: var(--gold);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-.header-text h1 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px; font-weight: 800;
-  color: #fff; letter-spacing: .5px;
-  line-height: 1.1;
-}
-.header-text p { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 1px; }
-.header-badge {
-  margin-left: auto;
-  background: var(--gold);
-  color: var(--navy);
-  font-size: 11px; font-weight: 800;
-  padding: 4px 9px;
-  border-radius: 20px;
-  letter-spacing: .3px;
-  white-space: nowrap;
-}
+  /* FORM CONTAINER */
+  .form-wrap {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 0 12px;
+  }
 
-/* ─── PROGRESS ─── */
-.progress-wrap { background: rgba(255,255,255,.15); height: 4px; }
-.progress-bar {
-  height: 100%;
-  background: var(--gold);
-  transition: width .5s cubic-bezier(.4,0,.2,1);
-}
+  /* SECTION */
+  .section {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-top: 14px;
+    overflow: hidden;
+  }
+  .section-head {
+    background: linear-gradient(90deg, var(--blue) 0%, var(--blue-light) 100%);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-head .icon { font-size: 18px; }
+  .section-head span {
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+  }
+  .section-body { padding: 14px 16px; }
 
-/* ─── SCREENS ─── */
-.screen { display: none; padding: 16px 14px 110px; animation: fadeUp .35s ease both; }
-.screen.active { display: block; }
-@keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  /* FIELD */
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+  label .req { color: #E53935; margin-left: 2px; }
 
-/* ─── STEP INDICATOR ─── */
-.step-row {
-  display: flex; align-items: center; justify-content: center;
-  gap: 0; margin-bottom: 18px;
-}
-.step-item {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative; flex: 1;
-}
-.step-circle {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  background: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; color: var(--muted);
-  position: relative; z-index: 1;
-  transition: all .3s;
-}
-.step-item.done .step-circle { background: var(--success); border-color: var(--success); color: #fff; }
-.step-item.active .step-circle { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 0 0 4px rgba(17,85,170,.15); }
-.step-label { font-size: 10px; color: var(--muted); margin-top: 4px; font-weight: 600; text-align: center; }
-.step-item.active .step-label { color: var(--blue); }
-.step-item.done .step-label { color: var(--success); }
-.step-line {
-  position: absolute; top: 15px; left: 50%; right: -50%;
-  height: 2px; background: var(--border); z-index: 0;
-}
-.step-item.done .step-line { background: var(--success); }
-.step-item:last-child .step-line { display: none; }
+  input[type="date"],
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 13px 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--surface);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(21,101,192,0.15);
+    background: #fff;
+  }
+  textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 
-/* ─── CARDS ─── */
-.card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 1px 8px rgba(13,33,55,.08);
-  border: 1px solid rgba(255,255,255,.8);
-}
-.card-title {
-  font-size: 11px; font-weight: 800;
-  color: var(--blue);
-  text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 12px;
-  display: flex; align-items: center; gap: 6px;
-}
+  /* SELECT WRAPPER */
+  .select-wrap { position: relative; }
+  .select-wrap::after {
+    content: '▼';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--blue);
+    font-size: 12px;
+    pointer-events: none;
+  }
 
-/* ─── VEHICLE SELECTOR (Screen 0) ─── */
-.vehicle-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.vehicle-card {
-  border: 2px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: all .2s;
-  background: #fafbfd;
-}
-.vehicle-card:active { transform: scale(.97); }
-.vehicle-card.selected {
-  border-color: var(--blue);
-  background: #eef4ff;
-  box-shadow: 0 0 0 3px rgba(17,85,170,.12);
-}
-.vehicle-card .vc-icon { font-size: 30px; margin-bottom: 6px; }
-.vehicle-card .vc-plate {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 16px; font-weight: 800;
-  color: var(--navy); letter-spacing: 1px;
-}
-.vehicle-card .vc-name { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  /* CUSTOM DROPDOWN */
+  .custom-select-wrap { position: relative; z-index: 10; }
+  .custom-select-btn {
+    width: 100%;
+    padding: 13px 14px;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: var(--text);
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+  .custom-select-btn.open {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(21,101,192,0.15);
+    background: #fff;
+  }
+  .custom-select-btn .caret {
+    font-size: 12px;
+    color: var(--blue);
+    transition: transform 0.2s;
+  }
+  .custom-select-btn.open .caret { transform: rotate(180deg); }
+  .custom-select-list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0; right: 0;
+    background: #fff;
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(21,101,192,0.18);
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 100;
+  }
+  .custom-select-list.open { display: block; }
+  .custom-select-item {
+    padding: 13px 16px;
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .custom-select-item:last-child { border-bottom: none; }
+  .custom-select-item:active, .custom-select-item.selected {
+    background: var(--surface);
+    color: var(--blue);
+  }
 
-/* ─── FIELDS ─── */
-.field { margin-bottom: 11px; }
-.field label {
-  display: block; font-size: 11px; font-weight: 700;
-  color: var(--muted); text-transform: uppercase;
-  letter-spacing: .5px; margin-bottom: 5px;
-}
-.field input, .field select, .field textarea {
-  width: 100%;
-  border: 1.5px solid var(--border);
-  border-radius: 9px;
-  padding: 10px 12px;
-  font-family: 'Barlow', sans-serif;
-  font-size: 14px;
-  color: var(--text);
-  background: #fafbfc;
-  outline: none;
-  transition: border-color .2s;
-}
-.field input:focus, .field select:focus, .field textarea:focus {
-  border-color: var(--blue); background: #fff;
-}
-.field textarea { resize: vertical; min-height: 70px; }
+  /* TEMPERATURE BUTTONS */
+  .temp-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .temp-btn {
+    padding: 13px 6px;
+    border: 2.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.18s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .temp-btn .t-icon { font-size: 22px; }
+  .temp-btn .t-label { font-size: 13px; letter-spacing: 0.3px; }
 
-.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .temp-btn.dong { background: var(--dong-bg); border-color: var(--dong-border); color: var(--dong-text); }
+  .temp-btn.dong.active { background: var(--dong-border); border-color: var(--dong-border); color: #fff; box-shadow: 0 4px 14px rgba(30,136,229,0.4); transform: scale(1.04); }
 
-/* ─── FUEL METER ─── */
-.fuel-bar-wrap {
-  background: #e8ecf2;
-  border-radius: 8px;
-  height: 22px;
-  position: relative;
-  overflow: hidden;
-  margin-top: 6px;
-}
-.fuel-bar-fill {
-  height: 100%;
-  border-radius: 8px;
-  transition: width .4s, background .4s;
-  background: linear-gradient(90deg, #e74c3c, #f39c12, #27ae60);
-}
-.fuel-labels {
-  display: flex; justify-content: space-between;
-  font-size: 10px; color: var(--muted); font-weight: 700;
-  margin-top: 4px;
-}
-input[type=range] {
-  width: 100%; margin-top: 8px;
-  -webkit-appearance: none;
-  height: 6px; background: var(--border);
-  border-radius: 3px; outline: none;
-}
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--blue);
-  border: 3px solid #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,.2);
-  cursor: pointer;
-}
+  .temp-btn.mat { background: var(--mat-bg); border-color: var(--mat-border); color: var(--mat-text); }
+  .temp-btn.mat.active { background: var(--mat-border); border-color: var(--mat-border); color: #fff; box-shadow: 0 4px 14px rgba(0,137,123,0.4); transform: scale(1.04); }
 
-/* ─── PHOTO SLOTS ─── */
-.photo-section { margin-bottom: 18px; }
-.photo-section-title {
-  font-size: 13px; font-weight: 700;
-  color: var(--text); margin-bottom: 8px;
-  display: flex; align-items: center; gap: 6px;
-}
-.photo-section-title .badge {
-  background: var(--gold); color: var(--navy);
-  font-size: 10px; font-weight: 800;
-  padding: 2px 7px; border-radius: 10px;
-}
-.photo-section-title .badge.optional {
-  background: #e8ecf2; color: var(--muted);
-}
+  .temp-btn.kho { background: var(--kho-bg); border-color: var(--kho-border); color: var(--kho-text); }
+  .temp-btn.kho.active { background: var(--kho-border); border-color: var(--kho-border); color: #fff; box-shadow: 0 4px 14px rgba(249,168,37,0.4); transform: scale(1.04); }
 
-.photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-.photo-grid.cols3 { grid-template-columns: repeat(3, 1fr); }
+  /* PHOTO UPLOAD */
+  .photo-area {
+    border: 2.5px dashed var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    padding: 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-area:hover, .photo-area.drag { border-color: var(--blue); background: #EEF2FF; }
+  .photo-area input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    font-size: 0;
+  }
+  .photo-icon { font-size: 36px; margin-bottom: 6px; }
+  .photo-text { font-size: 14px; font-weight: 700; color: var(--blue); }
+  .photo-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-.photo-slot {
-  aspect-ratio: 4/3;
-  border-radius: 10px;
-  border: 2px dashed var(--border);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  cursor: pointer;
-  position: relative; overflow: hidden;
-  background: #f7f9fc;
-  transition: border-color .2s, background .2s;
-}
-.photo-slot:active { opacity: .8; transform: scale(.98); }
-.photo-slot.captured { border-style: solid; border-color: var(--success); }
-.photo-slot .slot-icon { font-size: 24px; margin-bottom: 4px; opacity: .5; }
-.photo-slot .slot-label {
-  font-size: 10px; font-weight: 700;
-  color: var(--muted); text-align: center;
-  padding: 0 6px; line-height: 1.3;
-}
-.photo-slot img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-}
-.photo-slot .photo-check {
-  position: absolute; top: 6px; right: 6px;
-  width: 22px; height: 22px;
-  background: var(--success);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 12px; font-weight: 700;
-}
-.photo-slot .photo-del {
-  position: absolute; top: 6px; left: 6px;
-  width: 22px; height: 22px;
-  background: rgba(0,0,0,.5);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-size: 14px;
-  cursor: pointer;
-}
-input[type=file] { display: none; }
+  .preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .preview-item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: #eee;
+  }
+  .preview-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .preview-item .del-btn {
+    position: absolute; top: 4px; right: 4px;
+    background: rgba(0,0,0,0.6);
+    border: none; border-radius: 50%;
+    width: 24px; height: 24px;
+    color: #fff; font-size: 13px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
 
-/* ─── CHECKLIST ─── */
-.checklist { display: flex; flex-direction: column; gap: 8px; }
-.check-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 12px;
-  background: #f7f9fc;
-  border-radius: 9px;
-  border: 1.5px solid var(--border);
-  cursor: pointer;
-  transition: all .2s;
-}
-.check-item.checked { background: #edfaf3; border-color: var(--success); }
-.check-box {
-  width: 22px; height: 22px; flex-shrink: 0;
-  border-radius: 6px;
-  border: 2px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px;
-  transition: all .2s;
-}
-.check-item.checked .check-box {
-  background: var(--success); border-color: var(--success); color: #fff;
-}
-.check-label { font-size: 13px; font-weight: 500; }
+  /* SUBMIT */
+  .btn-submit {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--green) 0%, #388E3C 100%);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Nunito', sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    margin-top: 18px;
+    box-shadow: 0 6px 20px rgba(46,125,50,0.35);
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-submit:active { transform: scale(0.98); }
+  .btn-submit:disabled { background: #aaa; box-shadow: none; cursor: not-allowed; }
 
-/* ─── SUMMARY ─── */
-.summary-vehicle {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
-  border-radius: var(--radius);
-  padding: 18px;
-  margin-bottom: 12px;
-  color: #fff;
-  display: flex; align-items: center; gap: 14px;
-}
-.summary-vehicle .sv-icon { font-size: 40px; }
-.summary-vehicle .sv-plate {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 22px; font-weight: 800; letter-spacing: 2px;
-}
-.summary-vehicle .sv-name { font-size: 13px; opacity: .75; }
-.summary-vehicle .sv-time { font-size: 11px; opacity: .6; margin-top: 4px; }
+  /* MULTI-ENTRY TABLE */
+  .entry-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+  .entry-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    position: relative;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .entry-card .entry-num {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .entry-del {
+    position: absolute; top: 8px; right: 10px;
+    background: var(--red-bg); border: none;
+    border-radius: 6px; color: var(--red);
+    font-size: 12px; font-weight: 700;
+    padding: 3px 8px; cursor: pointer;
+  }
 
-.photo-thumbs {
-  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;
-}
-.photo-thumbs img {
-  width: 56px; height: 42px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
-.thumb-placeholder {
-  width: 56px; height: 42px;
-  background: #f0f3f7;
-  border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; border: 1px solid var(--border);
-}
+  .btn-add {
+    width: 100%;
+    padding: 12px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 6px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: background 0.18s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn-add:active { background: var(--blue-dark); }
 
-.summary-row {
-  display: flex; justify-content: space-between;
-  align-items: center; padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-}
-.summary-row:last-child { border-bottom: none; }
-.summary-row .sr-label { color: var(--muted); font-weight: 600; }
-.summary-row .sr-value { font-weight: 700; text-align: right; }
-.status-pill {
-  padding: 3px 10px; border-radius: 20px;
-  font-size: 11px; font-weight: 800;
-}
-.status-ok { background: #edfaf3; color: var(--success); }
-.status-warn { background: #fff8e6; color: #b07800; }
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: #1B5E20;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 15px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 9999;
+    text-align: center;
+    max-width: 90vw;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.error { background: #B71C1C; }
 
-/* ─── BUTTONS ─── */
-.btn-wrap {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  padding: 12px 14px;
-  background: rgba(238,242,247,.95);
-  backdrop-filter: blur(12px);
-  display: flex; gap: 8px;
-  box-shadow: 0 -2px 16px rgba(0,0,0,.1);
-  z-index: 100;
-}
-.btn {
-  flex: 1;
-  padding: 14px;
-  border-radius: 11px;
-  border: none;
-  font-family: 'Barlow', sans-serif;
-  font-size: 14px; font-weight: 700;
-  cursor: pointer;
-  transition: all .2s;
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-}
-.btn:active { transform: scale(.97); }
-.btn-primary { background: var(--blue); color: #fff; box-shadow: 0 4px 14px rgba(17,85,170,.3); }
-.btn-primary:disabled { background: var(--border); color: var(--muted); box-shadow: none; }
-.btn-secondary { background: #fff; color: var(--text); border: 1.5px solid var(--border); flex: 0 0 auto; padding: 14px 18px; }
-.btn-success { background: var(--success); color: #fff; box-shadow: 0 4px 14px rgba(18,135,90,.3); }
-.btn-gold { background: var(--gold); color: var(--navy); box-shadow: 0 4px 14px rgba(240,165,0,.3); }
+  /* LOADING */
+  .spinner {
+    width: 20px; height: 20px;
+    border: 3px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ─── SUCCESS SCREEN ─── */
-.success-hero {
-  text-align: center;
-  padding: 40px 20px 20px;
-}
-.success-icon {
-  width: 80px; height: 80px;
-  background: #edfaf3;
-  border-radius: 50%;
-  margin: 0 auto 16px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 40px;
-  animation: popIn .5s cubic-bezier(.4,0,.2,1) both;
-}
-@keyframes popIn { from { transform: scale(0); opacity:0; } to { transform: scale(1); opacity:1; } }
-.success-hero h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; color: var(--success); }
-.success-hero p { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+  /* INFO PILL */
+  .info-pill {
+    background: #E3F2FD;
+    border: 1.5px solid #90CAF9;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #1565C0;
+    font-weight: 700;
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 
-.sheet-link-card {
-  background: linear-gradient(135deg, #0f5132, #1a7a4a);
-  border-radius: var(--radius);
-  padding: 16px;
-  color: #fff;
-  text-align: center;
-  margin-bottom: 12px;
-}
-.sheet-link-card .sl-icon { font-size: 30px; margin-bottom: 8px; }
-.sheet-link-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-.sheet-link-card p { font-size: 12px; opacity: .8; }
-.sheet-link-card .sl-btn {
-  display: inline-block; margin-top: 12px;
-  background: rgba(255,255,255,.2);
-  border: 1.5px solid rgba(255,255,255,.4);
-  color: #fff;
-  padding: 9px 18px;
-  border-radius: 8px;
-  font-weight: 700; font-size: 13px;
-  cursor: pointer; text-decoration: none;
-  transition: background .2s;
-}
-
-/* ─── LOADING ─── */
-.loading-overlay {
-  display: none;
-  position: fixed; inset: 0;
-  background: rgba(13,33,55,.7);
-  z-index: 999;
-  align-items: center; justify-content: center;
-  flex-direction: column; gap: 14px;
-}
-.loading-overlay.show { display: flex; }
-.spinner {
-  width: 44px; height: 44px;
-  border: 4px solid rgba(255,255,255,.2);
-  border-top-color: var(--gold);
-  border-radius: 50%;
-  animation: spin .8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-text { color: #fff; font-weight: 600; font-size: 14px; }
-
-/* ─── NOTE BOX ─── */
-.note-box {
-  background: #fff8e6;
-  border-left: 4px solid var(--gold);
-  border-radius: 0 9px 9px 0;
-  padding: 10px 12px;
-  font-size: 12px; color: #7a5800;
-  line-height: 1.5; margin-bottom: 12px;
-}
-
-.divider { height: 1px; background: var(--border); margin: 14px 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 360px) { .two-col { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
-<div class="loading-overlay" id="loadingOverlay">
-  <div class="spinner"></div>
-  <div class="loading-text" id="loadingText">Đang gửi dữ liệu...</div>
-</div>
-
-<!-- HEADER -->
 <div class="header">
-  <div class="header-logo">🚗</div>
-  <div class="header-text">
-    <h1>BIÊN BẢN BÀN GIAO XE</h1>
-    <p>Hệ thống quản lý xe công ty</p>
-  </div>
-  <div class="header-badge" id="headerBadge">CHỌN XE</div>
+  <div class="header-logo">🚛 Logistics - NLC</div>
+  <h1>📋 Lịch Trình Lái Xe</h1>
+  <div class="header-sub">Điền đầy đủ thông tin chuyến hàng</div>
 </div>
-<div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
 
-<!-- ══════════ SCREEN 0: CHỌN XE ══════════ -->
-<div class="screen active" id="screen0">
+<div class="form-wrap">
 
-  <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px;">
-    <div style="font-size:20px">📅</div>
-    <div>
-      <div style="font-size:12px;font-weight:700;color:var(--muted)">THỜI GIAN BÀN GIAO</div>
-      <div style="font-size:14px;font-weight:700;" id="currentDateTime">--</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🚗 Chọn xe bàn giao</div>
-    <div class="vehicle-grid" id="vehicleGrid">
-      <!-- Filled by JS -->
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">👤 Thông tin lái xe</div>
-    <div class="field">
-      <label>Họ và tên lái xe *</label>
-      <input type="text" id="driverName" placeholder="Nguyễn Văn A" autocomplete="name">
-    </div>
-    <div class="row2">
+  <!-- THÔNG TIN LÁI XE -->
+  <div class="section">
+    <div class="section-head"><span class="icon">🧑‍✈️</span><span>Thông Tin Lái Xe</span></div>
+    <div class="section-body">
       <div class="field">
-        <label>Phòng / Bộ phận *</label>
-        <select id="department">
-          <option value="">Chọn...</option>
-          <option>Ban Giám Đốc</option>
-          <option>Kế toán – Tài chính</option>
-          <option>Kinh doanh</option>
-          <option>Kỹ thuật</option>
-          <option>Hành chính – Nhân sự</option>
-          <option>Dự án</option>
-          <option>Khác</option>
-        </select>
+        <label>Lái Xe Thực Hiện <span class="req">*</span></label>
+        <div class="custom-select-wrap" id="wrap-laixe">
+          <div class="custom-select-btn" id="btn-laixe" >
+            <span id="label-laixe">-- Chọn lái xe --</span>
+            <span class="caret">▼</span>
+          </div>
+          <div class="custom-select-list" id="list-laixe"></div>
+        </div>
+        <input type="hidden" id="laixe">
       </div>
       <div class="field">
-        <label>Số điện thoại</label>
-        <input type="text" id="driverPhone" placeholder="090x xxx xxx">
+        <label>Số Xe <span class="req">*</span></label>
+        <div class="custom-select-wrap" id="wrap-soxe">
+          <div class="custom-select-btn" id="btn-soxe" >
+            <span id="label-soxe">-- Chọn số xe --</span>
+            <span class="caret">▼</span>
+          </div>
+          <div class="custom-select-list" id="list-soxe"></div>
+        </div>
+        <input type="hidden" id="soxe">
       </div>
     </div>
-    <div class="field">
-      <label>Mục đích / Điểm đến</label>
-      <input type="text" id="tripPurpose" placeholder="Họp khách hàng tại Hà Nội...">
+  </div>
+
+  <!-- NGÀY ĐI / VỀ -->
+  <div class="section">
+    <div class="section-head"><span class="icon">📅</span><span>Ngày Đi & Ngày Về</span></div>
+    <div class="section-body">
+      <div class="two-col">
+        <div class="field">
+          <label>📤 Ngày Đi <span class="req">*</span></label>
+          <input type="date" id="ngaydi">
+        </div>
+        <div class="field">
+          <label>📥 Ngày Về <span class="req">*</span></label>
+          <input type="date" id="ngayve">
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="btn-wrap">
-    <button class="btn btn-primary" onclick="goToStep1()" id="btnStep1" disabled>
-      Tiếp theo →
-    </button>
-  </div>
-</div>
-
-<!-- ══════════ SCREEN 1: HIỆN TRẠNG XE ══════════ -->
-<div class="screen" id="screen1">
-
-  <!-- Step indicator -->
-  <div class="step-row">
-    <div class="step-item done" id="si0">
-      <div class="step-circle">✓</div>
-      <div class="step-label">Thông tin</div>
-      <div class="step-line"></div>
-    </div>
-    <div class="step-item active" id="si1">
-      <div class="step-circle">2</div>
-      <div class="step-label">Hiện trạng</div>
-      <div class="step-line"></div>
-    </div>
-    <div class="step-item" id="si2">
-      <div class="step-circle">3</div>
-      <div class="step-label">Giấy tờ</div>
-      <div class="step-line"></div>
-    </div>
-    <div class="step-item" id="si3">
-      <div class="step-circle">4</div>
-      <div class="step-label">Xác nhận</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">⛽ Chỉ số & Nhiên liệu</div>
-    <div class="row2">
+  <!-- LỊCH TRÌNH GIAO HÀNG -->
+  <div class="section">
+    <div class="section-head"><span class="icon">🗺️</span><span>Lịch Trình Giao Hàng</span></div>
+    <div class="section-body">
       <div class="field">
-        <label>Số km hiện tại *</label>
-        <input type="text" id="kmReading" placeholder="12,345 km" inputmode="numeric">
+        <label>Địa Điểm / Tuyến Đường Giao Hàng <span class="req">*</span></label>
+        <textarea id="lichtrinh" placeholder="Ví dụ: Đồng Nai → Bình Dương → Bình Phước...&#10;Ghi rõ tên tỉnh/thành phố hoặc khách hàng" rows="3"></textarea>
       </div>
       <div class="field">
-        <label>Mức nhiên liệu</label>
-        <div style="padding-top:6px;font-size:20px;text-align:center;" id="fuelEmoji">⛽</div>
-      </div>
-    </div>
-    <input type="range" id="fuelRange" min="0" max="8" value="4" oninput="updateFuel(this.value)">
-    <div class="fuel-bar-wrap">
-      <div class="fuel-bar-fill" id="fuelFill" style="width:50%"></div>
-    </div>
-    <div class="fuel-labels">
-      <span>E – Hết</span><span>1/4</span><span>1/2</span><span>3/4</span><span>F – Đầy</span>
-    </div>
-  </div>
-
-  <!-- 4 GÓC THÂN XE -->
-  <div class="card">
-    <div class="card-title">📸 Ảnh hiện trạng xe</div>
-
-    <div class="photo-section">
-      <div class="photo-section-title">
-        🚗 4 Góc thân xe
-        <span class="badge">BẮT BUỘC</span>
-      </div>
-      <div class="photo-grid">
-        <div class="photo-slot" onclick="triggerPhoto('f1')" id="slot_f1">
-          <span class="slot-icon">📷</span>
-          <span class="slot-label">Góc trước trái</span>
-        </div>
-        <div class="photo-slot" onclick="triggerPhoto('f2')" id="slot_f2">
-          <span class="slot-icon">📷</span>
-          <span class="slot-label">Góc trước phải</span>
-        </div>
-        <div class="photo-slot" onclick="triggerPhoto('f3')" id="slot_f3">
-          <span class="slot-icon">📷</span>
-          <span class="slot-label">Góc sau trái</span>
-        </div>
-        <div class="photo-slot" onclick="triggerPhoto('f4')" id="slot_f4">
-          <span class="slot-icon">📷</span>
-          <span class="slot-label">Góc sau phải</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="photo-section">
-      <div class="photo-section-title">
-        🔢 Đồng hồ & Nội thất
-        <span class="badge optional">TÙY CHỌN</span>
-      </div>
-      <div class="photo-grid cols3">
-        <div class="photo-slot" onclick="triggerPhoto('f5')" id="slot_f5">
-          <span class="slot-icon">📷</span>
-          <span class="slot-label">Đồng hồ km</span>
-        </div>
-        <div class="photo-slot" onclick="triggerPhoto('f6')" id="slot_f6">
-          <span class="slot-icon">📷</span>
-          <span class="slot-label">Ghế / nội thất</span>
-        </div>
-        <div class="photo-slot" onclick="triggerPhoto('f7')" id="slot_f7">
-          <span class="slot-icon">📷</span>
-          <span class="slot-label">Cốp xe</span>
-        </div>
+        <label>Số Lượng Điểm Giao Hàng <span class="req">*</span></label>
+        <input type="number" id="sodiemgiao" placeholder="Ví dụ: 3" min="1" max="99">
       </div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-title">⚠️ Ghi chú hư hỏng (nếu có)</div>
-    <div class="field">
-      <textarea id="damageNote" placeholder="Mô tả các vết xước, móp méo, thiệt hại hiện có nếu có..."></textarea>
+  <!-- SỐ KM & NHIỆT ĐỘ -->
+  <div class="section">
+    <div class="section-head"><span class="icon">🚛</span><span>Số Km & Nhiệt Độ</span></div>
+    <div class="section-body">
+
+      <div class="field">
+        <label>📌 Số Km Đầu (Trước khi xuất phát) <span class="req">*</span></label>
+        <input type="number" id="kmdau" placeholder="Số km trên đồng hồ lúc xuất phát" min="0">
+      </div>
+
+      <div class="field">
+        <label>🌡️ Nhiệt Độ Lượt Đi <span class="req">*</span></label>
+        <div class="temp-group">
+          <button type="button" class="temp-btn dong" onclick="selectTemp('di','Đông',this)">
+            <span class="t-icon">❄️</span><span class="t-label">Đông</span>
+          </button>
+          <button type="button" class="temp-btn mat" onclick="selectTemp('di','Mát',this)">
+            <span class="t-icon">🌤️</span><span class="t-label">Mát</span>
+          </button>
+          <button type="button" class="temp-btn kho" onclick="selectTemp('di','Khô',this)">
+            <span class="t-icon">☀️</span><span class="t-label">Khô</span>
+          </button>
+        </div>
+        <input type="hidden" id="nhietdo-di">
+      </div>
+
+      <div class="field">
+        <label>📍 Số Km Giao Hàng (Đến điểm giao hàng) <span class="req">*</span></label>
+        <input type="number" id="kmgiaohang" placeholder="Số km khi đến điểm giao hàng" min="0">
+      </div>
+
+      <div class="field">
+        <label>🏁 Số Km Kết Thúc Chuyến <span class="req">*</span></label>
+        <input type="number" id="kmketthuc" placeholder="Số km trên đồng hồ kết thúc chuyến" min="0">
+      </div>
+
+      <div class="field">
+        <label>🌡️ Nhiệt Độ Lượt Về <span class="req">*</span></label>
+        <div class="temp-group">
+          <button type="button" class="temp-btn dong" onclick="selectTemp('ve','Đông',this)">
+            <span class="t-icon">❄️</span><span class="t-label">Đông</span>
+          </button>
+          <button type="button" class="temp-btn mat" onclick="selectTemp('ve','Mát',this)">
+            <span class="t-icon">🌤️</span><span class="t-label">Mát</span>
+          </button>
+          <button type="button" class="temp-btn kho" onclick="selectTemp('ve','Khô',this)">
+            <span class="t-icon">☀️</span><span class="t-label">Khô</span>
+          </button>
+        </div>
+        <input type="hidden" id="nhietdo-ve">
+      </div>
+
     </div>
   </div>
 
-  <!-- Hidden file inputs -->
-  <input type="file" accept="image/*" capture="environment" id="input_f1" onchange="handlePhoto('f1',this)">
-  <input type="file" accept="image/*" capture="environment" id="input_f2" onchange="handlePhoto('f2',this)">
-  <input type="file" accept="image/*" capture="environment" id="input_f3" onchange="handlePhoto('f3',this)">
-  <input type="file" accept="image/*" capture="environment" id="input_f4" onchange="handlePhoto('f4',this)">
-  <input type="file" accept="image/*" capture="environment" id="input_f5" onchange="handlePhoto('f5',this)">
-  <input type="file" accept="image/*" capture="environment" id="input_f6" onchange="handlePhoto('f6',this)">
-  <input type="file" accept="image/*" capture="environment" id="input_f7" onchange="handlePhoto('f7',this)">
-
-  <div class="btn-wrap">
-    <button class="btn btn-secondary" onclick="goScreen(0)">← Quay lại</button>
-    <button class="btn btn-primary" onclick="goToStep2()" id="btnStep2" disabled>Tiếp theo →</button>
-  </div>
-</div>
-
-<!-- ══════════ SCREEN 2: GIẤY TỜ ══════════ -->
-<div class="screen" id="screen2">
-
-  <div class="step-row">
-    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Thông tin</div><div class="step-line"></div></div>
-    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Hiện trạng</div><div class="step-line"></div></div>
-    <div class="step-item active"><div class="step-circle">3</div><div class="step-label">Giấy tờ</div><div class="step-line"></div></div>
-    <div class="step-item"><div class="step-circle">4</div><div class="step-label">Xác nhận</div></div>
+  <!-- HÌNH ẢNH ĐỒNG HỒ KM -->
+  <div class="section">
+    <div class="section-head"><span class="icon">📷</span><span>Hình Chụp Đồng Hồ Km</span></div>
+    <div class="section-body">
+      <div class="photo-area" id="dropZone">
+        <input type="file" id="photoInput" accept="image/*" multiple capture="environment" onchange="handlePhotos(event)">
+        <div class="photo-icon">📸</div>
+        <div class="photo-text">Nhấn để chụp hoặc chọn hình</div>
+        <div class="photo-sub">Chụp đồng hồ km trước & sau chuyến · Tối đa 5 hình</div>
+      </div>
+      <div class="preview-grid" id="previewGrid"></div>
+    </div>
   </div>
 
-  <div class="note-box">
-    📌 Xếp tất cả giấy tờ xe cạnh nhau rồi <strong>chụp 1 tấm ảnh duy nhất</strong> — đảm bảo ảnh rõ nét, đọc được số. Bao gồm: Đăng ký xe, Giấy bảo hiểm, Đăng kiểm (nếu có).
-  </div>
-
-  <div class="card">
-    <div class="card-title">📄 Giấy tờ xe</div>
-
-    <!-- Hướng dẫn minh họa -->
-    <div style="background:#f0f4ff;border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px;">
-      <div style="font-size:28px;flex-shrink:0;">🗂️</div>
-      <div style="font-size:12px;color:var(--blue);line-height:1.6;">
-        <strong>Cách chụp:</strong> Mở tất cả giấy tờ ra, xếp cạnh nhau trên mặt phẳng (ghế xe, táp lô…) rồi chụp 1 ảnh chứa tất cả.<br>
-        <span style="color:var(--muted);">Đăng ký xe · Bảo hiểm · Đăng kiểm · Phù hiệu</span>
+  <!-- GHI CHÚ -->
+  <div class="section">
+    <div class="section-head"><span class="icon">📝</span><span>Ghi Chú Thêm</span></div>
+    <div class="section-body">
+      <div class="field">
+        <label>Ghi Chú (Nếu có)</label>
+        <textarea id="ghichu" placeholder="Sự cố, vấn đề phát sinh, thông tin bổ sung..." rows="2"></textarea>
       </div>
     </div>
-
-    <!-- 1 ô chụp lớn duy nhất -->
-    <div id="slot_d_all"
-      onclick="triggerPhoto('d_all')"
-      style="
-        width:100%; aspect-ratio:4/3;
-        border-radius:12px;
-        border:2.5px dashed var(--border);
-        display:flex; flex-direction:column;
-        align-items:center; justify-content:center;
-        cursor:pointer; position:relative; overflow:hidden;
-        background:#f7f9fc;
-        transition:border-color .2s, background .2s;
-      ">
-      <span style="font-size:48px;margin-bottom:10px;opacity:.45;">📷</span>
-      <span style="font-size:14px;font-weight:700;color:var(--muted);">Nhấn để chụp ảnh giấy tờ</span>
-      <span style="font-size:11px;color:var(--muted);margin-top:4px;opacity:.8;">Chụp chung tất cả giấy tờ trong 1 ảnh</span>
-      <span class="badge" style="margin-top:10px;padding:4px 12px;font-size:11px;">BẮT BUỘC</span>
-    </div>
-
-    <!-- Nút chụp lại nếu cần -->
-    <div id="doc_retake_btn" style="display:none;margin-top:10px;text-align:center;">
-      <button onclick="retakeDocPhoto(event)"
-        style="background:none;border:1.5px solid var(--border);border-radius:8px;
-               padding:7px 16px;font-family:inherit;font-size:12px;font-weight:700;
-               color:var(--muted);cursor:pointer;">
-        🔄 Chụp lại
-      </button>
-    </div>
   </div>
 
-  <!-- Checklist phụ kiện -->
-  <div class="card">
-    <div class="card-title">✅ Phụ kiện & Dụng cụ trong xe</div>
-    <div class="checklist" id="accessoryChecklist">
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🔧 Bộ dụng cụ sửa xe</span></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🔄 Lốp dự phòng</span></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🪛 Kích xe (con đội)</span></div>
-      <div class="check-item checked" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">🔑 Chìa khóa dự phòng</span></div>
-      <div class="check-item checked" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-label">🧯 Bình cứu hỏa</span></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🪚 Tam giác cảnh báo</span></div>
-      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box"></div><span class="check-label">🧹 Chổi / khăn lau xe</span></div>
-    </div>
+  <div class="info-pill">
+    ℹ️ Dữ liệu sẽ được lưu vào Google Sheet của Logistics - NLC ngay khi bấm Gửi.
   </div>
 
-  <input type="file" accept="image/*" capture="environment" id="input_d_all" onchange="handlePhoto('d_all',this)">
+  <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+    <div class="spinner" id="spinner"></div>
+    <span id="btnText">🚀 GỬI LỊCH TRÌNH</span>
+  </button>
 
-  <div class="btn-wrap">
-    <button class="btn btn-secondary" onclick="goScreen(1)">← Quay lại</button>
-    <button class="btn btn-primary" onclick="goToStep3()" id="btnStep3" disabled>Xem lại →</button>
-  </div>
-</div>
+</div><!-- /form-wrap -->
 
-<!-- ══════════ SCREEN 3: XÁC NHẬN ══════════ -->
-<div class="screen" id="screen3">
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
-  <div class="step-row">
-    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Thông tin</div><div class="step-line"></div></div>
-    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Hiện trạng</div><div class="step-line"></div></div>
-    <div class="step-item done"><div class="step-circle">✓</div><div class="step-label">Giấy tờ</div><div class="step-line"></div></div>
-    <div class="step-item active"><div class="step-circle">4</div><div class="step-label">Xác nhận</div></div>
-  </div>
 
-  <div class="summary-vehicle" id="summaryVehicle">
-    <div class="sv-icon">🚗</div>
-    <div>
-      <div class="sv-plate" id="sumPlate">--</div>
-      <div class="sv-name" id="sumName">--</div>
-      <div class="sv-time" id="sumTime">--</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">👤 Thông tin lái xe</div>
-    <div class="summary-row"><span class="sr-label">Lái xe</span><span class="sr-value" id="sumDriver">--</span></div>
-    <div class="summary-row"><span class="sr-label">Phòng ban</span><span class="sr-value" id="sumDept">--</span></div>
-    <div class="summary-row"><span class="sr-label">Điện thoại</span><span class="sr-value" id="sumPhone">--</span></div>
-    <div class="summary-row"><span class="sr-label">Mục đích</span><span class="sr-value" id="sumPurpose">--</span></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🔢 Hiện trạng</div>
-    <div class="summary-row"><span class="sr-label">Số km</span><span class="sr-value" id="sumKm">--</span></div>
-    <div class="summary-row"><span class="sr-label">Nhiên liệu</span><span class="sr-value" id="sumFuel">--</span></div>
-    <div class="summary-row">
-      <span class="sr-label">Ảnh thân xe</span>
-      <span class="sr-value" id="sumBodyCount">--</span>
-    </div>
-    <div class="summary-row">
-      <span class="sr-label">Ảnh giấy tờ</span>
-      <span class="sr-value" id="sumDocCount">--</span>
-    </div>
-    <div class="summary-row"><span class="sr-label">Ghi chú hư hỏng</span><span class="sr-value" id="sumDamage">--</span></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🖼️ Hình ảnh đã chụp</div>
-    <div class="photo-thumbs" id="summaryThumbs"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">✍️ Xác nhận bàn giao</div>
-    <div class="field">
-      <label>Ghi chú thêm (tùy chọn)</label>
-      <textarea id="finalNote" placeholder="Ghi chú từ lái xe hoặc người bàn giao..."></textarea>
-    </div>
-    <div style="background:#eef4ff;border-radius:9px;padding:12px;font-size:12px;color:var(--blue);line-height:1.6;">
-      ✅ Bằng cách nhấn <strong>"Gửi & Lưu"</strong>, tôi xác nhận đã nhận xe trong tình trạng như trên và chịu trách nhiệm trong suốt thời gian sử dụng.
-    </div>
-  </div>
-
-  <div class="btn-wrap">
-    <button class="btn btn-secondary" onclick="goScreen(2)">← Quay lại</button>
-    <button class="btn btn-success" onclick="submitHandover()">📤 Gửi & Lưu</button>
-  </div>
-</div>
-
-<!-- ══════════ SCREEN 4: THÀNH CÔNG ══════════ -->
-<div class="screen" id="screen4">
-  <div class="success-hero">
-    <div class="success-icon">✅</div>
-    <h2>Bàn giao thành công!</h2>
-    <p id="successMsg">Dữ liệu đã được lưu vào Google Sheets & Drive.</p>
-  </div>
-
-  <div class="card">
-    <div class="card-title">📊 Thông tin đã lưu</div>
-    <div class="summary-row"><span class="sr-label">Mã biên bản</span><span class="sr-value" id="recordId" style="font-family:monospace;color:var(--blue)">--</span></div>
-    <div class="summary-row"><span class="sr-label">Thời gian lưu</span><span class="sr-value" id="savedTime">--</span></div>
-    <div class="summary-row"><span class="sr-label">Xe</span><span class="sr-value" id="savedVehicle">--</span></div>
-    <div class="summary-row"><span class="sr-label">Lái xe</span><span class="sr-value" id="savedDriver">--</span></div>
-    <div class="summary-row">
-      <span class="sr-label">Google Sheets</span>
-      <span class="sr-value" id="sheetStatus"><span class="status-pill status-ok">✓ Đã lưu</span></span>
-    </div>
-    <div class="summary-row">
-      <span class="sr-label">Ảnh Google Drive</span>
-      <span class="sr-value" id="driveStatus"><span class="status-pill status-ok">✓ Đã lưu</span></span>
-    </div>
-  </div>
-
-  <div class="sheet-link-card" id="sheetLinkCard">
-    <div class="sl-icon">📊</div>
-    <h3>Xem Google Sheets</h3>
-    <p>Dữ liệu bàn giao đã được ghi vào bảng tính</p>
-    <a class="sl-btn" id="sheetLink" href="#" target="_blank">Mở Google Sheets →</a>
-  </div>
-
-  <div class="card">
-    <div class="card-title">ℹ️ Bước tiếp theo</div>
-    <div style="font-size:13px;line-height:1.8;color:var(--text);">
-      1️⃣ Admin nhận thông báo qua Google Sheets<br>
-      2️⃣ Ảnh được lưu trong Google Drive theo thư mục xe<br>
-      3️⃣ Khi trả xe, quét lại QR để làm biên bản trả xe
-    </div>
-  </div>
-
-  <div class="btn-wrap">
-    <button class="btn btn-gold" onclick="resetApp()">🔄 Bàn giao xe khác</button>
-  </div>
-</div>
 
 <script>
-// ─── CONFIG – Thay bằng URL Google Apps Script của bạn ───
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxN2G3gEXWg29JAE1QUuLaQVeSHJiAlBt2Qja1FRJCKBpB3i5gxSSZjZ78L8HF_7xlLlw/exec';
-const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1D7Ipjd93_Qx5iNGQMTY3r2GzBeD9a8aDMO6XGTtPUxE/edit';
+// ============================================================
+// CẤU HÌNH – CHỈ CẦN SỬA PHẦN NÀY
+// ============================================================
+const SHEET_ID = '1nfxLCmAKOsH08DYk4YkQs2gUa96UsPPZllVquxn9ZAc';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxpHkxVkOHenhAN7DHfhOEFL41-zZxLLS8mGp0wms57qAEQISSFCwLq14oZuzxcV5EVWg/exec';
 
-// ─── DANH SÁCH XE (tuỳ chỉnh theo công ty) ───
-const VEHICLES = [
-  { id:'xe01', plate:'51F-123.45', name:'Toyota Innova', icon:'🚙', color:'#1155aa' },
-  { id:'xe02', plate:'51G-678.90', name:'Ford Ranger', icon:'🚕', color:'#c0392b' },
-  { id:'xe03', plate:'51H-234.56', name:'Mitsubishi Xpander', icon:'🚐', color:'#27ae60' },
-  { id:'xe04', plate:'51K-789.01', name:'Toyota Fortuner', icon:'🚗', color:'#8e44ad' },
-  { id:'xe05', plate:'51L-345.67', name:'Hyundai Tucson', icon:'🚙', color:'#e67e22' },
-  { id:'xe06', plate:'51M-890.12', name:'Kia Carnival', icon:'🚌', color:'#2c3e50' },
+// DANH SÁCH SỐ XE – thêm/bớt tại đây
+const DANH_SACH_XE = [
+  '51B-123.45',
+  '51B-678.90',
+  '51B-111.22',
+  '51C-333.44',
+  '51C-555.66',
+  '51D-777.88',
+  '51F-999.00',
 ];
 
-const FUEL_LABELS = ['Rỗng (E)','1/8','1/4','3/8','1/2','5/8','3/4','7/8','Đầy (F)'];
-const FUEL_EMOJIS = ['💀','😰','😟','😐','🙂','😊','😄','😁','🤩'];
+// DANH SÁCH LÁI XE – thêm/bớt tại đây
+const DANH_SACH_LAI_XE = [
+  'Nguyễn Văn A',
+  'Trần Văn B',
+  'Lê Văn C',
+  'Phạm Văn D',
+  'Hoàng Văn E',
+];
+// ============================================================
 
-let state = {
-  selectedVehicle: null,
-  photos: {},      // id → { dataUrl, file, name }
-  currentScreen: 0,
-  fuelLevel: 4,
-};
-
-// ─── INIT ───
-function init() {
-  updateDateTime();
-  setInterval(updateDateTime, 30000);
-  renderVehicleGrid();
-  setupInputListeners();
-}
-
-function updateDateTime() {
-  const now = new Date();
-  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric', hour:'2-digit', minute:'2-digit' };
-  document.getElementById('currentDateTime').textContent = now.toLocaleDateString('vi-VN', opts);
-}
-
-function renderVehicleGrid() {
-  const grid = document.getElementById('vehicleGrid');
-  grid.innerHTML = VEHICLES.map(v => `
-    <div class="vehicle-card" id="vc_${v.id}" onclick="selectVehicle('${v.id}')">
-      <div class="vc-icon">${v.icon}</div>
-      <div class="vc-plate">${v.plate}</div>
-      <div class="vc-name">${v.name}</div>
-    </div>
-  `).join('');
-}
-
-function selectVehicle(id) {
-  state.selectedVehicle = VEHICLES.find(v => v.id === id);
-  document.querySelectorAll('.vehicle-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('vc_' + id).classList.add('selected');
-  checkStep0Valid();
-}
-
-function setupInputListeners() {
-  ['driverName','department'].forEach(id => {
-    document.getElementById(id).addEventListener('input', checkStep0Valid);
-    document.getElementById(id).addEventListener('change', checkStep0Valid);
+// Custom dropdown logic
+function buildDropdown(id, items) {
+  const list = document.getElementById('list-' + id);
+  const btn = document.getElementById('btn-' + id);
+  list.innerHTML = '';
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'custom-select-item';
+    div.textContent = item;
+    div.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      selectItem(id, item, div);
+    });
+    div.addEventListener('click', function(e) {
+      selectItem(id, item, div);
+    });
+    list.appendChild(div);
   });
-  document.getElementById('kmReading').addEventListener('input', checkStep1Valid);
+  // Gắn sự kiện mở/đóng dropdown
+  btn.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    toggleDrop(id);
+  });
+  btn.addEventListener('click', function(e) {
+    toggleDrop(id);
+  });
 }
 
-function checkStep0Valid() {
-  const ok = state.selectedVehicle &&
-    document.getElementById('driverName').value.trim() &&
-    document.getElementById('department').value;
-  document.getElementById('btnStep1').disabled = !ok;
+function toggleDrop(id) {
+  const btn = document.getElementById('btn-' + id);
+  const list = document.getElementById('list-' + id);
+  const isOpen = list.classList.contains('open');
+  // close all
+  document.querySelectorAll('.custom-select-list').forEach(l => l.classList.remove('open'));
+  document.querySelectorAll('.custom-select-btn').forEach(b => b.classList.remove('open'));
+  if (!isOpen) {
+    list.classList.add('open');
+    btn.classList.add('open');
+  }
 }
 
-function checkStep1Valid() {
-  const requiredBody = ['f1','f2','f3','f4'];
-  const allBody = requiredBody.every(id => state.photos[id]);
-  const hasKm = document.getElementById('kmReading').value.trim();
-  document.getElementById('btnStep2').disabled = !(allBody && hasKm);
+function selectItem(id, val, el) {
+  document.getElementById(id).value = val;
+  document.getElementById('label-' + id).textContent = val;
+  document.getElementById('label-' + id).style.color = 'var(--text)';
+  document.getElementById('list-' + id).querySelectorAll('.custom-select-item').forEach(i => i.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('list-' + id).classList.remove('open');
+  document.getElementById('btn-' + id).classList.remove('open');
 }
 
-function checkStep2Valid() {
-  document.getElementById('btnStep3').disabled = !state.photos['d_all'];
+// Close dropdowns when clicking outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('.custom-select-wrap')) {
+    document.querySelectorAll('.custom-select-list').forEach(l => l.classList.remove('open'));
+    document.querySelectorAll('.custom-select-btn').forEach(b => b.classList.remove('open'));
+  }
+});
+
+// Populate dropdowns
+buildDropdown('laixe', DANH_SACH_LAI_XE);
+buildDropdown('soxe', DANH_SACH_XE);
+
+// Set today as default dates (iOS safe)
+const now = new Date();
+const yyyy = now.getFullYear();
+const mm = String(now.getMonth() + 1).padStart(2, '0');
+const dd = String(now.getDate()).padStart(2, '0');
+const today = yyyy + '-' + mm + '-' + dd;
+document.getElementById('ngaydi').value = today;
+document.getElementById('ngayve').value = today;
+
+// Temperature selection
+let tempDi = '', tempVe = '';
+function selectTemp(loai, val, btn) {
+  const prefix = loai === 'di' ? 'nhietdo-di' : 'nhietdo-ve';
+  document.getElementById(prefix).value = val;
+  if (loai === 'di') tempDi = val;
+  else tempVe = val;
+
+  const group = btn.closest('.temp-group');
+  group.querySelectorAll('.temp-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 }
 
-// ─── FUEL ───
-function updateFuel(val) {
-  state.fuelLevel = parseInt(val);
-  const pct = (val / 8) * 100;
-  document.getElementById('fuelFill').style.width = pct + '%';
-  document.getElementById('fuelEmoji').textContent = FUEL_EMOJIS[val];
+// Photo handling
+let photoFiles = [];
+function handlePhotos(e) {
+  const files = Array.from(e.target.files);
+  const remaining = 5 - photoFiles.length;
+  files.slice(0, remaining).forEach(f => {
+    photoFiles.push(f);
+    renderPreview(f, photoFiles.length - 1);
+  });
+  e.target.value = '';
 }
 
-// ─── PHOTO CAPTURE ───
-function triggerPhoto(id) {
-  document.getElementById('input_' + id).click();
-}
-
-function handlePhoto(id, input) {
-  if (!input.files[0]) return;
-  const file = input.files[0];
+function renderPreview(file, idx) {
   const reader = new FileReader();
-  reader.onload = e => {
-    state.photos[id] = { dataUrl: e.target.result, file, name: file.name };
-
-    if (id === 'd_all') {
-      // Special large single-slot rendering for documents
-      const slot = document.getElementById('slot_d_all');
-      slot.style.border = '2.5px solid var(--success)';
-      slot.style.background = '#fff';
-      slot.onclick = null; // disable click on image area
-      slot.innerHTML = `
-        <img src="${e.target.result}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-        <div style="position:absolute;top:8px;right:8px;background:var(--success);color:#fff;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;">✓</div>
-      `;
-      document.getElementById('doc_retake_btn').style.display = 'block';
-    } else {
-      const slot = document.getElementById('slot_' + id);
-      slot.innerHTML = `
-        <img src="${e.target.result}" alt="">
-        <div class="photo-check">✓</div>
-        <div class="photo-del" onclick="removePhoto('${id}',event)">✕</div>
-      `;
-      slot.classList.add('captured');
-    }
-    checkStep1Valid();
-    checkStep2Valid();
+  reader.onload = ev => {
+    const grid = document.getElementById('previewGrid');
+    const div = document.createElement('div');
+    div.className = 'preview-item';
+    div.id = 'prev-' + idx;
+    div.innerHTML = `<img src="${ev.target.result}"><button class="del-btn" onclick="removePhoto(${idx})">✕</button>`;
+    grid.appendChild(div);
   };
   reader.readAsDataURL(file);
 }
 
-function removePhoto(id, event) {
-  event.stopPropagation();
-  delete state.photos[id];
-  const labels = {
-    f1:'Góc trước trái', f2:'Góc trước phải', f3:'Góc sau trái', f4:'Góc sau phải',
-    f5:'Đồng hồ km', f6:'Ghế / nội thất', f7:'Cốp xe',
-  };
-  const icons = { f1:'📷',f2:'📷',f3:'📷',f4:'📷',f5:'📷',f6:'📷',f7:'📷' };
-  const slot = document.getElementById('slot_' + id);
-  slot.innerHTML = `<span class="slot-icon">${icons[id]||'📷'}</span><span class="slot-label">${labels[id]||id}</span>`;
-  slot.classList.remove('captured');
-  document.getElementById('input_' + id).value = '';
-  checkStep1Valid();
-  checkStep2Valid();
+function removePhoto(idx) {
+  photoFiles[idx] = null;
+  const el = document.getElementById('prev-' + idx);
+  if (el) el.remove();
 }
 
-function retakeDocPhoto(event) {
-  event.stopPropagation();
-  // Reset slot to empty state
-  delete state.photos['d_all'];
-  const slot = document.getElementById('slot_d_all');
-  slot.style.border = '2.5px dashed var(--border)';
-  slot.style.background = '#f7f9fc';
-  slot.onclick = function(){ triggerPhoto('d_all'); };
-  slot.innerHTML = `
-    <span style="font-size:48px;margin-bottom:10px;opacity:.45;">📷</span>
-    <span style="font-size:14px;font-weight:700;color:var(--muted);">Nhấn để chụp ảnh giấy tờ</span>
-    <span style="font-size:11px;color:var(--muted);margin-top:4px;opacity:.8;">Chụp chung tất cả giấy tờ trong 1 ảnh</span>
-    <span class="badge" style="margin-top:10px;padding:4px 12px;font-size:11px;">BẮT BUỘC</span>
-  `;
-  document.getElementById('doc_retake_btn').style.display = 'none';
-  document.getElementById('input_d_all').value = '';
-  checkStep2Valid();
-}
-
-// ─── CHECKLIST ───
-function toggleCheck(el) {
-  el.classList.toggle('checked');
-  const box = el.querySelector('.check-box');
-  box.textContent = el.classList.contains('checked') ? '✓' : '';
-}
-
-// ─── NAVIGATION ───
-function goScreen(n) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById('screen' + n).classList.add('active');
-  window.scrollTo(0,0);
-  state.currentScreen = n;
-  const pct = [0, 33, 60, 85, 100][n];
-  document.getElementById('progressBar').style.width = pct + '%';
-  const badges = ['CHỌN XE','HIỆN TRẠNG','GIẤY TỜ','XÁC NHẬN','HOÀN TẤT'];
-  document.getElementById('headerBadge').textContent = badges[n];
-}
-
-function goToStep1() { goScreen(1); }
-function goToStep2() { goScreen(2); }
-function goToStep3() {
-  buildSummary();
-  goScreen(3);
-}
-
-function buildSummary() {
-  const v = state.selectedVehicle;
-  document.getElementById('sumPlate').textContent = v.plate;
-  document.getElementById('sumName').textContent = v.name;
-  document.getElementById('sumTime').textContent = new Date().toLocaleString('vi-VN');
-  document.getElementById('sumDriver').textContent = document.getElementById('driverName').value;
-  document.getElementById('sumDept').textContent = document.getElementById('department').value;
-  document.getElementById('sumPhone').textContent = document.getElementById('driverPhone').value || '—';
-  document.getElementById('sumPurpose').textContent = document.getElementById('tripPurpose').value || '—';
-  document.getElementById('sumKm').textContent = document.getElementById('kmReading').value + ' km';
-  document.getElementById('sumFuel').textContent = FUEL_LABELS[state.fuelLevel];
-  
-  const bodyPhotos = ['f1','f2','f3','f4','f5','f6','f7'].filter(id => state.photos[id]).length;
-  const docPhotos = state.photos['d_all'] ? 1 : 0;
-  document.getElementById('sumBodyCount').textContent = bodyPhotos + ' ảnh';
-  document.getElementById('sumDocCount').textContent = docPhotos ? '✓ Đã chụp' : '✗ Chưa chụp';
-  document.getElementById('sumDamage').textContent = document.getElementById('damageNote').value || 'Không có';
-
-  // Thumbnails
-  const thumbsEl = document.getElementById('summaryThumbs');
-  thumbsEl.innerHTML = '';
-  Object.values(state.photos).forEach(p => {
-    const img = document.createElement('img');
-    img.src = p.dataUrl;
-    thumbsEl.appendChild(img);
+// Convert image to base64
+function fileToBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
   });
-  if (Object.keys(state.photos).length === 0) {
-    thumbsEl.innerHTML = '<span style="font-size:12px;color:var(--muted)">Chưa có ảnh nào.</span>';
-  }
 }
 
-// ─── SUBMIT ───
-async function submitHandover() {
-  const overlay = document.getElementById('loadingOverlay');
-  const loadText = document.getElementById('loadingText');
-  overlay.classList.add('show');
+// Toast
+function showToast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' error' : '') + ' show';
+  setTimeout(() => { t.className = 'toast' + (isError ? ' error' : ''); }, 4000);
+}
 
-  // Build record
-  const v = state.selectedVehicle;
-  const timestamp = new Date();
-  const recordId = 'BGX-' + timestamp.getTime().toString(36).toUpperCase();
+// Validate
+function validate() {
+  const checks = [
+    [!document.getElementById('laixe').value, 'Vui lòng chọn lái xe'],
+    [!document.getElementById('soxe').value, 'Vui lòng chọn số xe'],
+    [!document.getElementById('ngaydi').value, 'Vui lòng chọn ngày đi'],
+    [!document.getElementById('ngayve').value, 'Vui lòng chọn ngày về'],
+    [!document.getElementById('lichtrinh').value.trim(), 'Vui lòng nhập lịch trình giao hàng'],
+    [!document.getElementById('sodiemgiao').value, 'Vui lòng nhập số điểm giao hàng'],
+    [!document.getElementById('kmdau').value, 'Vui lòng nhập số km đầu'],
+    [!tempDi, 'Vui lòng chọn nhiệt độ lượt đi'],
+    [!document.getElementById('kmgiaohang').value, 'Vui lòng nhập số km giao hàng'],
+    [!document.getElementById('kmketthuc').value, 'Vui lòng nhập số km kết thúc'],
+    [!tempVe, 'Vui lòng chọn nhiệt độ lượt về'],
+  ];
+  for (const [cond, msg] of checks) {
+    if (cond) { showToast('⚠️ ' + msg, true); return false; }
+  }
+  return true;
+}
 
-  const record = {
-    recordId,
-    timestamp: timestamp.toISOString(),
-    vehicleId: v.id,
-    vehiclePlate: v.plate,
-    vehicleName: v.name,
-    driverName: document.getElementById('driverName').value,
-    department: document.getElementById('department').value,
-    driverPhone: document.getElementById('driverPhone').value,
-    tripPurpose: document.getElementById('tripPurpose').value,
-    kmReading: document.getElementById('kmReading').value,
-    fuelLevel: FUEL_LABELS[state.fuelLevel],
-    damageNote: document.getElementById('damageNote').value,
-    finalNote: document.getElementById('finalNote').value,
-    accessories: getCheckedAccessories(),
-    photos: Object.fromEntries(
-      Object.entries(state.photos).map(([k,v]) => [k, v.dataUrl])
-    ),
+// Submit
+async function submitForm() {
+  if (!validate()) return;
+
+  const btn = document.getElementById('btnSubmit');
+  const spinner = document.getElementById('spinner');
+  const btnText = document.getElementById('btnText');
+  btn.disabled = true;
+  spinner.style.display = 'block';
+  btnText.textContent = 'Đang gửi...';
+
+  // Collect form data
+  const row = {
+    thoiGianGui: new Date().toLocaleString('vi-VN'),
+    laiXe: document.getElementById('laixe').value.trim(),
+    soXe: document.getElementById('soxe').value,
+    ngayDi: document.getElementById('ngaydi').value,
+    ngayVe: document.getElementById('ngayve').value,
+    lichTrinh: document.getElementById('lichtrinh').value.trim(),
+    soDiemGiao: document.getElementById('sodiemgiao').value,
+    kmDau: document.getElementById('kmdau').value,
+    nhietDoDi: tempDi,
+    kmGiaoHang: document.getElementById('kmgiaohang').value,
+    kmKetThuc: document.getElementById('kmketthuc').value,
+    nhietDoVe: tempVe,
+    ghiChu: document.getElementById('ghichu').value.trim(),
+    soHinh: photoFiles.filter(Boolean).length,
   };
-
-  loadText.textContent = 'Đang gửi dữ liệu lên Google Sheets...';
-
-  let sheetOk = false, driveOk = false;
 
   try {
-    // Send to Google Apps Script
-    const res = await fetch(APPS_SCRIPT_URL, {
+    // Gửi thẳng vào Google Sheet qua Apps Script
+    const resp = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(record),
+      body: JSON.stringify(row)
     });
-    const result = await res.json();
-    sheetOk = result.status === 'ok';
-    driveOk = result.driveOk || false;
-  } catch(e) {
-    // Demo mode: simulate success
-    console.warn('Apps Script not configured – demo mode', e);
-    sheetOk = true; driveOk = true;
-    await new Promise(r => setTimeout(r, 1500));
+
+    // no-cors không trả về body, nhưng nếu không throw = thành công
+    saveLocalBackup(row);
+    showToast('✅ Đã gửi lịch trình vào Google Sheet!');
+    setTimeout(() => resetForm(), 2200);
+  } catch (err) {
+    saveLocalBackup(row);
+    showToast('⚠️ Không kết nối được. Đã lưu tạm – thử lại sau.', true);
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    btnText.textContent = '🚀 GỬI LỊCH TRÌNH';
   }
-
-  loadText.textContent = 'Hoàn tất!';
-  await new Promise(r => setTimeout(r, 500));
-  overlay.classList.remove('show');
-
-  // Populate success screen
-  document.getElementById('recordId').textContent = recordId;
-  document.getElementById('savedTime').textContent = timestamp.toLocaleString('vi-VN');
-  document.getElementById('savedVehicle').textContent = v.plate + ' – ' + v.name;
-  document.getElementById('savedDriver').textContent = document.getElementById('driverName').value;
-  document.getElementById('sheetStatus').innerHTML = sheetOk
-    ? '<span class="status-pill status-ok">✓ Đã lưu</span>'
-    : '<span class="status-pill status-warn">⚠ Cần cấu hình</span>';
-  document.getElementById('driveStatus').innerHTML = driveOk
-    ? '<span class="status-pill status-ok">✓ Đã lưu</span>'
-    : '<span class="status-pill status-warn">⚠ Cần cấu hình</span>';
-  document.getElementById('sheetLink').href = SHEET_URL;
-
-  goScreen(4);
 }
 
-function getCheckedAccessories() {
-  const items = document.querySelectorAll('#accessoryChecklist .check-item.checked .check-label');
-  return Array.from(items).map(i => i.textContent).join(', ');
+function saveLocalBackup(row) {
+  try {
+    const stored = JSON.parse(localStorage.getItem('lichTrinhBackup') || '[]');
+    stored.push(row);
+    localStorage.setItem('lichTrinhBackup', JSON.stringify(stored));
+  } catch(e) {}
 }
 
-function resetApp() {
-  state = { selectedVehicle: null, photos: {}, currentScreen: 0, fuelLevel: 4 };
-  document.getElementById('driverName').value = '';
-  document.getElementById('department').value = '';
-  document.getElementById('driverPhone').value = '';
-  document.getElementById('tripPurpose').value = '';
-  document.getElementById('kmReading').value = '';
-  document.getElementById('damageNote').value = '';
-  document.getElementById('finalNote').value = '';
-  document.getElementById('fuelRange').value = 4;
-  updateFuel(4);
-  renderVehicleGrid();
-  // Reset photo slots
-  const slots = document.querySelectorAll('.photo-slot');
-  // Re-render is handled by init
-  goScreen(0);
-  setTimeout(() => window.location.reload(), 100);
+function resetForm() {
+  document.getElementById('laixe').value = '';
+  document.getElementById('soxe').value = '';
+  document.getElementById('label-laixe').textContent = '-- Chọn lái xe --';
+  document.getElementById('label-laixe').style.color = '';
+  document.getElementById('label-soxe').textContent = '-- Chọn số xe --';
+  document.getElementById('label-soxe').style.color = '';
+  document.querySelectorAll('.custom-select-item').forEach(i => i.classList.remove('selected'));
+  document.getElementById('lichtrinh').value = '';
+  document.getElementById('sodiemgiao').value = '';
+  document.getElementById('kmdau').value = '';
+  document.getElementById('kmgiaohang').value = '';
+  document.getElementById('kmketthuc').value = '';
+  document.getElementById('ghichu').value = '';
+  document.getElementById('nhietdo-di').value = '';
+  document.getElementById('nhietdo-ve').value = '';
+  tempDi = ''; tempVe = '';
+  document.querySelectorAll('.temp-btn').forEach(b => b.classList.remove('active'));
+  photoFiles = [];
+  document.getElementById('previewGrid').innerHTML = '';
+  const now2 = new Date();
+  const yyyy2 = now2.getFullYear();
+  const mm2 = String(now2.getMonth() + 1).padStart(2, '0');
+  const dd2 = String(now2.getDate()).padStart(2, '0');
+  document.getElementById('ngaydi').value = yyyy2 + '-' + mm2 + '-' + dd2;
+  document.getElementById('ngayve').value = yyyy2 + '-' + mm2 + '-' + dd2;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-init();
 </script>
 </body>
 </html>
