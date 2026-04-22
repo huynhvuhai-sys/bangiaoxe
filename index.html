@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Lịch Trình Lái Xe – Logistics NLC</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{
   --blue:#1565C0;--blue-l:#1976D2;--blue-d:#0D47A1;
@@ -18,105 +17,65 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito',sans-serif;background:var(--surf);color:var(--text);min-height:100vh;padding-bottom:60px;}
-
-/* HEADER */
-.hdr{background:linear-gradient(135deg,var(--blue-d),var(--blue-l));padding:16px 16px 20px;text-align:center;box-shadow:0 4px 16px rgba(13,71,161,.3);overflow:hidden;position:relative;}
+.hdr{background:linear-gradient(135deg,var(--blue-d),var(--blue-l));padding:16px 16px 20px;text-align:center;box-shadow:0 4px 16px rgba(13,71,161,.3);position:relative;overflow:hidden;}
 .hdr::before{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;background:rgba(255,255,255,.08);border-radius:50%;}
 .hdr-logo{font-size:12px;color:rgba(255,255,255,.75);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
 .hdr h1{font-size:21px;font-weight:900;color:#fff;}
 .hdr-sub{font-size:12px;color:rgba(255,255,255,.7);margin-top:3px;}
-
 .wrap{max-width:520px;margin:0 auto;padding:0 12px;}
-
-/* SECTION */
 .sec{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-top:12px;overflow:hidden;}
-.sec-head{background:linear-gradient(90deg,var(--blue),var(--blue-l));padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
-.sec-head-left{display:flex;align-items:center;gap:8px;}
+.sec-head{background:linear-gradient(90deg,var(--blue),var(--blue-l));padding:10px 14px;display:flex;align-items:center;gap:8px;}
 .sec-head span.ti{color:#fff;font-weight:800;font-size:14px;}
 .sec-body{padding:12px 12px;}
-
-/* BUTTON GRID */
 .btn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;}
 .btn-grid.col3{grid-template-columns:repeat(3,1fr);}
 .gbtn{padding:11px 5px;border:2.5px solid var(--border);border-radius:11px;background:var(--surf);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;text-align:center;transition:all .15s;line-height:1.3;-webkit-tap-highlight-color:transparent;word-break:break-all;}
 .gbtn.active{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 3px 12px rgba(21,101,192,.35);}
 .gbtn.dong{background:var(--dong-bg);border-color:var(--dong-b);color:var(--dong-t);}
-.gbtn.dong.active{background:var(--dong-b);border-color:var(--dong-b);color:#fff;box-shadow:0 3px 12px rgba(30,136,229,.4);}
+.gbtn.dong.active{background:var(--dong-b);color:#fff;box-shadow:0 3px 12px rgba(30,136,229,.4);}
 .gbtn.mat{background:var(--mat-bg);border-color:var(--mat-b);color:var(--mat-t);}
-.gbtn.mat.active{background:var(--mat-b);border-color:var(--mat-b);color:#fff;box-shadow:0 3px 12px rgba(0,137,123,.4);}
+.gbtn.mat.active{background:var(--mat-b);color:#fff;box-shadow:0 3px 12px rgba(0,137,123,.4);}
 .gbtn.kho{background:var(--kho-bg);border-color:var(--kho-b);color:var(--kho-t);}
-.gbtn.kho.active{background:var(--kho-b);border-color:var(--kho-b);color:#fff;box-shadow:0 3px 12px rgba(249,168,37,.4);}
-
-/* TRIP CARD – bố cục bảng như mẫu */
+.gbtn.kho.active{background:var(--kho-b);color:#fff;box-shadow:0 3px 12px rgba(249,168,37,.4);}
 .trip-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-top:12px;overflow:hidden;}
 .trip-card-head{background:linear-gradient(90deg,var(--blue-d),var(--blue));padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
 .trip-card-head .tn{color:#fff;font-weight:900;font-size:15px;}
-.trip-card-head .del-btn{background:rgba(255,255,255,.2);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:800;padding:5px 10px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
-
-/* GRID TABLE bên trong trip card */
+.del-btn{background:rgba(255,255,255,.2);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:800;padding:5px 12px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 .tbl{display:grid;gap:1px;background:var(--border);}
 .tbl-row{display:grid;gap:1px;}
-.tbl-row.r2{grid-template-columns:1fr 1fr;}
 .tbl-row.r3{grid-template-columns:1fr 1fr 1fr;}
-.tbl-row.r1{grid-template-columns:1fr;}
+.tbl-row.r2{grid-template-columns:1fr 1fr;}
 .tbl-cell{background:var(--card);padding:10px 11px;}
 .tbl-cell label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
-.tbl-cell input[type=date],
-.tbl-cell input[type=number],
-.tbl-cell textarea{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px 10px;font-size:15px;font-family:'Nunito',sans-serif;font-weight:700;color:var(--text);background:var(--surf);outline:none;-webkit-appearance:none;transition:border-color .2s;}
+.tbl-cell input[type=date],.tbl-cell input[type=number],.tbl-cell textarea{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px;font-size:15px;font-family:'Nunito',sans-serif;font-weight:700;color:var(--text);background:var(--surf);outline:none;-webkit-appearance:none;transition:border-color .2s;}
 .tbl-cell input:focus,.tbl-cell textarea:focus{border-color:var(--blue);background:#fff;}
-.tbl-cell textarea{resize:none;min-height:64px;line-height:1.4;}
+.tbl-cell textarea{resize:none;min-height:62px;line-height:1.4;}
 .tbl-cell .btn-grid{margin-top:2px;}
 .tbl-cell .gbtn{font-size:12px;padding:9px 4px;}
-
-/* Ảnh upload trong trip */
-.photo-wrap{background:var(--card);padding:10px 11px;border-top:1px solid var(--border);}
-.photo-wrap label.ph-lbl{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.4px;}
-.photo-row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start;}
-.photo-add{width:72px;height:72px;border:2.5px dashed var(--border);border-radius:10px;background:var(--surf);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;position:relative;-webkit-tap-highlight-color:transparent;transition:border-color .2s;}
-.photo-add:hover{border-color:var(--blue);}
-.photo-add input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;font-size:0;}
-.photo-add .pa-icon{font-size:24px;}
-.photo-add .pa-txt{font-size:9px;font-weight:800;color:var(--muted);margin-top:2px;}
-.photo-thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;position:relative;flex-shrink:0;}
-.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
-.photo-thumb .rm{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);border:none;border-radius:50%;width:20px;height:20px;color:#fff;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.photo-thumb .up-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(255,255,255,.3);border-radius:0 0 10px 10px;overflow:hidden;}
-.photo-thumb .up-prog{height:100%;background:#4CAF50;transition:width .3s;}
-.photo-link{font-size:10px;font-weight:700;color:var(--green);word-break:break-all;margin-top:4px;}
-
-/* ADD TRIP */
 .btn-add-trip{width:100%;margin-top:12px;padding:14px;background:#fff;border:2.5px dashed var(--blue);border-radius:var(--r);font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--blue);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;-webkit-tap-highlight-color:transparent;transition:background .18s;}
 .btn-add-trip:active{background:var(--surf);}
-
-/* SUBMIT */
-.btn-submit{width:100%;padding:17px;background:linear-gradient(135deg,var(--green),#388E3C);color:#fff;border:none;border-radius:var(--r);font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;cursor:pointer;margin-top:14px;box-shadow:0 5px 18px rgba(46,125,50,.35);display:flex;align-items:center;justify-content:center;gap:10px;-webkit-tap-highlight-color:transparent;transition:opacity .2s;}
+.btn-add-trip:disabled{opacity:.4;cursor:not-allowed;border-color:var(--border);color:var(--muted);}
+.trip-counter{text-align:center;margin-top:10px;font-size:13px;font-weight:800;color:var(--muted);}
+.trip-counter b{color:var(--blue);font-size:15px;}
+.btn-submit{width:100%;padding:17px;background:linear-gradient(135deg,var(--green),#388E3C);color:#fff;border:none;border-radius:var(--r);font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;cursor:pointer;margin-top:14px;box-shadow:0 5px 18px rgba(46,125,50,.35);display:flex;align-items:center;justify-content:center;gap:10px;-webkit-tap-highlight-color:transparent;}
 .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
 .spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.info-pill{background:#E3F2FD;border:1.5px solid #90CAF9;border-radius:10px;padding:10px 13px;font-size:12px;color:var(--blue);font-weight:700;margin-top:12px;display:flex;align-items:flex-start;gap:7px;}
-
+.info-pill{background:#E3F2FD;border:1.5px solid #90CAF9;border-radius:10px;padding:10px 13px;font-size:12px;color:var(--blue);font-weight:700;margin-top:12px;display:flex;align-items:center;gap:7px;}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:#1B5E20;color:#fff;padding:13px 22px;border-radius:50px;font-weight:800;font-size:14px;box-shadow:0 8px 28px rgba(0,0,0,.25);transition:transform .35s cubic-bezier(.34,1.56,.64,1);z-index:9999;max-width:92vw;text-align:center;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 .toast.err{background:#B71C1C;}
-.toast.warn{background:#E65100;}
 </style>
 </head>
 <body>
-
 <div class="hdr">
   <div class="hdr-logo">🚛 Logistics - NLC</div>
   <h1>📋 Lịch Trình Lái Xe</h1>
-  <div class="hdr-sub">Nhập 1–5 chuyến · Gửi một lần</div>
+  <div class="hdr-sub">Nhập 1–10 chuyến · Gửi một lần</div>
 </div>
-
 <div class="wrap">
-
-  <!-- LÁI XE & SỐ XE -->
   <div class="sec">
-    <div class="sec-head">
-      <div class="sec-head-left"><span>🧑‍✈️</span><span class="ti">Lái Xe & Số Xe (áp dụng tất cả chuyến)</span></div>
-    </div>
+    <div class="sec-head"><span>🧑‍✈️</span><span class="ti">Lái Xe & Số Xe (áp dụng tất cả chuyến)</span></div>
     <div class="sec-body">
       <div style="margin-bottom:12px">
         <label style="font-size:13px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;">Lái Xe Thực Hiện <span style="color:#E53935">*</span></label>
@@ -130,414 +89,177 @@ body{font-family:'Nunito',sans-serif;background:var(--surf);color:var(--text);mi
       </div>
     </div>
   </div>
-
-  <!-- TRIP CARDS -->
   <div id="tripCards"></div>
-
-  <!-- NÚT THÊM CHUYẾN -->
+  <div class="trip-counter" id="tripCounter"><b>1</b> / 10 chuyến</div>
   <button class="btn-add-trip" id="btnAddTrip" onclick="addTrip()">＋ Thêm Chuyến</button>
-
-  <div class="info-pill">
-    <span>ℹ️</span>
-    <span>Dữ liệu & hình ảnh lưu vào Google Drive + Sheet của Logistics - NLC. Ảnh cần kết nối internet.</span>
-  </div>
-
+  <div class="info-pill">ℹ️ Dữ liệu gửi thẳng vào Google Sheet của Logistics - NLC</div>
   <button class="btn-submit" id="btnSubmit" onclick="submitAll()">
     <div class="spinner" id="spinner"></div>
     <span id="btnText">🚀 GỬI TẤT CẢ CHUYẾN</span>
   </button>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-// ══════════════════════════════════════
-// CẤU HÌNH – SỬA Ở ĐÂY
-// ══════════════════════════════════════
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypJzYooJ4CG_ODGhv5sphGVA8BWBzMUT1LV3drWrWbgDN6DDlvZC58ZxcQ9v58jHeLGg/exec';
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbypJzYooJ4CG_ODGhv5sphGVA8BWBzMUT1LV3drWrWbgDN6DDlvZC58ZxcQ9v58jHeLGg/exec';
+const MAX_TRIPS=10;
+const DANH_SACH_LAI_XE=['Nguyễn Văn A','Trần Văn B','Lê Văn C','Phạm Văn D','Hoàng Văn E'];
+const DANH_SACH_XE=['51B-123.45','51B-678.90','51B-111.22','51C-333.44','51C-555.66','51D-777.88','51F-999.00'];
 
-// Folder Google Drive chứa ảnh (ID đã tạo sẵn)
-const DRIVE_FOLDER_ID = '1Zlp37t4qROc2XBWYB9MzYtqlWDAzF8t2';
+var tripCount=0;
+function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
 
-// Google OAuth Client ID (để upload ảnh trực tiếp lên Drive)
-const GOOGLE_CLIENT_ID = 'REPLACE_WITH_CLIENT_ID';
-
-const DANH_SACH_LAI_XE = [
-  'Nguyễn Văn A',
-  'Trần Văn B',
-  'Lê Văn C',
-  'Phạm Văn D',
-  'Hoàng Văn E',
-];
-
-const DANH_SACH_XE = [
-  '51B-123.45',
-  '51B-678.90',
-  '51B-111.22',
-  '51C-333.44',
-  '51C-555.66',
-  '51D-777.88',
-  '51F-999.00',
-];
-// ══════════════════════════════════════
-
-var tripCount = 0;
-// photoStore[idx] = [{file, b64, url, uploading}]
-var photoStore = {};
-
-function gv(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
-
-// ── Build grids ─────────────────────────────────────
-function buildGrid(gridId, hiddenId, items) {
-  var grid = document.getElementById(gridId);
-  if (!grid) return;
-  grid.innerHTML = '';
-  if (items.length <= 6) grid.classList.add('col3');
-  items.forEach(function(item) {
-    var btn = document.createElement('button');
-    btn.type = 'button'; btn.className = 'gbtn'; btn.textContent = item;
-    btn.addEventListener('click', function() {
-      grid.querySelectorAll('.gbtn').forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      document.getElementById(hiddenId).value = item;
-    });
-    grid.appendChild(btn);
+function buildGrid(gridId,hiddenId,items){
+  var g=document.getElementById(gridId);if(!g)return;
+  g.innerHTML='';if(items.length<=6)g.classList.add('col3');
+  items.forEach(function(item){
+    var b=document.createElement('button');b.type='button';b.className='gbtn';b.textContent=item;
+    b.addEventListener('click',function(){
+      g.querySelectorAll('.gbtn').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');document.getElementById(hiddenId).value=item;
+    });g.appendChild(b);
   });
 }
 
-function buildTempGrid(gridId, hiddenId) {
-  var grid = document.getElementById(gridId);
-  if (!grid) return;
-  grid.innerHTML = ''; grid.classList.add('col3');
-  [['❄️ Đông','dong','Đông'],['🌤️ Mát','mat','Mát'],['☀️ Khô','kho','Khô']].forEach(function(t) {
-    var btn = document.createElement('button');
-    btn.type = 'button'; btn.className = 'gbtn ' + t[1]; btn.textContent = t[0];
-    btn.addEventListener('click', function() {
-      grid.querySelectorAll('.gbtn').forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      document.getElementById(hiddenId).value = t[2];
-    });
-    grid.appendChild(btn);
+function buildTempGrid(gridId,hiddenId){
+  var g=document.getElementById(gridId);if(!g)return;
+  g.innerHTML='';g.classList.add('col3');
+  [['❄️ Đông','dong','Đông'],['🌤️ Mát','mat','Mát'],['☀️ Khô','kho','Khô']].forEach(function(t){
+    var b=document.createElement('button');b.type='button';b.className='gbtn '+t[1];b.textContent=t[0];
+    b.addEventListener('click',function(){
+      g.querySelectorAll('.gbtn').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');document.getElementById(hiddenId).value=t[2];
+    });g.appendChild(b);
   });
 }
 
-// ── Tạo trip card ────────────────────────────────────
-function createTripCard(idx) {
-  var n = idx + 1;
-  var card = document.createElement('div');
-  card.className = 'trip-card';
-  card.id = 'card-' + idx;
-
-  // Header
-  var head = document.createElement('div');
-  head.className = 'trip-card-head';
-  head.innerHTML = '<span class="tn">🚚 Chuyến ' + n + '</span>' +
-    (idx > 0 ? '<button class="del-btn" onclick="removeTrip('+idx+')">✕ Xóa</button>' : '');
+function createTripCard(idx){
+  var n=idx+1;
+  var card=document.createElement('div');card.className='trip-card';card.id='card-'+idx;
+  var head=document.createElement('div');head.className='trip-card-head';
+  head.innerHTML='<span class="tn">🚚 Chuyến '+n+'</span>'+(idx>0?'<button class="del-btn" id="delbtn-'+idx+'">✕ Xóa</button>':'<span></span>');
   card.appendChild(head);
-
-  // Table body
-  var tbl = document.createElement('div');
-  tbl.className = 'tbl';
-
-  // Hàng 1: Ngày đi | Ngày về | Nơi Giao
-  var row1 = document.createElement('div');
-  row1.className = 'tbl-row r3';
-  row1.innerHTML =
-    '<div class="tbl-cell"><label>📤 Ngày Đi *</label><input type="date" id="ngaydi-'+idx+'"></div>' +
-    '<div class="tbl-cell"><label>📥 Ngày Về *</label><input type="date" id="ngayve-'+idx+'"></div>' +
-    '<div class="tbl-cell"><label>🗺️ Nơi Giao *</label><textarea id="lichtrinh-'+idx+'" placeholder="Đồng Nai, Bình Dương..."></textarea></div>';
-  tbl.appendChild(row1);
-
-  // Hàng 2: Km Đầu | Km Giao Hàng | Km Cuối
-  var row2 = document.createElement('div');
-  row2.className = 'tbl-row r3';
-  row2.innerHTML =
-    '<div class="tbl-cell"><label>📌 Km Đầu *</label><input type="number" id="kmdau-'+idx+'" placeholder="0" min="0"></div>' +
-    '<div class="tbl-cell"><label>📍 Km Giao Hàng *</label><input type="number" id="kmgiaohang-'+idx+'" placeholder="0" min="0"></div>' +
-    '<div class="tbl-cell"><label>🏁 Km Cuối *</label><input type="number" id="kmketthuc-'+idx+'" placeholder="0" min="0"></div>';
-  tbl.appendChild(row2);
-
-  // Hàng 3: Nhiệt Độ Đi | Nhiệt Độ Về
-  var row3 = document.createElement('div');
-  row3.className = 'tbl-row r2';
-  row3.innerHTML =
-    '<div class="tbl-cell"><label>🌡️ Nhiệt Độ Đi *</label><div class="btn-grid" id="tempdi-'+idx+'"></div><input type="hidden" id="nhietdodi-'+idx+'"></div>' +
-    '<div class="tbl-cell"><label>🌡️ Nhiệt Độ Về *</label><div class="btn-grid" id="tempve-'+idx+'"></div><input type="hidden" id="nhietdove-'+idx+'"></div>';
-  tbl.appendChild(row3);
-
-  // Hàng 4: Số điểm giao | Ghi chú
-  var row4 = document.createElement('div');
-  row4.className = 'tbl-row r2';
-  row4.innerHTML =
-    '<div class="tbl-cell"><label>🔢 Số Điểm Giao *</label><input type="number" id="sodiemgiao-'+idx+'" placeholder="1" min="1" max="99"></div>' +
-    '<div class="tbl-cell"><label>📝 Ghi Chú</label><textarea id="ghichu-'+idx+'" placeholder="Sự cố..."></textarea></div>';
-  tbl.appendChild(row4);
-
+  var tbl=document.createElement('div');tbl.className='tbl';
+  var r1=document.createElement('div');r1.className='tbl-row r3';
+  r1.innerHTML='<div class="tbl-cell"><label>📤 Ngày Đi *</label><input type="date" id="ngaydi-'+idx+'"></div>'
+    +'<div class="tbl-cell"><label>📥 Ngày Về *</label><input type="date" id="ngayve-'+idx+'"></div>'
+    +'<div class="tbl-cell"><label>🗺️ Nơi Giao *</label><textarea id="lichtrinh-'+idx+'" placeholder="Đồng Nai, Bình Dương..."></textarea></div>';
+  tbl.appendChild(r1);
+  var r2=document.createElement('div');r2.className='tbl-row r3';
+  r2.innerHTML='<div class="tbl-cell"><label>📌 Km Đầu *</label><input type="number" id="kmdau-'+idx+'" placeholder="0" min="0"></div>'
+    +'<div class="tbl-cell"><label>📍 Km Giao *</label><input type="number" id="kmgiaohang-'+idx+'" placeholder="0" min="0"></div>'
+    +'<div class="tbl-cell"><label>🏁 Km Cuối *</label><input type="number" id="kmketthuc-'+idx+'" placeholder="0" min="0"></div>';
+  tbl.appendChild(r2);
+  var r3=document.createElement('div');r3.className='tbl-row r2';
+  r3.innerHTML='<div class="tbl-cell"><label>🌡️ Nhiệt Độ Đi *</label><div class="btn-grid" id="tempdi-'+idx+'"></div><input type="hidden" id="nhietdodi-'+idx+'"></div>'
+    +'<div class="tbl-cell"><label>🌡️ Nhiệt Độ Về *</label><div class="btn-grid" id="tempve-'+idx+'"></div><input type="hidden" id="nhietdove-'+idx+'"></div>';
+  tbl.appendChild(r3);
+  var r4=document.createElement('div');r4.className='tbl-row r2';
+  r4.innerHTML='<div class="tbl-cell"><label>🔢 Số Điểm Giao *</label><input type="number" id="sodiemgiao-'+idx+'" placeholder="1" min="1" max="99"></div>'
+    +'<div class="tbl-cell"><label>📝 Ghi Chú</label><textarea id="ghichu-'+idx+'" placeholder="Sự cố..."></textarea></div>';
+  tbl.appendChild(r4);
   card.appendChild(tbl);
-
-  // Ảnh đồng hồ km
-  var pw = document.createElement('div');
-  pw.className = 'photo-wrap';
-  pw.innerHTML = '<label class="ph-lbl">📷 Hình Chụp Đồng Hồ Km (lưu lên Drive)</label>' +
-    '<div class="photo-row" id="photoRow-'+idx+'">' +
-      '<div class="photo-add" id="photoAdd-'+idx+'">' +
-        '<input type="file" accept="image/*" multiple capture="environment" onchange="handlePhotos('+idx+',this)">' +
-        '<span class="pa-icon">📸</span>' +
-        '<span class="pa-txt">Chụp / Chọn</span>' +
-      '</div>' +
-    '</div>';
-  card.appendChild(pw);
-
   return card;
 }
 
-// ── Thêm / xóa chuyến ───────────────────────────────
-function addTrip() {
-  if (tripCount >= 5) { showToast('⚠️ Tối đa 5 chuyến', true); return; }
-  var idx = tripCount;
-  tripCount++;
-  photoStore[idx] = [];
-
-  var card = createTripCard(idx);
+function addTrip(){
+  if(tripCount>=MAX_TRIPS){showToast('⚠️ Tối đa '+MAX_TRIPS+' chuyến',true);return;}
+  var idx=tripCount;tripCount++;
+  var card=createTripCard(idx);
   document.getElementById('tripCards').appendChild(card);
-
-  // Init fields
-  buildTempGrid('tempdi-'+idx, 'nhietdodi-'+idx);
-  buildTempGrid('tempve-'+idx, 'nhietdove-'+idx);
-  var n = new Date();
-  var d = n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');
-  var di=document.getElementById('ngaydi-'+idx), ve=document.getElementById('ngayve-'+idx);
-  if(di) di.value=d; if(ve) ve.value=d;
-
-  if (tripCount >= 5) document.getElementById('btnAddTrip').style.display='none';
-  // Scroll to new card
-  setTimeout(function(){ card.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+  var db=document.getElementById('delbtn-'+idx);
+  if(db){db.addEventListener('click',(function(i){return function(){removeTrip(i);};})(idx));}
+  buildTempGrid('tempdi-'+idx,'nhietdodi-'+idx);
+  buildTempGrid('tempve-'+idx,'nhietdove-'+idx);
+  var n=new Date();
+  var d=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');
+  var di=document.getElementById('ngaydi-'+idx),ve=document.getElementById('ngayve-'+idx);
+  if(di)di.value=d;if(ve)ve.value=d;
+  updateCounter();
+  setTimeout(function(){card.scrollIntoView({behavior:'smooth',block:'start'});},100);
 }
 
-function removeTrip(idx) {
-  var card = document.getElementById('card-'+idx);
-  if (card) card.remove();
-  delete photoStore[idx];
-  tripCount--;
-  document.getElementById('btnAddTrip').style.display='';
-  // Renumber remaining cards
-  var cards = document.getElementById('tripCards').querySelectorAll('.trip-card');
-  tripCount = cards.length;
+function removeTrip(idx){
+  var c=document.getElementById('card-'+idx);if(c)c.remove();
+  tripCount--;updateCounter();
 }
 
-// ── Xử lý ảnh ───────────────────────────────────────
-function handlePhotos(idx, input) {
-  var files = Array.from(input.files);
-  var store = photoStore[idx] || [];
-  var remaining = 5 - store.length;
-  files.slice(0, remaining).forEach(function(file) {
-    var pIdx = store.length;
-    store.push({ file: file, b64: null, url: null, uploading: false });
-    renderThumb(idx, pIdx, file);
-  });
-  photoStore[idx] = store;
-  input.value = '';
+function updateCounter(){
+  var el=document.getElementById('tripCounter');
+  if(el)el.innerHTML='<b>'+tripCount+'</b> / '+MAX_TRIPS+' chuyến';
+  var ab=document.getElementById('btnAddTrip');
+  if(ab)ab.disabled=(tripCount>=MAX_TRIPS);
 }
 
-function renderThumb(tripIdx, pIdx, file) {
-  var row = document.getElementById('photoRow-'+tripIdx);
-  var reader = new FileReader();
-  reader.onload = function(e) {
-    photoStore[tripIdx][pIdx].b64 = e.target.result.split(',')[1];
-    var thumb = document.createElement('div');
-    thumb.className = 'photo-thumb';
-    thumb.id = 'thumb-'+tripIdx+'-'+pIdx;
-    thumb.innerHTML =
-      '<img src="'+e.target.result+'">' +
-      '<button class="rm" onclick="removePhoto('+tripIdx+','+pIdx+')">✕</button>' +
-      '<div class="up-bar"><div class="up-prog" id="prog-'+tripIdx+'-'+pIdx+'" style="width:0%"></div></div>';
-    var addBtn = document.getElementById('photoAdd-'+tripIdx);
-    row.insertBefore(thumb, addBtn);
-  };
-  reader.readAsDataURL(file);
-}
-
-function removePhoto(tripIdx, pIdx) {
-  var thumb = document.getElementById('thumb-'+tripIdx+'-'+pIdx);
-  if (thumb) thumb.remove();
-  if (photoStore[tripIdx]) photoStore[tripIdx][pIdx] = null;
-}
-
-// ── Upload ảnh 1 cái, trả về link Drive ──────────────
-async function uploadOnePhoto(item, tripIdx, pIdx, laiXe, ngayDi) {
-  if (!item || !item.b64) return null;
-  var ext = (item.file && item.file.type) ? item.file.type.split('/')[1] : 'jpg';
-  var mimeType = (item.file && item.file.type) ? item.file.type : 'image/jpeg';
-  var fname = 'KM_'+laiXe.replace(/\s+/g,'_')+'_C'+(tripIdx+1)+'_'+ngayDi+'_'+Date.now()+'.'+ext;
-
-  // Hiện progress
-  var prog = document.getElementById('prog-'+tripIdx+'-'+pIdx);
-  if (prog) prog.style.width = '50%';
-
-  try {
-    var resp = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'uploadPhoto',
-        base64: item.b64,
-        mimeType: mimeType,
-        fileName: fname
-      })
-    });
-    var json = await resp.json();
-    if (json.url) {
-      if (prog) prog.style.width = '100%';
-      // Hiện tick xanh
-      var thumb = document.getElementById('thumb-'+tripIdx+'-'+pIdx);
-      if (thumb) {
-        var lnk = document.createElement('div');
-        lnk.className = 'photo-link';
-        lnk.textContent = '✅ Drive';
-        thumb.appendChild(lnk);
-      }
-      return json.url;
-    }
-  } catch(err) {
-    console.log('Upload err:', err);
-    if (prog) prog.style.width = '0%';
-  }
-  return null;
-}
-
-// ── Validate ─────────────────────────────────────────
-function validate() {
-  if (!gv('laixe')) { showToast('⚠️ Chọn lái xe', true); return false; }
-  if (!gv('soxe'))  { showToast('⚠️ Chọn số xe', true); return false; }
-  if (tripCount === 0) { showToast('⚠️ Chưa có chuyến nào', true); return false; }
-
-  var cards = document.getElementById('tripCards').querySelectorAll('.trip-card');
-  var idxList = [];
-  cards.forEach(function(c){ idxList.push(parseInt(c.id.replace('card-',''))); });
-
-  for (var i=0; i<idxList.length; i++) {
-    var x = idxList[i]; var p='Chuyến '+(x+1);
+function validate(){
+  if(!gv('laixe')){showToast('⚠️ Vui lòng chọn Lái Xe',true);return false;}
+  if(!gv('soxe')){showToast('⚠️ Vui lòng chọn Số Xe',true);return false;}
+  if(tripCount===0){showToast('⚠️ Chưa có chuyến nào',true);return false;}
+  var cards=document.getElementById('tripCards').querySelectorAll('.trip-card');
+  for(var i=0;i<cards.length;i++){
+    var x=parseInt(cards[i].id.replace('card-',''));
+    var p='Chuyến '+(x+1);
     var checks=[
       [!gv('ngaydi-'+x),'Chọn ngày đi – '+p],
       [!gv('ngayve-'+x),'Chọn ngày về – '+p],
       [!gv('lichtrinh-'+x),'Nhập nơi giao – '+p],
       [!gv('sodiemgiao-'+x),'Nhập số điểm giao – '+p],
-      [!gv('kmdau-'+x),'Nhập km đầu – '+p],
-      [!gv('kmgiaohang-'+x),'Nhập km giao hàng – '+p],
-      [!gv('kmketthuc-'+x),'Nhập km cuối – '+p],
-      [!gv('nhietdodi-'+x),'Chọn nhiệt độ đi – '+p],
-      [!gv('nhietdove-'+x),'Chọn nhiệt độ về – '+p],
+      [!gv('kmdau-'+x),'Nhập Km Đầu – '+p],
+      [!gv('kmgiaohang-'+x),'Nhập Km Giao Hàng – '+p],
+      [!gv('kmketthuc-'+x),'Nhập Km Cuối – '+p],
+      [!gv('nhietdodi-'+x),'Chọn Nhiệt Độ Đi – '+p],
+      [!gv('nhietdove-'+x),'Chọn Nhiệt Độ Về – '+p],
     ];
     for(var j=0;j<checks.length;j++){
-      if(checks[j][0]){ showToast('⚠️ '+checks[j][1],true); document.getElementById('card-'+x).scrollIntoView({behavior:'smooth'}); return false; }
+      if(checks[j][0]){showToast('⚠️ '+checks[j][1],true);cards[i].scrollIntoView({behavior:'smooth'});return false;}
     }
   }
   return true;
 }
 
-// ── Submit ────────────────────────────────────────────
-async function submitAll() {
-  if (!validate()) return;
-  var btn=document.getElementById('btnSubmit'), sp=document.getElementById('spinner'), bt=document.getElementById('btnText');
-  btn.disabled=true; sp.style.display='block'; bt.textContent='Đang xử lý...';
-
-  var laiXe = gv('laixe');
-  var cards = document.getElementById('tripCards').querySelectorAll('.trip-card');
-  var idxList = [];
-  cards.forEach(function(c){ idxList.push(parseInt(c.id.replace('card-',''))); });
-
-  // Bước 1: Upload từng ảnh → lấy link Drive
-  bt.textContent = 'Đang upload ảnh...';
-  var photoLinkMap = {};
-  for (var pi = 0; pi < idxList.length; pi++) {
-    var x = idxList[pi];
-    var links = [];
-    var store = photoStore[x] || [];
-    for (var pp = 0; pp < store.length; pp++) {
-      if (store[pp] && store[pp].b64) {
-        var url = await uploadOnePhoto(store[pp], x, pp, laiXe, gv('ngaydi-'+x));
-        if (url) links.push(url);
-      }
-    }
-    photoLinkMap[x] = links;
-  }
-
-  // Bước 2: Gom data kèm link ảnh đã có
-  bt.textContent = 'Đang gửi dữ liệu...';
-  var tg = new Date().toLocaleString('vi-VN');
-  var rows = [];
-  idxList.forEach(function(x) {
-    rows.push({
-      thoiGianGui: tg,
-      laiXe:       laiXe,
-      soXe:        gv('soxe'),
-      ngayDi:      gv('ngaydi-'+x),
-      ngayVe:      gv('ngayve-'+x),
-      lichTrinh:   gv('lichtrinh-'+x),
-      soDiemGiao:  gv('sodiemgiao-'+x),
-      kmDau:       gv('kmdau-'+x),
-      nhietDoDi:   gv('nhietdodi-'+x),
-      kmGiaoHang:  gv('kmgiaohang-'+x),
-      kmKetThuc:   gv('kmketthuc-'+x),
-      nhietDoVe:   gv('nhietdove-'+x),
-      ghiChu:      gv('ghichu-'+x),
-      anhKm:       (photoLinkMap[x]||[]).join(' | '),
-    });
+async function submitAll(){
+  if(!validate())return;
+  var btn=document.getElementById('btnSubmit'),sp=document.getElementById('spinner'),bt=document.getElementById('btnText');
+  btn.disabled=true;sp.style.display='block';bt.textContent='Đang gửi...';
+  var tg=new Date().toLocaleString('vi-VN');
+  var rows=[];
+  document.getElementById('tripCards').querySelectorAll('.trip-card').forEach(function(c){
+    var x=parseInt(c.id.replace('card-',''));
+    rows.push({thoiGianGui:tg,laiXe:gv('laixe'),soXe:gv('soxe'),
+      ngayDi:gv('ngaydi-'+x),ngayVe:gv('ngayve-'+x),lichTrinh:gv('lichtrinh-'+x),
+      soDiemGiao:gv('sodiemgiao-'+x),kmDau:gv('kmdau-'+x),nhietDoDi:gv('nhietdodi-'+x),
+      kmGiaoHang:gv('kmgiaohang-'+x),kmKetThuc:gv('kmketthuc-'+x),nhietDoVe:gv('nhietdove-'+x),
+      ghiChu:gv('ghichu-'+x)});
   });
-
-  try {
-    var resp = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ action:'saveRows', rows: rows })
-    });
-    var result = await resp.json();
-    if (result.success) {
-      showToast('✅ Đã gửi '+idxList.length+' chuyến vào Google Sheet!');
-    } else {
-      showToast('✅ Đã gửi! ('+idxList.length+' chuyến)');
-    }
-    setTimeout(resetAll, 2800);
-  } catch(e) {
-    // Fallback no-cors nếu CORS bị chặn
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method:'POST', mode:'no-cors',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ action:'saveRows', rows: rows })
-      });
-      showToast('✅ Đã gửi '+idxList.length+' chuyến!');
-      setTimeout(resetAll, 2800);
-    } catch(e2){
-      showToast('⚠️ Lỗi kết nối – kiểm tra mạng!', true);
-    }
-  } finally {
-    btn.disabled=false; sp.style.display='none'; bt.textContent='🚀 GỬI TẤT CẢ CHUYẾN';
+  try{
+    await fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'saveRows',rows:rows})});
+    showToast('✅ Đã gửi '+rows.length+' chuyến vào Google Sheet!');
+    setTimeout(resetAll,2500);
+  }catch(e){
+    showToast('⚠️ Lỗi kết nối – kiểm tra mạng!',true);
+  }finally{
+    btn.disabled=false;sp.style.display='none';bt.textContent='🚀 GỬI TẤT CẢ CHUYẾN';
   }
 }
 
-// ── Reset ──────────────────────────────────────────
-function resetAll() {
-  document.getElementById('laixe').value=''; document.getElementById('soxe').value='';
-  document.querySelectorAll('#grid-laixe .gbtn,#grid-soxe .gbtn').forEach(function(b){ b.classList.remove('active'); });
+function resetAll(){
+  document.getElementById('laixe').value='';document.getElementById('soxe').value='';
+  document.querySelectorAll('#grid-laixe .gbtn,#grid-soxe .gbtn').forEach(function(b){b.classList.remove('active');});
   document.getElementById('tripCards').innerHTML='';
-  photoStore={}; tripCount=0;
-  document.getElementById('btnAddTrip').style.display='';
-  addTrip();
+  tripCount=0;addTrip();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function showToast(msg,isErr) {
-  var t=document.getElementById('toast');
-  t.textContent=msg;
-  t.className='toast'+(isErr?' err':'')+(msg.includes('upload')||msg.includes('📤')?' warn':'')+' show';
-  setTimeout(function(){ t.className='toast'+(isErr?' err':''); },4000);
+function showToast(msg,isErr){
+  var t=document.getElementById('toast');t.textContent=msg;
+  t.className='toast'+(isErr?' err':'')+' show';
+  setTimeout(function(){t.className='toast'+(isErr?' err':'');},4000);
 }
 
-// ── INIT ──────────────────────────────────────────
 buildGrid('grid-laixe','laixe',DANH_SACH_LAI_XE);
 buildGrid('grid-soxe','soxe',DANH_SACH_XE);
-addTrip(); // Tạo sẵn chuyến 1
+addTrip();
 </script>
 </body>
 </html>
