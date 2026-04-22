@@ -2,575 +2,170 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Lịch Trình Lái Xe – Logistics NLC</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --blue: #1565C0;
-    --blue-light: #1976D2;
-    --blue-dark: #0D47A1;
-    --surface: #F0F4FF;
-    --card: #FFFFFF;
-    --text: #1A237E;
-    --muted: #5C6BC0;
-    --border: #C5CAE9;
-    --green: #2E7D32;
-    --green-bg: #E8F5E9;
-    --red: #C62828;
-    --red-bg: #FFEBEE;
-    --orange: #E65100;
-    --orange-bg: #FFF3E0;
-    --dong-bg: #E3F2FD;
-    --dong-border: #1E88E5;
-    --dong-text: #0D47A1;
-    --mat-bg: #E0F2F1;
-    --mat-border: #00897B;
-    --mat-text: #004D40;
-    --kho-bg: #FFF8E1;
-    --kho-border: #F9A825;
-    --kho-text: #E65100;
-    --radius: 14px;
-    --shadow: 0 4px 20px rgba(21,101,192,0.12);
-  }
+:root{
+  --blue:#1565C0;--blue-l:#1976D2;--blue-d:#0D47A1;
+  --surf:#F0F4FF;--card:#fff;--text:#1A237E;--muted:#5C6BC0;--border:#C5CAE9;
+  --green:#2E7D32;--red:#C62828;
+  --dong-bg:#E3F2FD;--dong-b:#1E88E5;--dong-t:#0D47A1;
+  --mat-bg:#E0F2F1;--mat-b:#00897B;--mat-t:#004D40;
+  --kho-bg:#FFF8E1;--kho-b:#F9A825;--kho-t:#E65100;
+  --r:14px;--sh:0 4px 20px rgba(21,101,192,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--surf);color:var(--text);min-height:100vh;padding-bottom:60px;}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* HEADER */
+.hdr{background:linear-gradient(135deg,var(--blue-d),var(--blue-l));padding:16px 16px 20px;text-align:center;box-shadow:0 4px 16px rgba(13,71,161,.3);overflow:hidden;position:relative;}
+.hdr::before{content:'';position:absolute;top:-30px;right:-30px;width:110px;height:110px;background:rgba(255,255,255,.08);border-radius:50%;}
+.hdr-logo{font-size:12px;color:rgba(255,255,255,.75);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
+.hdr h1{font-size:21px;font-weight:900;color:#fff;}
+.hdr-sub{font-size:12px;color:rgba(255,255,255,.7);margin-top:3px;}
 
-  body {
-    font-family: 'Nunito', sans-serif;
-    background: var(--surface);
-    color: var(--text);
-    min-height: 100vh;
-    padding-bottom: 40px;
-  }
+.wrap{max-width:520px;margin:0 auto;padding:0 12px;}
 
-  /* HEADER */
-  .header {
-    background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-light) 100%);
-    padding: 18px 16px 22px;
-    text-align: center;
-    box-shadow: 0 4px 16px rgba(13,71,161,0.3);
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: -30px; right: -30px;
-    width: 120px; height: 120px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 50%;
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: -40px; left: -20px;
-    width: 150px; height: 150px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 50%;
-  }
-  .header-logo {
-    font-size: 13px;
-    color: rgba(255,255,255,0.75);
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .header h1 {
-    font-size: 22px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: -0.3px;
-    line-height: 1.2;
-  }
-  .header-sub {
-    font-size: 13px;
-    color: rgba(255,255,255,0.7);
-    margin-top: 4px;
-  }
+/* SECTION */
+.sec{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-top:12px;overflow:hidden;}
+.sec-head{background:linear-gradient(90deg,var(--blue),var(--blue-l));padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+.sec-head-left{display:flex;align-items:center;gap:8px;}
+.sec-head span.ti{color:#fff;font-weight:800;font-size:14px;}
+.sec-body{padding:12px 12px;}
 
-  /* FORM CONTAINER */
-  .form-wrap {
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 0 12px;
-  }
+/* BUTTON GRID */
+.btn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;}
+.btn-grid.col3{grid-template-columns:repeat(3,1fr);}
+.gbtn{padding:11px 5px;border:2.5px solid var(--border);border-radius:11px;background:var(--surf);font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--text);cursor:pointer;text-align:center;transition:all .15s;line-height:1.3;-webkit-tap-highlight-color:transparent;word-break:break-all;}
+.gbtn.active{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 3px 12px rgba(21,101,192,.35);}
+.gbtn.dong{background:var(--dong-bg);border-color:var(--dong-b);color:var(--dong-t);}
+.gbtn.dong.active{background:var(--dong-b);border-color:var(--dong-b);color:#fff;box-shadow:0 3px 12px rgba(30,136,229,.4);}
+.gbtn.mat{background:var(--mat-bg);border-color:var(--mat-b);color:var(--mat-t);}
+.gbtn.mat.active{background:var(--mat-b);border-color:var(--mat-b);color:#fff;box-shadow:0 3px 12px rgba(0,137,123,.4);}
+.gbtn.kho{background:var(--kho-bg);border-color:var(--kho-b);color:var(--kho-t);}
+.gbtn.kho.active{background:var(--kho-b);border-color:var(--kho-b);color:#fff;box-shadow:0 3px 12px rgba(249,168,37,.4);}
 
-  /* SECTION */
-  .section {
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    margin-top: 14px;
-    overflow: hidden;
-  }
-  .section-head {
-    background: linear-gradient(90deg, var(--blue) 0%, var(--blue-light) 100%);
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-head .icon { font-size: 18px; }
-  .section-head span {
-    color: #fff;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: 0.3px;
-  }
-  .section-body { padding: 14px 16px; }
+/* TRIP CARD – bố cục bảng như mẫu */
+.trip-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-top:12px;overflow:hidden;}
+.trip-card-head{background:linear-gradient(90deg,var(--blue-d),var(--blue));padding:10px 14px;display:flex;align-items:center;justify-content:space-between;}
+.trip-card-head .tn{color:#fff;font-weight:900;font-size:15px;}
+.trip-card-head .del-btn{background:rgba(255,255,255,.2);border:none;border-radius:8px;color:#fff;font-size:12px;font-weight:800;padding:5px 10px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
 
-  /* FIELD */
-  .field { margin-bottom: 14px; }
-  .field:last-child { margin-bottom: 0; }
-  label {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--muted);
-    margin-bottom: 6px;
-    letter-spacing: 0.2px;
-  }
-  label .req { color: #E53935; margin-left: 2px; }
+/* GRID TABLE bên trong trip card */
+.tbl{display:grid;gap:1px;background:var(--border);}
+.tbl-row{display:grid;gap:1px;}
+.tbl-row.r2{grid-template-columns:1fr 1fr;}
+.tbl-row.r3{grid-template-columns:1fr 1fr 1fr;}
+.tbl-row.r1{grid-template-columns:1fr;}
+.tbl-cell{background:var(--card);padding:10px 11px;}
+.tbl-cell label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.4px;}
+.tbl-cell input[type=date],
+.tbl-cell input[type=number],
+.tbl-cell textarea{width:100%;border:2px solid var(--border);border-radius:8px;padding:10px 10px;font-size:15px;font-family:'Nunito',sans-serif;font-weight:700;color:var(--text);background:var(--surf);outline:none;-webkit-appearance:none;transition:border-color .2s;}
+.tbl-cell input:focus,.tbl-cell textarea:focus{border-color:var(--blue);background:#fff;}
+.tbl-cell textarea{resize:none;min-height:64px;line-height:1.4;}
+.tbl-cell .btn-grid{margin-top:2px;}
+.tbl-cell .gbtn{font-size:12px;padding:9px 4px;}
 
-  input[type="date"],
-  input[type="text"],
-  input[type="number"],
-  select,
-  textarea {
-    width: 100%;
-    padding: 13px 14px;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    font-size: 16px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 600;
-    color: var(--text);
-    background: var(--surface);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(21,101,192,0.15);
-    background: #fff;
-  }
-  textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+/* Ảnh upload trong trip */
+.photo-wrap{background:var(--card);padding:10px 11px;border-top:1px solid var(--border);}
+.photo-wrap label.ph-lbl{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:.4px;}
+.photo-row{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-start;}
+.photo-add{width:72px;height:72px;border:2.5px dashed var(--border);border-radius:10px;background:var(--surf);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;position:relative;-webkit-tap-highlight-color:transparent;transition:border-color .2s;}
+.photo-add:hover{border-color:var(--blue);}
+.photo-add input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer;font-size:0;}
+.photo-add .pa-icon{font-size:24px;}
+.photo-add .pa-txt{font-size:9px;font-weight:800;color:var(--muted);margin-top:2px;}
+.photo-thumb{width:72px;height:72px;border-radius:10px;overflow:hidden;position:relative;flex-shrink:0;}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.photo-thumb .rm{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);border:none;border-radius:50%;width:20px;height:20px;color:#fff;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.photo-thumb .up-bar{position:absolute;bottom:0;left:0;right:0;height:4px;background:rgba(255,255,255,.3);border-radius:0 0 10px 10px;overflow:hidden;}
+.photo-thumb .up-prog{height:100%;background:#4CAF50;transition:width .3s;}
+.photo-link{font-size:10px;font-weight:700;color:var(--green);word-break:break-all;margin-top:4px;}
 
-  /* SELECT WRAPPER */
-  .select-wrap { position: relative; }
-  .select-wrap::after {
-    content: '▼';
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--blue);
-    font-size: 12px;
-    pointer-events: none;
-  }
+/* ADD TRIP */
+.btn-add-trip{width:100%;margin-top:12px;padding:14px;background:#fff;border:2.5px dashed var(--blue);border-radius:var(--r);font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--blue);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;-webkit-tap-highlight-color:transparent;transition:background .18s;}
+.btn-add-trip:active{background:var(--surf);}
 
-  
+/* SUBMIT */
+.btn-submit{width:100%;padding:17px;background:linear-gradient(135deg,var(--green),#388E3C);color:#fff;border:none;border-radius:var(--r);font-family:'Nunito',sans-serif;font-size:18px;font-weight:900;cursor:pointer;margin-top:14px;box-shadow:0 5px 18px rgba(46,125,50,.35);display:flex;align-items:center;justify-content:center;gap:10px;-webkit-tap-highlight-color:transparent;transition:opacity .2s;}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;}
+.spinner{width:20px;height:20px;border:3px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.info-pill{background:#E3F2FD;border:1.5px solid #90CAF9;border-radius:10px;padding:10px 13px;font-size:12px;color:var(--blue);font-weight:700;margin-top:12px;display:flex;align-items:flex-start;gap:7px;}
 
-  /* TEMPERATURE BUTTONS */
-  .temp-group {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-  }
-  .temp-btn {
-    padding: 13px 6px;
-    border: 2.5px solid var(--border);
-    border-radius: 12px;
-    background: var(--surface);
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.18s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .temp-btn .t-icon { font-size: 22px; }
-  .temp-btn .t-label { font-size: 13px; letter-spacing: 0.3px; }
-
-  .temp-btn.dong { background: var(--dong-bg); border-color: var(--dong-border); color: var(--dong-text); }
-  .temp-btn.dong.active { background: var(--dong-border); border-color: var(--dong-border); color: #fff; box-shadow: 0 4px 14px rgba(30,136,229,0.4); transform: scale(1.04); }
-
-  .temp-btn.mat { background: var(--mat-bg); border-color: var(--mat-border); color: var(--mat-text); }
-  .temp-btn.mat.active { background: var(--mat-border); border-color: var(--mat-border); color: #fff; box-shadow: 0 4px 14px rgba(0,137,123,0.4); transform: scale(1.04); }
-
-  .temp-btn.kho { background: var(--kho-bg); border-color: var(--kho-border); color: var(--kho-text); }
-  .temp-btn.kho.active { background: var(--kho-border); border-color: var(--kho-border); color: #fff; box-shadow: 0 4px 14px rgba(249,168,37,0.4); transform: scale(1.04); }
-
-  /* PHOTO UPLOAD */
-  .photo-area {
-    border: 2.5px dashed var(--border);
-    border-radius: 12px;
-    background: var(--surface);
-    padding: 18px;
-    text-align: center;
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .photo-area:hover, .photo-area.drag { border-color: var(--blue); background: #EEF2FF; }
-  .photo-area input[type="file"] {
-    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-    font-size: 0;
-  }
-  .photo-icon { font-size: 36px; margin-bottom: 6px; }
-  .photo-text { font-size: 14px; font-weight: 700; color: var(--blue); }
-  .photo-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-
-  .preview-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .preview-item {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    aspect-ratio: 1;
-    background: #eee;
-  }
-  .preview-item img {
-    width: 100%; height: 100%; object-fit: cover;
-    display: block;
-  }
-  .preview-item .del-btn {
-    position: absolute; top: 4px; right: 4px;
-    background: rgba(0,0,0,0.6);
-    border: none; border-radius: 50%;
-    width: 24px; height: 24px;
-    color: #fff; font-size: 13px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-  }
-
-  /* SUBMIT */
-  .btn-submit {
-    width: 100%;
-    padding: 18px;
-    background: linear-gradient(135deg, var(--green) 0%, #388E3C 100%);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-family: 'Nunito', sans-serif;
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    margin-top: 18px;
-    box-shadow: 0 6px 20px rgba(46,125,50,0.35);
-    transition: all 0.18s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .btn-submit:active { transform: scale(0.98); }
-  .btn-submit:disabled { background: #aaa; box-shadow: none; cursor: not-allowed; }
-
-  /* MULTI-ENTRY TABLE */
-  .entry-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
-  .entry-card {
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-    position: relative;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text);
-  }
-  .entry-card .entry-num {
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--blue);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
-  .entry-del {
-    position: absolute; top: 8px; right: 10px;
-    background: var(--red-bg); border: none;
-    border-radius: 6px; color: var(--red);
-    font-size: 12px; font-weight: 700;
-    padding: 3px 8px; cursor: pointer;
-  }
-
-  .btn-add {
-    width: 100%;
-    padding: 12px;
-    background: var(--blue);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-    margin-top: 6px;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    transition: background 0.18s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .btn-add:active { background: var(--blue-dark); }
-
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
-    background: #1B5E20;
-    color: #fff;
-    padding: 14px 24px;
-    border-radius: 50px;
-    font-weight: 800;
-    font-size: 15px;
-    box-shadow: 0 8px 28px rgba(0,0,0,0.25);
-    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
-    z-index: 9999;
-    text-align: center;
-    max-width: 90vw;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
-  .toast.error { background: #B71C1C; }
-
-  /* LOADING */
-  .spinner {
-    width: 20px; height: 20px;
-    border: 3px solid rgba(255,255,255,0.4);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: none;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* INFO PILL */
-  .info-pill {
-    background: #E3F2FD;
-    border: 1.5px solid #90CAF9;
-    border-radius: 10px;
-    padding: 10px 14px;
-    font-size: 13px;
-    color: #1565C0;
-    font-weight: 700;
-    margin-top: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  @media (max-width: 360px) { .two-col { grid-template-columns: 1fr; } }
-
-  /* BUTTON GRID SELECT (lái xe / số xe) */
-  .btn-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-  .btn-grid.col3 { grid-template-columns: repeat(3, 1fr); }
-  .select-btn {
-    padding: 12px 6px;
-    border: 2.5px solid var(--border);
-    border-radius: 12px;
-    background: var(--surface);
-    font-family: 'Nunito', sans-serif;
-    font-size: 14px;
-    font-weight: 800;
-    color: var(--text);
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.18s;
-    line-height: 1.3;
-    -webkit-tap-highlight-color: transparent;
-    word-break: break-all;
-  }
-  .select-btn:active { transform: scale(0.97); }
-  .select-btn.active {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(21,101,192,0.35);
-    transform: scale(1.03);
-  }
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:#1B5E20;color:#fff;padding:13px 22px;border-radius:50px;font-weight:800;font-size:14px;box-shadow:0 8px 28px rgba(0,0,0,.25);transition:transform .35s cubic-bezier(.34,1.56,.64,1);z-index:9999;max-width:92vw;text-align:center;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.err{background:#B71C1C;}
+.toast.warn{background:#E65100;}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-logo">🚛 Logistics - NLC</div>
+<div class="hdr">
+  <div class="hdr-logo">🚛 Logistics - NLC</div>
   <h1>📋 Lịch Trình Lái Xe</h1>
-  <div class="header-sub">Điền đầy đủ thông tin chuyến hàng</div>
+  <div class="hdr-sub">Nhập 1–5 chuyến · Gửi một lần</div>
 </div>
 
-<div class="form-wrap">
+<div class="wrap">
 
-  <!-- THÔNG TIN LÁI XE -->
-  <div class="section">
-    <div class="section-head"><span class="icon">🧑‍✈️</span><span>Thông Tin Lái Xe</span></div>
-    <div class="section-body">
-      <div class="field">
-        <label>Lái Xe Thực Hiện <span class="req">*</span></label>
+  <!-- LÁI XE & SỐ XE -->
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-head-left"><span>🧑‍✈️</span><span class="ti">Lái Xe & Số Xe (áp dụng tất cả chuyến)</span></div>
+    </div>
+    <div class="sec-body">
+      <div style="margin-bottom:12px">
+        <label style="font-size:13px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;">Lái Xe Thực Hiện <span style="color:#E53935">*</span></label>
         <div class="btn-grid" id="grid-laixe"></div>
         <input type="hidden" id="laixe">
       </div>
-      <div class="field">
-        <label>Số Xe <span class="req">*</span></label>
+      <div>
+        <label style="font-size:13px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px;">Số Xe <span style="color:#E53935">*</span></label>
         <div class="btn-grid" id="grid-soxe"></div>
         <input type="hidden" id="soxe">
       </div>
     </div>
   </div>
 
-  <!-- NGÀY ĐI / VỀ -->
-  <div class="section">
-    <div class="section-head"><span class="icon">📅</span><span>Ngày Đi & Ngày Về</span></div>
-    <div class="section-body">
-      <div class="two-col">
-        <div class="field">
-          <label>📤 Ngày Đi <span class="req">*</span></label>
-          <input type="date" id="ngaydi">
-        </div>
-        <div class="field">
-          <label>📥 Ngày Về <span class="req">*</span></label>
-          <input type="date" id="ngayve">
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- TRIP CARDS -->
+  <div id="tripCards"></div>
 
-  <!-- LỊCH TRÌNH GIAO HÀNG -->
-  <div class="section">
-    <div class="section-head"><span class="icon">🗺️</span><span>Lịch Trình Giao Hàng</span></div>
-    <div class="section-body">
-      <div class="field">
-        <label>Địa Điểm / Tuyến Đường Giao Hàng <span class="req">*</span></label>
-        <textarea id="lichtrinh" placeholder="Ví dụ: Đồng Nai → Bình Dương → Bình Phước...&#10;Ghi rõ tên tỉnh/thành phố hoặc khách hàng" rows="3"></textarea>
-      </div>
-      <div class="field">
-        <label>Số Lượng Điểm Giao Hàng <span class="req">*</span></label>
-        <input type="number" id="sodiemgiao" placeholder="Ví dụ: 3" min="1" max="99">
-      </div>
-    </div>
-  </div>
-
-  <!-- SỐ KM & NHIỆT ĐỘ -->
-  <div class="section">
-    <div class="section-head"><span class="icon">🚛</span><span>Số Km & Nhiệt Độ</span></div>
-    <div class="section-body">
-
-      <div class="field">
-        <label>📌 Số Km Đầu (Trước khi xuất phát) <span class="req">*</span></label>
-        <input type="number" id="kmdau" placeholder="Số km trên đồng hồ lúc xuất phát" min="0">
-      </div>
-
-      <div class="field">
-        <label>🌡️ Nhiệt Độ Lượt Đi <span class="req">*</span></label>
-        <div class="temp-group">
-          <button type="button" class="temp-btn dong" onclick="selectTemp('di','Đông',this)">
-            <span class="t-icon">❄️</span><span class="t-label">Đông</span>
-          </button>
-          <button type="button" class="temp-btn mat" onclick="selectTemp('di','Mát',this)">
-            <span class="t-icon">🌤️</span><span class="t-label">Mát</span>
-          </button>
-          <button type="button" class="temp-btn kho" onclick="selectTemp('di','Khô',this)">
-            <span class="t-icon">☀️</span><span class="t-label">Khô</span>
-          </button>
-        </div>
-        <input type="hidden" id="nhietdo-di">
-      </div>
-
-      <div class="field">
-        <label>📍 Số Km Giao Hàng (Đến điểm giao hàng) <span class="req">*</span></label>
-        <input type="number" id="kmgiaohang" placeholder="Số km khi đến điểm giao hàng" min="0">
-      </div>
-
-      <div class="field">
-        <label>🏁 Số Km Kết Thúc Chuyến <span class="req">*</span></label>
-        <input type="number" id="kmketthuc" placeholder="Số km trên đồng hồ kết thúc chuyến" min="0">
-      </div>
-
-      <div class="field">
-        <label>🌡️ Nhiệt Độ Lượt Về <span class="req">*</span></label>
-        <div class="temp-group">
-          <button type="button" class="temp-btn dong" onclick="selectTemp('ve','Đông',this)">
-            <span class="t-icon">❄️</span><span class="t-label">Đông</span>
-          </button>
-          <button type="button" class="temp-btn mat" onclick="selectTemp('ve','Mát',this)">
-            <span class="t-icon">🌤️</span><span class="t-label">Mát</span>
-          </button>
-          <button type="button" class="temp-btn kho" onclick="selectTemp('ve','Khô',this)">
-            <span class="t-icon">☀️</span><span class="t-label">Khô</span>
-          </button>
-        </div>
-        <input type="hidden" id="nhietdo-ve">
-      </div>
-
-    </div>
-  </div>
-
-  <!-- HÌNH ẢNH ĐỒNG HỒ KM -->
-  <div class="section">
-    <div class="section-head"><span class="icon">📷</span><span>Hình Chụp Đồng Hồ Km</span></div>
-    <div class="section-body">
-      <div class="photo-area" id="dropZone">
-        <input type="file" id="photoInput" accept="image/*" multiple capture="environment" onchange="handlePhotos(event)">
-        <div class="photo-icon">📸</div>
-        <div class="photo-text">Nhấn để chụp hoặc chọn hình</div>
-        <div class="photo-sub">Chụp đồng hồ km trước & sau chuyến · Tối đa 5 hình</div>
-      </div>
-      <div class="preview-grid" id="previewGrid"></div>
-    </div>
-  </div>
-
-  <!-- GHI CHÚ -->
-  <div class="section">
-    <div class="section-head"><span class="icon">📝</span><span>Ghi Chú Thêm</span></div>
-    <div class="section-body">
-      <div class="field">
-        <label>Ghi Chú (Nếu có)</label>
-        <textarea id="ghichu" placeholder="Sự cố, vấn đề phát sinh, thông tin bổ sung..." rows="2"></textarea>
-      </div>
-    </div>
-  </div>
+  <!-- NÚT THÊM CHUYẾN -->
+  <button class="btn-add-trip" id="btnAddTrip" onclick="addTrip()">＋ Thêm Chuyến</button>
 
   <div class="info-pill">
-    ℹ️ Dữ liệu sẽ được lưu vào Google Sheet của Logistics - NLC ngay khi bấm Gửi.
+    <span>ℹ️</span>
+    <span>Dữ liệu & hình ảnh lưu vào Google Drive + Sheet của Logistics - NLC. Ảnh cần kết nối internet.</span>
   </div>
 
-  <button class="btn-submit" id="btnSubmit" onclick="submitForm()">
+  <button class="btn-submit" id="btnSubmit" onclick="submitAll()">
     <div class="spinner" id="spinner"></div>
-    <span id="btnText">🚀 GỬI LỊCH TRÌNH</span>
+    <span id="btnText">🚀 GỬI TẤT CẢ CHUYẾN</span>
   </button>
+</div>
 
-</div><!-- /form-wrap -->
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-
-
 <script>
-// ============================================================
-// CẤU HÌNH – CHỈ CẦN SỬA PHẦN NÀY
-// ============================================================
-const SHEET_ID = '1nfxLCmAKOsH08DYk4YkQs2gUa96UsPPZllVquxn9ZAc';
+// ══════════════════════════════════════
+// CẤU HÌNH – SỬA Ở ĐÂY
+// ══════════════════════════════════════
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxpHkxVkOHenhAN7DHfhOEFL41-zZxLLS8mGp0wms57qAEQISSFCwLq14oZuzxcV5EVWg/exec';
 
-// DANH SÁCH SỐ XE – thêm/bớt tại đây
+// Folder Google Drive chứa ảnh (ID đã tạo sẵn)
+const DRIVE_FOLDER_ID = '1Zlp37t4qROc2XBWYB9MzYtqlWDAzF8t2';
+
+const DANH_SACH_LAI_XE = [
+  'Nguyễn Văn A',
+  'Trần Văn B',
+  'Lê Văn C',
+  'Phạm Văn D',
+  'Hoàng Văn E',
+];
+
 const DANH_SACH_XE = [
   '51B-123.45',
   '51B-678.90',
@@ -580,220 +175,362 @@ const DANH_SACH_XE = [
   '51D-777.88',
   '51F-999.00',
 ];
+// ══════════════════════════════════════
 
-// DANH SÁCH LÁI XE – thêm/bớt tại đây
-const DANH_SACH_LAI_XE = [
-  'Nguyễn Văn A',
-  'Trần Văn B',
-  'Lê Văn C',
-  'Phạm Văn D',
-  'Hoàng Văn E',
-];
-// ============================================================
+var tripCount = 0;
+// photoStore[idx] = [{file, b64, url, uploading}]
+var photoStore = {};
 
-// Build button grids (lái xe & số xe)
-function buildBtnGrid(gridId, hiddenId, items) {
+function gv(id){ var e=document.getElementById(id); return e?e.value.trim():''; }
+
+// ── Build grids ─────────────────────────────────────
+function buildGrid(gridId, hiddenId, items) {
   var grid = document.getElementById(gridId);
+  if (!grid) return;
   grid.innerHTML = '';
   if (items.length <= 6) grid.classList.add('col3');
   items.forEach(function(item) {
     var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'select-btn';
-    btn.textContent = item;
+    btn.type = 'button'; btn.className = 'gbtn'; btn.textContent = item;
     btn.addEventListener('click', function() {
-      grid.querySelectorAll('.select-btn').forEach(function(b){ b.classList.remove('active'); });
+      grid.querySelectorAll('.gbtn').forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       document.getElementById(hiddenId).value = item;
     });
     grid.appendChild(btn);
   });
 }
-buildBtnGrid('grid-laixe', 'laixe', DANH_SACH_LAI_XE);
-buildBtnGrid('grid-soxe', 'soxe', DANH_SACH_XE);
 
-// Set today as default dates (iOS safe)
-const now = new Date();
-const yyyy = now.getFullYear();
-const mm = String(now.getMonth() + 1).padStart(2, '0');
-const dd = String(now.getDate()).padStart(2, '0');
-const today = yyyy + '-' + mm + '-' + dd;
-document.getElementById('ngaydi').value = today;
-document.getElementById('ngayve').value = today;
-
-// Temperature selection
-let tempDi = '', tempVe = '';
-function selectTemp(loai, val, btn) {
-  const prefix = loai === 'di' ? 'nhietdo-di' : 'nhietdo-ve';
-  document.getElementById(prefix).value = val;
-  if (loai === 'di') tempDi = val;
-  else tempVe = val;
-
-  const group = btn.closest('.temp-group');
-  group.querySelectorAll('.temp-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-// Photo handling
-let photoFiles = [];
-function handlePhotos(e) {
-  const files = Array.from(e.target.files);
-  const remaining = 5 - photoFiles.length;
-  files.slice(0, remaining).forEach(f => {
-    photoFiles.push(f);
-    renderPreview(f, photoFiles.length - 1);
+function buildTempGrid(gridId, hiddenId) {
+  var grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.innerHTML = ''; grid.classList.add('col3');
+  [['❄️ Đông','dong','Đông'],['🌤️ Mát','mat','Mát'],['☀️ Khô','kho','Khô']].forEach(function(t) {
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'gbtn ' + t[1]; btn.textContent = t[0];
+    btn.addEventListener('click', function() {
+      grid.querySelectorAll('.gbtn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(hiddenId).value = t[2];
+    });
+    grid.appendChild(btn);
   });
-  e.target.value = '';
 }
 
-function renderPreview(file, idx) {
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const grid = document.getElementById('previewGrid');
-    const div = document.createElement('div');
-    div.className = 'preview-item';
-    div.id = 'prev-' + idx;
-    div.innerHTML = `<img src="${ev.target.result}"><button class="del-btn" onclick="removePhoto(${idx})">✕</button>`;
-    grid.appendChild(div);
+// ── Tạo trip card ────────────────────────────────────
+function createTripCard(idx) {
+  var n = idx + 1;
+  var card = document.createElement('div');
+  card.className = 'trip-card';
+  card.id = 'card-' + idx;
+
+  // Header
+  var head = document.createElement('div');
+  head.className = 'trip-card-head';
+  head.innerHTML = '<span class="tn">🚚 Chuyến ' + n + '</span>' +
+    (idx > 0 ? '<button class="del-btn" onclick="removeTrip('+idx+')">✕ Xóa</button>' : '');
+  card.appendChild(head);
+
+  // Table body
+  var tbl = document.createElement('div');
+  tbl.className = 'tbl';
+
+  // Hàng 1: Ngày đi | Ngày về | Nơi Giao
+  var row1 = document.createElement('div');
+  row1.className = 'tbl-row r3';
+  row1.innerHTML =
+    '<div class="tbl-cell"><label>📤 Ngày Đi *</label><input type="date" id="ngaydi-'+idx+'"></div>' +
+    '<div class="tbl-cell"><label>📥 Ngày Về *</label><input type="date" id="ngayve-'+idx+'"></div>' +
+    '<div class="tbl-cell"><label>🗺️ Nơi Giao *</label><textarea id="lichtrinh-'+idx+'" placeholder="Đồng Nai, Bình Dương..."></textarea></div>';
+  tbl.appendChild(row1);
+
+  // Hàng 2: Km Đầu | Km Giao Hàng | Km Cuối
+  var row2 = document.createElement('div');
+  row2.className = 'tbl-row r3';
+  row2.innerHTML =
+    '<div class="tbl-cell"><label>📌 Km Đầu *</label><input type="number" id="kmdau-'+idx+'" placeholder="0" min="0"></div>' +
+    '<div class="tbl-cell"><label>📍 Km Giao Hàng *</label><input type="number" id="kmgiaohang-'+idx+'" placeholder="0" min="0"></div>' +
+    '<div class="tbl-cell"><label>🏁 Km Cuối *</label><input type="number" id="kmketthuc-'+idx+'" placeholder="0" min="0"></div>';
+  tbl.appendChild(row2);
+
+  // Hàng 3: Nhiệt Độ Đi | Nhiệt Độ Về
+  var row3 = document.createElement('div');
+  row3.className = 'tbl-row r2';
+  row3.innerHTML =
+    '<div class="tbl-cell"><label>🌡️ Nhiệt Độ Đi *</label><div class="btn-grid" id="tempdi-'+idx+'"></div><input type="hidden" id="nhietdodi-'+idx+'"></div>' +
+    '<div class="tbl-cell"><label>🌡️ Nhiệt Độ Về *</label><div class="btn-grid" id="tempve-'+idx+'"></div><input type="hidden" id="nhietdove-'+idx+'"></div>';
+  tbl.appendChild(row3);
+
+  // Hàng 4: Số điểm giao | Ghi chú
+  var row4 = document.createElement('div');
+  row4.className = 'tbl-row r2';
+  row4.innerHTML =
+    '<div class="tbl-cell"><label>🔢 Số Điểm Giao *</label><input type="number" id="sodiemgiao-'+idx+'" placeholder="1" min="1" max="99"></div>' +
+    '<div class="tbl-cell"><label>📝 Ghi Chú</label><textarea id="ghichu-'+idx+'" placeholder="Sự cố..."></textarea></div>';
+  tbl.appendChild(row4);
+
+  card.appendChild(tbl);
+
+  // Ảnh đồng hồ km
+  var pw = document.createElement('div');
+  pw.className = 'photo-wrap';
+  pw.innerHTML = '<label class="ph-lbl">📷 Hình Chụp Đồng Hồ Km (lưu lên Drive)</label>' +
+    '<div class="photo-row" id="photoRow-'+idx+'">' +
+      '<div class="photo-add" id="photoAdd-'+idx+'">' +
+        '<input type="file" accept="image/*" multiple capture="environment" onchange="handlePhotos('+idx+',this)">' +
+        '<span class="pa-icon">📸</span>' +
+        '<span class="pa-txt">Chụp / Chọn</span>' +
+      '</div>' +
+    '</div>';
+  card.appendChild(pw);
+
+  return card;
+}
+
+// ── Thêm / xóa chuyến ───────────────────────────────
+function addTrip() {
+  if (tripCount >= 5) { showToast('⚠️ Tối đa 5 chuyến', true); return; }
+  var idx = tripCount;
+  tripCount++;
+  photoStore[idx] = [];
+
+  var card = createTripCard(idx);
+  document.getElementById('tripCards').appendChild(card);
+
+  // Init fields
+  buildTempGrid('tempdi-'+idx, 'nhietdodi-'+idx);
+  buildTempGrid('tempve-'+idx, 'nhietdove-'+idx);
+  var n = new Date();
+  var d = n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');
+  var di=document.getElementById('ngaydi-'+idx), ve=document.getElementById('ngayve-'+idx);
+  if(di) di.value=d; if(ve) ve.value=d;
+
+  if (tripCount >= 5) document.getElementById('btnAddTrip').style.display='none';
+  // Scroll to new card
+  setTimeout(function(){ card.scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+}
+
+function removeTrip(idx) {
+  var card = document.getElementById('card-'+idx);
+  if (card) card.remove();
+  delete photoStore[idx];
+  tripCount--;
+  document.getElementById('btnAddTrip').style.display='';
+  // Renumber remaining cards
+  var cards = document.getElementById('tripCards').querySelectorAll('.trip-card');
+  tripCount = cards.length;
+}
+
+// ── Xử lý ảnh ───────────────────────────────────────
+function handlePhotos(idx, input) {
+  var files = Array.from(input.files);
+  var store = photoStore[idx] || [];
+  var remaining = 5 - store.length;
+  files.slice(0, remaining).forEach(function(file) {
+    var pIdx = store.length;
+    store.push({ file: file, b64: null, url: null, uploading: false });
+    renderThumb(idx, pIdx, file);
+  });
+  photoStore[idx] = store;
+  input.value = '';
+}
+
+function renderThumb(tripIdx, pIdx, file) {
+  var row = document.getElementById('photoRow-'+tripIdx);
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    photoStore[tripIdx][pIdx].b64 = e.target.result.split(',')[1];
+    var thumb = document.createElement('div');
+    thumb.className = 'photo-thumb';
+    thumb.id = 'thumb-'+tripIdx+'-'+pIdx;
+    thumb.innerHTML =
+      '<img src="'+e.target.result+'">' +
+      '<button class="rm" onclick="removePhoto('+tripIdx+','+pIdx+')">✕</button>' +
+      '<div class="up-bar"><div class="up-prog" id="prog-'+tripIdx+'-'+pIdx+'" style="width:0%"></div></div>';
+    var addBtn = document.getElementById('photoAdd-'+tripIdx);
+    row.insertBefore(thumb, addBtn);
   };
   reader.readAsDataURL(file);
 }
 
-function removePhoto(idx) {
-  photoFiles[idx] = null;
-  const el = document.getElementById('prev-' + idx);
-  if (el) el.remove();
+function removePhoto(tripIdx, pIdx) {
+  var thumb = document.getElementById('thumb-'+tripIdx+'-'+pIdx);
+  if (thumb) thumb.remove();
+  if (photoStore[tripIdx]) photoStore[tripIdx][pIdx] = null;
 }
 
-// Convert image to base64
-function fileToBase64(file) {
-  return new Promise((res, rej) => {
-    const r = new FileReader();
-    r.onload = () => res(r.result.split(',')[1]);
-    r.onerror = rej;
-    r.readAsDataURL(file);
-  });
+// ── Upload ảnh lên Drive qua Apps Script ─────────────
+async function uploadPhoto(tripIdx, pIdx, laiXe, ngayDi) {
+  var item = photoStore[tripIdx] && photoStore[tripIdx][pIdx];
+  if (!item || !item.b64 || item.url) return item ? item.url : null;
+
+  var prog = document.getElementById('prog-'+tripIdx+'-'+pIdx);
+  if (prog) prog.style.width = '40%';
+
+  var ext = item.file.type.split('/')[1] || 'jpg';
+  var fname = 'KM_' + laiXe.replace(/\s+/g,'_') + '_C'+(tripIdx+1)+'_'+ngayDi+'_'+Date.now()+'.'+ext;
+
+  try {
+    var resp = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        action: 'uploadPhoto',
+        folderId: DRIVE_FOLDER_ID,
+        fileName: fname,
+        mimeType: item.file.type,
+        base64: item.b64
+      })
+    });
+    if (prog) prog.style.width = '80%';
+    var json = await resp.json();
+    if (json.url) {
+      item.url = json.url;
+      if (prog) prog.style.width = '100%';
+      // Hiện link nhỏ dưới ảnh
+      var thumb = document.getElementById('thumb-'+tripIdx+'-'+pIdx);
+      if (thumb) {
+        var lnk = document.createElement('div');
+        lnk.className = 'photo-link';
+        lnk.innerHTML = '✅ Drive';
+        thumb.appendChild(lnk);
+      }
+      return json.url;
+    }
+  } catch(e) {
+    if (prog) prog.style.width = '0%';
+  }
+  return null;
 }
 
-// Toast
-function showToast(msg, isError = false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast' + (isError ? ' error' : '') + ' show';
-  setTimeout(() => { t.className = 'toast' + (isError ? ' error' : ''); }, 4000);
-}
-
-// Validate
+// ── Validate ─────────────────────────────────────────
 function validate() {
-  const checks = [
-    [!document.getElementById('laixe').value, 'Vui lòng chọn lái xe'],
-    [!document.getElementById('soxe').value, 'Vui lòng chọn số xe'],
-    [!document.getElementById('ngaydi').value, 'Vui lòng chọn ngày đi'],
-    [!document.getElementById('ngayve').value, 'Vui lòng chọn ngày về'],
-    [!document.getElementById('lichtrinh').value.trim(), 'Vui lòng nhập lịch trình giao hàng'],
-    [!document.getElementById('sodiemgiao').value, 'Vui lòng nhập số điểm giao hàng'],
-    [!document.getElementById('kmdau').value, 'Vui lòng nhập số km đầu'],
-    [!tempDi, 'Vui lòng chọn nhiệt độ lượt đi'],
-    [!document.getElementById('kmgiaohang').value, 'Vui lòng nhập số km giao hàng'],
-    [!document.getElementById('kmketthuc').value, 'Vui lòng nhập số km kết thúc'],
-    [!tempVe, 'Vui lòng chọn nhiệt độ lượt về'],
-  ];
-  for (const [cond, msg] of checks) {
-    if (cond) { showToast('⚠️ ' + msg, true); return false; }
+  if (!gv('laixe')) { showToast('⚠️ Chọn lái xe', true); return false; }
+  if (!gv('soxe'))  { showToast('⚠️ Chọn số xe', true); return false; }
+  if (tripCount === 0) { showToast('⚠️ Chưa có chuyến nào', true); return false; }
+
+  var cards = document.getElementById('tripCards').querySelectorAll('.trip-card');
+  var idxList = [];
+  cards.forEach(function(c){ idxList.push(parseInt(c.id.replace('card-',''))); });
+
+  for (var i=0; i<idxList.length; i++) {
+    var x = idxList[i]; var p='Chuyến '+(x+1);
+    var checks=[
+      [!gv('ngaydi-'+x),'Chọn ngày đi – '+p],
+      [!gv('ngayve-'+x),'Chọn ngày về – '+p],
+      [!gv('lichtrinh-'+x),'Nhập nơi giao – '+p],
+      [!gv('sodiemgiao-'+x),'Nhập số điểm giao – '+p],
+      [!gv('kmdau-'+x),'Nhập km đầu – '+p],
+      [!gv('kmgiaohang-'+x),'Nhập km giao hàng – '+p],
+      [!gv('kmketthuc-'+x),'Nhập km cuối – '+p],
+      [!gv('nhietdodi-'+x),'Chọn nhiệt độ đi – '+p],
+      [!gv('nhietdove-'+x),'Chọn nhiệt độ về – '+p],
+    ];
+    for(var j=0;j<checks.length;j++){
+      if(checks[j][0]){ showToast('⚠️ '+checks[j][1],true); document.getElementById('card-'+x).scrollIntoView({behavior:'smooth'}); return false; }
+    }
   }
   return true;
 }
 
-// Submit
-async function submitForm() {
+// ── Submit ────────────────────────────────────────────
+async function submitAll() {
   if (!validate()) return;
+  var btn=document.getElementById('btnSubmit'), sp=document.getElementById('spinner'), bt=document.getElementById('btnText');
+  btn.disabled=true; sp.style.display='block'; bt.textContent='Đang xử lý...';
 
-  const btn = document.getElementById('btnSubmit');
-  const spinner = document.getElementById('spinner');
-  const btnText = document.getElementById('btnText');
-  btn.disabled = true;
-  spinner.style.display = 'block';
-  btnText.textContent = 'Đang gửi...';
+  var laiXe = gv('laixe');
+  var cards = document.getElementById('tripCards').querySelectorAll('.trip-card');
+  var idxList = [];
+  cards.forEach(function(c){ idxList.push(parseInt(c.id.replace('card-',''))); });
 
-  // Collect form data
-  const row = {
-    thoiGianGui: new Date().toLocaleString('vi-VN'),
-    laiXe: document.getElementById('laixe').value,
-    soXe: document.getElementById('soxe').value,
-    ngayDi: document.getElementById('ngaydi').value,
-    ngayVe: document.getElementById('ngayve').value,
-    lichTrinh: document.getElementById('lichtrinh').value.trim(),
-    soDiemGiao: document.getElementById('sodiemgiao').value,
-    kmDau: document.getElementById('kmdau').value,
-    nhietDoDi: tempDi,
-    kmGiaoHang: document.getElementById('kmgiaohang').value,
-    kmKetThuc: document.getElementById('kmketthuc').value,
-    nhietDoVe: tempVe,
-    ghiChu: document.getElementById('ghichu').value.trim(),
-    soHinh: photoFiles.filter(Boolean).length,
-  };
+  // Upload ảnh trước
+  showToast('📤 Đang upload ảnh...', false);
+  var photoUrls = {};
+  for (var i=0; i<idxList.length; i++) {
+    var x = idxList[i];
+    var urls = [];
+    var store = photoStore[x] || [];
+    for (var p=0; p<store.length; p++) {
+      if (store[p] && store[p].b64) {
+        var url = await uploadPhoto(x, p, laiXe, gv('ngaydi-'+x));
+        if (url) urls.push(url);
+      }
+    }
+    photoUrls[x] = urls;
+  }
+
+  // Gửi dữ liệu
+  bt.textContent = 'Đang gửi...';
+  var tg = new Date().toLocaleString('vi-VN');
+  var rows = [];
+  idxList.forEach(function(x) {
+    rows.push({
+      thoiGianGui: tg,
+      laiXe:       laiXe,
+      soXe:        gv('soxe'),
+      ngayDi:      gv('ngaydi-'+x),
+      ngayVe:      gv('ngayve-'+x),
+      lichTrinh:   gv('lichtrinh-'+x),
+      soDiemGiao:  gv('sodiemgiao-'+x),
+      kmDau:       gv('kmdau-'+x),
+      nhietDoDi:   gv('nhietdodi-'+x),
+      kmGiaoHang:  gv('kmgiaohang-'+x),
+      kmKetThuc:   gv('kmketthuc-'+x),
+      nhietDoVe:   gv('nhietdove-'+x),
+      ghiChu:      gv('ghichu-'+x),
+      anhKm:       (photoUrls[x]||[]).join(', '),
+    });
+  });
 
   try {
-    // Gửi thẳng vào Google Sheet qua Apps Script
-    const resp = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(row)
+    var resp = await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ action:'saveRows', rows: rows })
     });
-
-    // no-cors không trả về body, nhưng nếu không throw = thành công
-    saveLocalBackup(row);
-    showToast('✅ Đã gửi lịch trình vào Google Sheet!');
-    setTimeout(() => resetForm(), 2200);
-  } catch (err) {
-    saveLocalBackup(row);
-    showToast('⚠️ Không kết nối được. Đã lưu tạm – thử lại sau.', true);
+    showToast('✅ Đã gửi '+idxList.length+' chuyến vào Google Sheet!');
+    setTimeout(resetAll, 2500);
+  } catch(e) {
+    // fallback no-cors
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ action:'saveRows', rows: rows })
+      });
+      showToast('✅ Đã gửi '+idxList.length+' chuyến!');
+      setTimeout(resetAll, 2500);
+    } catch(e2) {
+      showToast('⚠️ Lỗi kết nối – thử lại!', true);
+    }
   } finally {
-    btn.disabled = false;
-    spinner.style.display = 'none';
-    btnText.textContent = '🚀 GỬI LỊCH TRÌNH';
+    btn.disabled=false; sp.style.display='none'; bt.textContent='🚀 GỬI TẤT CẢ CHUYẾN';
   }
 }
 
-function saveLocalBackup(row) {
-  try {
-    const stored = JSON.parse(localStorage.getItem('lichTrinhBackup') || '[]');
-    stored.push(row);
-    localStorage.setItem('lichTrinhBackup', JSON.stringify(stored));
-  } catch(e) {}
+// ── Reset ──────────────────────────────────────────
+function resetAll() {
+  document.getElementById('laixe').value=''; document.getElementById('soxe').value='';
+  document.querySelectorAll('#grid-laixe .gbtn,#grid-soxe .gbtn').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById('tripCards').innerHTML='';
+  photoStore={}; tripCount=0;
+  document.getElementById('btnAddTrip').style.display='';
+  addTrip();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function resetForm() {
-  document.getElementById('laixe').value = '';
-  document.getElementById('soxe').value = '';
-  document.querySelectorAll('#grid-laixe .select-btn, #grid-soxe .select-btn').forEach(function(b){ b.classList.remove('active'); });
-  document.querySelectorAll('#grid-laixe .select-btn, #grid-soxe .select-btn').forEach(function(b){ b.classList.remove('active'); });
-  document.getElementById('label-laixe').textContent = '-- Chọn lái xe --';
-  document.getElementById('label-laixe').style.color = '';
-  document.getElementById('label-soxe').textContent = '-- Chọn số xe --';
-  document.getElementById('label-soxe').style.color = '';
-  document.querySelectorAll('.custom-select-item').forEach(i => i.classList.remove('selected'));
-  document.getElementById('lichtrinh').value = '';
-  document.getElementById('sodiemgiao').value = '';
-  document.getElementById('kmdau').value = '';
-  document.getElementById('kmgiaohang').value = '';
-  document.getElementById('kmketthuc').value = '';
-  document.getElementById('ghichu').value = '';
-  document.getElementById('nhietdo-di').value = '';
-  document.getElementById('nhietdo-ve').value = '';
-  tempDi = ''; tempVe = '';
-  document.querySelectorAll('.temp-btn').forEach(b => b.classList.remove('active'));
-  photoFiles = [];
-  document.getElementById('previewGrid').innerHTML = '';
-  const now2 = new Date();
-  const yyyy2 = now2.getFullYear();
-  const mm2 = String(now2.getMonth() + 1).padStart(2, '0');
-  const dd2 = String(now2.getDate()).padStart(2, '0');
-  document.getElementById('ngaydi').value = yyyy2 + '-' + mm2 + '-' + dd2;
-  document.getElementById('ngayve').value = yyyy2 + '-' + mm2 + '-' + dd2;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+function showToast(msg,isErr) {
+  var t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='toast'+(isErr?' err':'')+(msg.includes('upload')||msg.includes('📤')?' warn':'')+' show';
+  setTimeout(function(){ t.className='toast'+(isErr?' err':''); },4000);
 }
+
+// ── INIT ──────────────────────────────────────────
+buildGrid('grid-laixe','laixe',DANH_SACH_LAI_XE);
+buildGrid('grid-soxe','soxe',DANH_SACH_XE);
+addTrip(); // Tạo sẵn chuyến 1
 </script>
 </body>
 </html>
