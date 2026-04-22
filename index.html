@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Lịch Trình Lái Xe – Logistics NLC</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{
   --blue:#1565C0;--blue-l:#1976D2;--blue-d:#0D47A1;
@@ -153,10 +154,13 @@ body{font-family:'Nunito',sans-serif;background:var(--surf);color:var(--text);mi
 // ══════════════════════════════════════
 // CẤU HÌNH – SỬA Ở ĐÂY
 // ══════════════════════════════════════
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw28AKqtD7aBFAUq8DNoWCsT0rVowKctajMaeGQLYKtHug15THO3xK4z9QJfe6DBpId/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypJzYooJ4CG_ODGhv5sphGVA8BWBzMUT1LV3drWrWbgDN6DDlvZC58ZxcQ9v58jHeLGg/exec';
 
 // Folder Google Drive chứa ảnh (ID đã tạo sẵn)
 const DRIVE_FOLDER_ID = '1Zlp37t4qROc2XBWYB9MzYtqlWDAzF8t2';
+
+// Google OAuth Client ID (để upload ảnh trực tiếp lên Drive)
+const GOOGLE_CLIENT_ID = 'REPLACE_WITH_CLIENT_ID';
 
 const DANH_SACH_LAI_XE = [
   'Nguyễn Văn A',
@@ -359,23 +363,46 @@ function removePhoto(tripIdx, pIdx) {
   if (photoStore[tripIdx]) photoStore[tripIdx][pIdx] = null;
 }
 
-// ── Collect ảnh base64 cho 1 chuyến ──────────────────
-function collectPhotos(tripIdx, laiXe, ngayDi) {
-  var store = photoStore[tripIdx] || [];
-  var photos = [];
-  store.forEach(function(item) {
-    if (item && item.b64) {
-      var ext = (item.file && item.file.type) ? item.file.type.split('/')[1] : 'jpg';
-      var mimeType = (item.file && item.file.type) ? item.file.type : 'image/jpeg';
-      photos.push({
+// ── Upload ảnh 1 cái, trả về link Drive ──────────────
+async function uploadOnePhoto(item, tripIdx, pIdx, laiXe, ngayDi) {
+  if (!item || !item.b64) return null;
+  var ext = (item.file && item.file.type) ? item.file.type.split('/')[1] : 'jpg';
+  var mimeType = (item.file && item.file.type) ? item.file.type : 'image/jpeg';
+  var fname = 'KM_'+laiXe.replace(/\s+/g,'_')+'_C'+(tripIdx+1)+'_'+ngayDi+'_'+Date.now()+'.'+ext;
+
+  // Hiện progress
+  var prog = document.getElementById('prog-'+tripIdx+'-'+pIdx);
+  if (prog) prog.style.width = '50%';
+
+  try {
+    var resp = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'uploadPhoto',
         base64: item.b64,
         mimeType: mimeType,
-        fileName: 'KM_' + laiXe.replace(/\s+/g,'_') + '_C'+(tripIdx+1)+'_'+ngayDi+'_'+Date.now()+'.'+ext,
-        folderId: DRIVE_FOLDER_ID
-      });
+        fileName: fname
+      })
+    });
+    var json = await resp.json();
+    if (json.url) {
+      if (prog) prog.style.width = '100%';
+      // Hiện tick xanh
+      var thumb = document.getElementById('thumb-'+tripIdx+'-'+pIdx);
+      if (thumb) {
+        var lnk = document.createElement('div');
+        lnk.className = 'photo-link';
+        lnk.textContent = '✅ Drive';
+        thumb.appendChild(lnk);
+      }
+      return json.url;
     }
-  });
-  return photos;
+  } catch(err) {
+    console.log('Upload err:', err);
+    if (prog) prog.style.width = '0%';
+  }
+  return null;
 }
 
 // ── Validate ─────────────────────────────────────────
@@ -419,12 +446,27 @@ async function submitAll() {
   var idxList = [];
   cards.forEach(function(c){ idxList.push(parseInt(c.id.replace('card-',''))); });
 
-  // Gom dữ liệu + ảnh base64 gửi 1 lần
-  bt.textContent = 'Đang gửi...';
+  // Bước 1: Upload từng ảnh → lấy link Drive
+  bt.textContent = 'Đang upload ảnh...';
+  var photoLinkMap = {};
+  for (var pi = 0; pi < idxList.length; pi++) {
+    var x = idxList[pi];
+    var links = [];
+    var store = photoStore[x] || [];
+    for (var pp = 0; pp < store.length; pp++) {
+      if (store[pp] && store[pp].b64) {
+        var url = await uploadOnePhoto(store[pp], x, pp, laiXe, gv('ngaydi-'+x));
+        if (url) links.push(url);
+      }
+    }
+    photoLinkMap[x] = links;
+  }
+
+  // Bước 2: Gom data kèm link ảnh đã có
+  bt.textContent = 'Đang gửi dữ liệu...';
   var tg = new Date().toLocaleString('vi-VN');
   var rows = [];
   idxList.forEach(function(x) {
-    var photos = collectPhotos(x, laiXe, gv('ngaydi-'+x));
     rows.push({
       thoiGianGui: tg,
       laiXe:       laiXe,
@@ -439,29 +481,36 @@ async function submitAll() {
       kmKetThuc:   gv('kmketthuc-'+x),
       nhietDoVe:   gv('nhietdove-'+x),
       ghiChu:      gv('ghichu-'+x),
-      photos:      photos,  // ảnh base64 gửi kèm
+      anhKm:       (photoLinkMap[x]||[]).join(' | '),
     });
   });
 
   try {
-    // Dùng no-cors nhưng ảnh đã gửi kèm trong payload → Apps Script tự upload lên Drive
-    await fetch(APPS_SCRIPT_URL, {
+    var resp = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ action:'saveRows', rows: rows })
     });
-    // Hiện progress bar ảnh 100%
-    idxList.forEach(function(x){
-      (photoStore[x]||[]).forEach(function(item,p){
-        var prog = document.getElementById('prog-'+x+'-'+p);
-        if (prog) prog.style.width='100%';
-      });
-    });
-    showToast('✅ Đã gửi '+idxList.length+' chuyến + ảnh vào Google Drive!');
+    var result = await resp.json();
+    if (result.success) {
+      showToast('✅ Đã gửi '+idxList.length+' chuyến vào Google Sheet!');
+    } else {
+      showToast('✅ Đã gửi! ('+idxList.length+' chuyến)');
+    }
     setTimeout(resetAll, 2800);
   } catch(e) {
-    showToast('⚠️ Lỗi kết nối – thử lại!', true);
+    // Fallback no-cors nếu CORS bị chặn
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ action:'saveRows', rows: rows })
+      });
+      showToast('✅ Đã gửi '+idxList.length+' chuyến!');
+      setTimeout(resetAll, 2800);
+    } catch(e2){
+      showToast('⚠️ Lỗi kết nối – kiểm tra mạng!', true);
+    }
   } finally {
     btn.disabled=false; sp.style.display='none'; bt.textContent='🚀 GỬI TẤT CẢ CHUYẾN';
   }
