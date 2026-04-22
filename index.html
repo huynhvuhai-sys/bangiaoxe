@@ -173,68 +173,7 @@
     pointer-events: none;
   }
 
-  /* CUSTOM DROPDOWN */
-  .custom-select-wrap { position: relative; z-index: 10; }
-  .custom-select-btn {
-    width: 100%;
-    padding: 13px 14px;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    font-size: 16px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 600;
-    color: var(--text);
-    background: var(--surface);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-  }
-  .custom-select-btn.open {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 3px rgba(21,101,192,0.15);
-    background: #fff;
-  }
-  .custom-select-btn .caret {
-    font-size: 12px;
-    color: var(--blue);
-    transition: transform 0.2s;
-  }
-  .custom-select-btn.open .caret { transform: rotate(180deg); }
-  .custom-select-list {
-    display: none;
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0; right: 0;
-    background: #fff;
-    border: 2px solid var(--blue);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(21,101,192,0.18);
-    max-height: 240px;
-    overflow-y: auto;
-    z-index: 100;
-  }
-  .custom-select-list.open { display: block; }
-  .custom-select-item {
-    padding: 13px 16px;
-    font-size: 16px;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 600;
-    color: var(--text);
-    cursor: pointer;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .custom-select-item:last-child { border-bottom: none; }
-  .custom-select-item:active, .custom-select-item.selected {
-    background: var(--surface);
-    color: var(--blue);
-  }
+  
 
   /* TEMPERATURE BUTTONS */
   .temp-group {
@@ -435,6 +374,38 @@
 
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   @media (max-width: 360px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* BUTTON GRID SELECT (lái xe / số xe) */
+  .btn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .btn-grid.col3 { grid-template-columns: repeat(3, 1fr); }
+  .select-btn {
+    padding: 12px 6px;
+    border: 2.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.18s;
+    line-height: 1.3;
+    -webkit-tap-highlight-color: transparent;
+    word-break: break-all;
+  }
+  .select-btn:active { transform: scale(0.97); }
+  .select-btn.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(21,101,192,0.35);
+    transform: scale(1.03);
+  }
 </style>
 </head>
 <body>
@@ -453,24 +424,12 @@
     <div class="section-body">
       <div class="field">
         <label>Lái Xe Thực Hiện <span class="req">*</span></label>
-        <div class="custom-select-wrap" id="wrap-laixe">
-          <div class="custom-select-btn" id="btn-laixe" >
-            <span id="label-laixe">-- Chọn lái xe --</span>
-            <span class="caret">▼</span>
-          </div>
-          <div class="custom-select-list" id="list-laixe"></div>
-        </div>
+        <div class="btn-grid" id="grid-laixe"></div>
         <input type="hidden" id="laixe">
       </div>
       <div class="field">
         <label>Số Xe <span class="req">*</span></label>
-        <div class="custom-select-wrap" id="wrap-soxe">
-          <div class="custom-select-btn" id="btn-soxe" >
-            <span id="label-soxe">-- Chọn số xe --</span>
-            <span class="caret">▼</span>
-          </div>
-          <div class="custom-select-list" id="list-soxe"></div>
-        </div>
+        <div class="btn-grid" id="grid-soxe"></div>
         <input type="hidden" id="soxe">
       </div>
     </div>
@@ -632,68 +591,26 @@ const DANH_SACH_LAI_XE = [
 ];
 // ============================================================
 
-// Custom dropdown logic
-function buildDropdown(id, items) {
-  const list = document.getElementById('list-' + id);
-  const btn = document.getElementById('btn-' + id);
-  list.innerHTML = '';
-  items.forEach(item => {
-    const div = document.createElement('div');
-    div.className = 'custom-select-item';
-    div.textContent = item;
-    div.addEventListener('touchend', function(e) {
-      e.preventDefault();
-      selectItem(id, item, div);
+// Build button grids (lái xe & số xe)
+function buildBtnGrid(gridId, hiddenId, items) {
+  var grid = document.getElementById(gridId);
+  grid.innerHTML = '';
+  if (items.length <= 6) grid.classList.add('col3');
+  items.forEach(function(item) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'select-btn';
+    btn.textContent = item;
+    btn.addEventListener('click', function() {
+      grid.querySelectorAll('.select-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById(hiddenId).value = item;
     });
-    div.addEventListener('click', function(e) {
-      selectItem(id, item, div);
-    });
-    list.appendChild(div);
-  });
-  // Gắn sự kiện mở/đóng dropdown
-  btn.addEventListener('touchend', function(e) {
-    e.preventDefault();
-    toggleDrop(id);
-  });
-  btn.addEventListener('click', function(e) {
-    toggleDrop(id);
+    grid.appendChild(btn);
   });
 }
-
-function toggleDrop(id) {
-  const btn = document.getElementById('btn-' + id);
-  const list = document.getElementById('list-' + id);
-  const isOpen = list.classList.contains('open');
-  // close all
-  document.querySelectorAll('.custom-select-list').forEach(l => l.classList.remove('open'));
-  document.querySelectorAll('.custom-select-btn').forEach(b => b.classList.remove('open'));
-  if (!isOpen) {
-    list.classList.add('open');
-    btn.classList.add('open');
-  }
-}
-
-function selectItem(id, val, el) {
-  document.getElementById(id).value = val;
-  document.getElementById('label-' + id).textContent = val;
-  document.getElementById('label-' + id).style.color = 'var(--text)';
-  document.getElementById('list-' + id).querySelectorAll('.custom-select-item').forEach(i => i.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById('list-' + id).classList.remove('open');
-  document.getElementById('btn-' + id).classList.remove('open');
-}
-
-// Close dropdowns when clicking outside
-document.addEventListener('click', e => {
-  if (!e.target.closest('.custom-select-wrap')) {
-    document.querySelectorAll('.custom-select-list').forEach(l => l.classList.remove('open'));
-    document.querySelectorAll('.custom-select-btn').forEach(b => b.classList.remove('open'));
-  }
-});
-
-// Populate dropdowns
-buildDropdown('laixe', DANH_SACH_LAI_XE);
-buildDropdown('soxe', DANH_SACH_XE);
+buildBtnGrid('grid-laixe', 'laixe', DANH_SACH_LAI_XE);
+buildBtnGrid('grid-soxe', 'soxe', DANH_SACH_XE);
 
 // Set today as default dates (iOS safe)
 const now = new Date();
@@ -801,7 +718,7 @@ async function submitForm() {
   // Collect form data
   const row = {
     thoiGianGui: new Date().toLocaleString('vi-VN'),
-    laiXe: document.getElementById('laixe').value.trim(),
+    laiXe: document.getElementById('laixe').value,
     soXe: document.getElementById('soxe').value,
     ngayDi: document.getElementById('ngaydi').value,
     ngayVe: document.getElementById('ngayve').value,
@@ -850,6 +767,8 @@ function saveLocalBackup(row) {
 function resetForm() {
   document.getElementById('laixe').value = '';
   document.getElementById('soxe').value = '';
+  document.querySelectorAll('#grid-laixe .select-btn, #grid-soxe .select-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('#grid-laixe .select-btn, #grid-soxe .select-btn').forEach(function(b){ b.classList.remove('active'); });
   document.getElementById('label-laixe').textContent = '-- Chọn lái xe --';
   document.getElementById('label-laixe').style.color = '';
   document.getElementById('label-soxe').textContent = '-- Chọn số xe --';
